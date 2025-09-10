@@ -347,7 +347,7 @@ const Home = () => {
             Ankith Raj Godugu
           </motion.div>
           <motion.div className="hero-subtitle mt-4" custom={1} variants={lineVariants} initial="hidden" animate="visible">
-            Computer Science student with experience in web development, AI modeling, and project management tools. Skilled in JavaScript, Python, and cloud-based solutions; eager to contribute technical skills to real-world software challenges.
+            Computer Science student with experience in web development, AI modeling, and project management tools. Skilled in Java, Python, and cloud-based solutions; eager to contribute technical skills to real-world software challenges.
           </motion.div>
           <motion.a href="/about" className="hero-button mb-8" custom={2} variants={lineVariants} initial="hidden" animate="visible">
             Learn More
