@@ -1,0 +1,131 @@
+// import React from "react";
+// import { Download } from "lucide-react";
+// import { Helmet } from "react-helmet-async";
+// import { LazyLoadImage } from "react-lazy-load-image-component";
+
+// const About: React.FC = () => (
+//   <section id="about" className="page-section">
+//     <Helmet>
+//       <title>Ankith Raj Godugu - About</title>
+//       <meta
+//         name="description"
+//         content="Learn more about Ankith Raj Godugu, a passionate developer and photographer."
+//       />
+//     </Helmet>
+//     <LazyLoadImage
+//       src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?q=80&w=2000&auto=format&fit=crop"
+//       alt="About background"
+//       effect="blur"
+//       className="page-background"
+//     />
+//     <div className="page-overlay" />
+//     <div className="page-content">
+//       <h2 className="section-title">About Me</h2>
+//       <div className="about-content">
+//         <p className="about-text">
+//           I’m a passionate developer and photographer, blending creativity with
+//           technical expertise. I build scalable web apps and capture moments through
+//           my lens.
+//         </p>
+//         <a href="/resume.pdf" download className="about-button">
+//           <Download className="w-4 h-4" /> Download Resume
+//         </a>
+//       </div>
+//     </div>
+//   </section>
+// );
+
+// export default About;
+
+
+// import React from "react";
+// import { Helmet } from "react-helmet-async";
+
+// const About: React.FC = () => (
+//   <section id="about" className="page-section">
+//     <Helmet>
+//       <title>Ankith Raj Godugu - About</title>
+//       <meta
+//         contentType="text/html"
+//         content="Learn more about Ankith Raj Godugu, his background, and his journey in Computer Science."
+//       />
+//     </Helmet>
+//     <div className="page-content">
+//       <h2 className="section-title">About Me</h2>
+//       <div className="about-content">
+//         <div className="about-text">
+//           <p>
+//             I am a final-year Computer Science student with a passion for software development and problem-solving. With hands-on experience in web development, cloud technologies, and system security, I aim to create impactful solutions that enhance user experiences.
+//           </p>
+//           <p>
+//             My skills include programming languages like Python and JavaScript, frameworks like ReactJS, and cloud platforms like AWS. I am always eager to learn and collaborate on innovative projects.
+//           </p>
+//         </div>
+//         <a href="/contact" className="about-button">
+//           Get in Touch
+//         </a>
+//       </div>
+//     </div>
+//   </section>
+// );
+
+// export default About;
+
+
+
+
+import React from "react";
+import { Helmet } from "react-helmet-async";
+
+const About: React.FC = () => (
+  <section id="about" className="page-section">
+    <Helmet>
+      <title>Ankith Raj Godugu - About</title>
+      <meta
+        contentType="text/html"
+        content="Learn more about Ankith Raj Godugu, his background, and his journey in Computer Science."
+      />
+    </Helmet>
+    <div className="page-content">
+      <h2 className="section-title">About Me</h2>
+      <div className="about-content">
+        <div className="about-text">
+          <p>
+            I am a final-year Computer Science student with a passion for software development and problem-solving. My educational journey is as follows:
+          </p>
+          <ul className="list-disc pl-6 mt-2">
+            <li>
+              <strong>Bachelor of Technology - Computer Science Engineering</strong>
+              <ul className="list-none pl-4">
+                <li>Guru Nanak Institute of Technology, Hyderabad (CGPA: 7.5/10)</li>
+                <li>2022-2026</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Intermediate</strong>
+              <ul className="list-none pl-4">
+                <li>Resonance Junior College, Khammam (58%)</li>
+                <li>2020-2022</li>
+              </ul>
+            </li>
+            <li>
+              <strong>10th Standard</strong>
+              <ul className="list-none pl-4">
+                <li>Triveni School (92%)</li>
+                <li>2019-2020</li>
+              </ul>
+            </li>
+          </ul>
+          <p className="mt-4">
+            Originally from Khammam, India, I bring a diverse perspective to my work, aiming to create impactful solutions that enhance user experiences. My skills include programming languages like Python and JavaScript, frameworks like ReactJS, and cloud platforms like AWS. I am always eager to learn and collaborate on innovative projects.
+          </p>
+        </div>
+        <a href="/contact" className="about-button">
+          Get in Touch
+        </a>
+      </div>
+    </div>
+  </section>
+);
+
+export default About;

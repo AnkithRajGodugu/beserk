@@ -1,0 +1,425 @@
+/* App.css: Extracted Tailwind classes using @apply */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.header {
+  @apply fixed left-0 top-0 h-full z-50 bg-red-900 w-48 p-4 transition-all duration-300 transform -translate-x-full;
+  &.open {
+    @apply translate-x-0;
+  }
+}
+
+.toggle-icon {
+  @apply fixed top-4 left-4 z-50 w-8 h-8 cursor-pointer bg-gray-100 rounded-full p-1 flex items-center justify-center;
+}
+
+.scroll-to-top {
+  @apply absolute bottom-4 left-4 w-8 h-8 cursor-pointer text-white hover:text-red-300 transition-colors;
+}
+
+.nav-container {
+  @apply flex flex-col  h-full justify-between;
+}
+
+.nav-logo {
+  @apply   flex items-center gap-2 font-semibold text-white mb-4; /* Removed margin-bottom */
+}
+
+.nav-logo-icon {
+  @apply hidden;
+}
+
+.nav-links {
+  @apply flex flex-grow gap-5 flex-col gap-2;
+}
+
+.nav-link {
+  @apply text-white hover:text-red-300 transition-colors py-1;
+}
+
+.nav-icons {
+  @apply flex flex-row  gap-4;
+}
+
+.page-section {
+  @apply relative ml-0 transition-all duration-300 z-20;
+  &.sidebar-open {
+    @apply ml-48;
+  }
+}
+
+.background-animation {
+  @apply absolute inset-0 z-0 overflow-y-auto;
+  height: 100vh;
+  background: linear-gradient(to bottom right, #8b0000, #000000); /* Red-Black theme */
+  position: relative; /* Ensure particles are positioned relative to this container */
+}
+
+/* Multiple background particles with varied starting positions and delays */
+.background-particle {
+  @apply absolute opacity-50;
+  animation: floatParticle 15s infinite linear, changeColor 3s infinite;
+}
+
+.background-particle:nth-child(1) {
+  left: 10%;
+  top: 20%;
+  animation-delay: 0s;
+}
+
+.background-particle:nth-child(2) {
+  left: 30%;
+  top: 40%;
+  animation-delay: 2s;
+}
+
+.background-particle:nth-child(3) {
+  left: 50%;
+  top: 60%;
+  animation-delay: 4s;
+}
+
+.background-particle:nth-child(4) {
+  left: 70%;
+  top: 80%;
+  animation-delay: 6s;
+}
+
+.background-particle:nth-child(5) {
+  left: 90%;
+  top: 10%;
+  animation-delay: 8s;
+}
+
+/* Leaf particles with varied animation */
+.leaf-particle {
+  @apply w-6 h-8 bg-transparent;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  transform-origin: center;
+  animation: floatLeaf 12s infinite ease-in-out, changeColor 3s infinite;
+}
+
+.leaf-particle:nth-child(6) {
+  left: 15%;
+  top: 30%;
+  animation-delay: 1s;
+}
+
+.leaf-particle:nth-child(7) {
+  left: 35%;
+  top: 50%;
+  animation-delay: 3s;
+}
+
+.leaf-particle:nth-child(8) {
+  left: 65%;
+  top: 70%;
+  animation-delay: 5s;
+}
+
+/* Dust particles with varied animation */
+.dust-particle {
+  @apply w-4 h-4 rounded-full bg-transparent;
+  animation: floatDust 10s infinite linear, changeColor 3s infinite;
+}
+
+.dust-particle:nth-child(9) {
+  left: 20%;
+  top: 10%;
+  animation-delay: 0.5s;
+}
+
+.dust-particle:nth-child(10) {
+  left: 40%;
+  top: 25%;
+  animation-delay: 2.5s;
+}
+
+.dust-particle:nth-child(11) {
+  left: 60%;
+  top: 45%;
+  animation-delay: 4.5s;
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(25vw, 25vh) rotate(180deg);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(50vw, 50vh) rotate(360deg);
+    opacity: 0.5;
+  }
+}
+
+@keyframes floatLeaf {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(15vw, 15vh) rotate(90deg) scale(1.2);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translate(30vw, 30vh) rotate(180deg) scale(1);
+    opacity: 0.6;
+  }
+}
+
+@keyframes floatDust {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate(20vw, 20vh) scale(0.8);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(40vw, 40vh) scale(1);
+    opacity: 0.7;
+  }
+}
+
+@keyframes changeColor {
+  0% { background: #ff0000; } /* Red */
+  33% { background: #ff4500; } /* OrangeRed */
+  66% { background: #ffd700; } /* Gold */
+  100% { background: #ff0000; } /* Back to Red */
+}
+
+.leaf-particle {
+  @apply w-6 h-8 bg-transparent;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  transform-origin: center;
+}
+
+.dust-particle {
+  @apply w-4 h-4 rounded-full bg-transparent;
+}
+
+.page-content {
+  @apply relative z-20 max-w-6xl mx-auto px-6 py-12;
+}
+
+.hero-content {
+  @apply relative z-20 flex items-center justify-center min-h-screen text-center text-white font-inter;
+}
+
+.hero-title {
+  @apply text-5xl md:text-7xl font-bold mb-6;
+}
+
+.hero-subtitle {
+  @apply mt-4 text-xl md:text-2xl max-w-2xl mx-auto;
+}
+
+.hero-button {
+  @apply mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-red-800 text-white font-semibold text-lg hover:bg-red-700 transition-colors;
+}
+
+.portfolio-section {
+  @apply max-w-6xl mx-auto px-6 py-12;
+}
+
+.section-title {
+  @apply text-3xl font-semibold text-left mb-8 font-inter text-white;
+}
+
+.portfolio-filters {
+  @apply flex flex-wrap gap-2 justify-center mb-8;
+}
+
+.filter-button {
+  @apply px-4 py-2 rounded-2xl border text-sm font-inter text-white;
+}
+
+.filter-button-active {
+  @apply bg-red-800 text-white;
+}
+
+.filter-button-inactive {
+  @apply bg-red-900 text-white;
+}
+
+.portfolio-grid {
+  @apply columns-1 sm:columns-2 md:columns-3 gap-4 space-y-4;
+}
+
+.portfolio-figure {
+  @apply break-inside-avoid rounded-2xl overflow-hidden bg-red-800 shadow;
+}
+
+.portfolio-image {
+  @apply w-full h-auto object-cover;
+}
+
+.portfolio-figcaption {
+  @apply px-4 py-3 text-sm text-white font-inter;
+}
+
+.projects-section {
+  @apply max-w-6xl mx-auto px-6 py-12;
+}
+
+.projects-grid {
+  @apply grid gap-6 sm:grid-cols-2 lg:grid-cols-3;
+}
+
+.project-card {
+  @apply rounded-2xl overflow-hidden bg-red-800 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col h-full;
+}
+
+.inner-card {
+  @apply bg-red-900 p-4 rounded-xl flex flex-col flex-grow;
+}
+
+.project-content {
+  @apply p-6;
+}
+
+.project-title {
+  @apply text-xl font-semibold text-white mb-2;
+}
+
+.project-description {
+  @apply text-gray-200 text-base leading-relaxed mb-4;
+}
+
+.project-tags {
+  @apply flex flex-wrap gap-2 mb-2;
+}
+
+.project-tag {
+  @apply text-sm bg-gray-700 text-white px-2 py-1 rounded-full;
+}
+
+.project-links {
+  @apply p-4 flex gap-4 mt-auto;
+}
+
+.project-link {
+  @apply flex items-center gap-2 text-white hover:text-red-300 transition-colors text-sm;
+}
+
+.skills-section {
+  @apply max-w-6xl mx-auto px-6 py-32 z-20;
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+.skills-grid {
+  @apply grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 overflow-y-auto;
+  height: auto;
+  @apply z-20;
+}
+
+.skill-card {
+  @apply p-6 rounded-2xl bg-red-800 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 font-inter text-center;
+}
+
+.skill-icon {
+  @apply w-6 h-6 inline-block mr-2 text-white;
+}
+
+.skill-name {
+  @apply text-lg font-medium text-white;
+}
+
+.certification-card {
+  @apply p-6 rounded-2xl bg-red-800 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 font-inter text-center;
+}
+
+.certification-title {
+  @apply text-lg font-medium text-white mb-1;
+}
+
+.certification-details {
+  @apply text-sm text-gray-200;
+}
+
+.category-header {
+  @apply flex items-center mb-2 ml-4;
+}
+
+.category-header-left {
+  @apply flex items-center mb-2 ml-4;
+}
+
+.category-header-center {
+  @apply flex items-center justify-center mb-2 ml-4;
+}
+
+.about-section {
+  @apply max-w-5xl mx-auto px-6 py-12;
+}
+
+.about-content {
+  @apply flex flex-col h-full justify-between;
+}
+
+.about-text {
+  @apply text-gray-200 leading-7 flex-1 font-inter;
+}
+
+.about-button {
+  @apply inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-red-800 text-white hover:bg-red-700 transition-colors font-inter mt-auto self-start;
+}
+
+.contact-section {
+  @apply max-w-4xl mx-auto px-6 py-12;
+}
+
+.contact-details {
+  @apply bg-red-900 p-6 rounded-xl shadow-md mb-8;
+}
+
+.contact-item {
+  @apply flex items-center gap-4 mb-4 last:mb-0;
+}
+
+.contact-icon {
+  @apply w-6 h-6 text-white transition-transform duration-300;
+}
+
+.contact-link {
+  @apply text-gray-200 hover:text-red-300 transition-colors hover:underline;
+}
+
+.contact-form {
+  @apply space-y-4;
+}
+
+.form-label {
+  @apply block text-sm font-medium font-inter text-white;
+}
+
+.form-input {
+  @apply w-full rounded-xl border border-gray-600 px-3 py-2 bg-red-900 text-white font-inter;
+}
+
+.form-textarea {
+  @apply w-full rounded-xl border border-gray-600 px-3 py-2 bg-red-900 text-white font-inter;
+}
+
+.form-button {
+  @apply inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-red-800 text-white hover:bg-red-700 transition-colors font-inter;
+}
+
+.footer {
+  @apply text-center py-8 text-gray-200 font-inter z-30;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  bottom: 0;
+}
+.main {
+  @apply min-h-screen bg-transparent text-white font-inter;
+  overflow-x: hidden;
+}
