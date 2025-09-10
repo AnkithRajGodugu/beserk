@@ -422,7 +422,7 @@ const skillCategories = [
   {
     category: "Programming Languages",
     icon: <Code className="skill-icon" />,
-    skills: ["Python", "Java", "JavaScript", "Data Structures (DS)"],
+    skills: ["Python", "Java", "JavaScript"],
   },
   {
     category: "Web Development",
@@ -438,7 +438,7 @@ const skillCategories = [
     category: "Cloud & DevOps",
     icon: <Cloud className="skill-icon" />,
     skills: [
-      "Linux (Ubuntu)",
+      "Linux ",
       "AWS",
       "System Security",
       "Log Debugging",
