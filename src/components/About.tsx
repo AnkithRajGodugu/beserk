@@ -96,21 +96,21 @@ const About: React.FC = () => (
             <li>
               <strong>Bachelor of Technology - Computer Science Engineering</strong>
               <ul className="list-none pl-4">
-                <li>Guru Nanak Institute of Technology, Hyderabad (CGPA: 7.5/10)</li>
+                <li>Guru Nanak Institute of Technology, Hyderabad )</li>
                 <li>2022-2026</li>
               </ul>
             </li>
             <li>
               <strong>Intermediate</strong>
               <ul className="list-none pl-4">
-                <li>Resonance Junior College, Khammam (58%)</li>
+                <li>Resonance Junior College, Khammam </li>
                 <li>2020-2022</li>
               </ul>
             </li>
             <li>
               <strong>10th Standard</strong>
               <ul className="list-none pl-4">
-                <li>Triveni School (92%)</li>
+                <li>Triveni School </li>
                 <li>2019-2020</li>
               </ul>
             </li>
