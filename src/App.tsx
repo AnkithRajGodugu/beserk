@@ -417,8 +417,8 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
-import { Github, Linkedin, ArrowUp } from "lucide-react";
+//import { motion } from "framer-motion";
+import { Github, Linkedin, } from "lucide-react";
 import { HelmetProvider } from "react-helmet-async";
 import "./App.css";
 import Home from "./components/Home";
@@ -444,7 +444,7 @@ const SOCIALS: SocialLinks = {
   email: "mailto:ankithrajgodugu@gmail.com",
 };
 
-const Nav: React.FC<{ toggleSidebar: () => void; isSidebarOpen: boolean; scrollToTop: () => void; handleClickOutside: (event: MouseEvent) => void }> = ({ toggleSidebar, isSidebarOpen, scrollToTop, handleClickOutside }) => {
+const Nav: React.FC<{ toggleSidebar: () => void; isSidebarOpen: boolean;  handleClickOutside: (event: MouseEvent) => void }> = ({ toggleSidebar, isSidebarOpen }) => {
   const navRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -504,9 +504,7 @@ const AppContent: React.FC = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+ 
 
   // Generate a mix of leaves and dust particles
   const particles = Array.from({ length: 5 }, (_, index) => {
@@ -528,7 +526,7 @@ const AppContent: React.FC = () => {
   return (
     <div className="background-animation min-h-screen relative">
       {particles}
-      <Nav toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} scrollToTop={scrollToTop} handleClickOutside={toggleSidebar} />
+      <Nav toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen}  handleClickOutside={toggleSidebar} />
       <main className={`main ${isSidebarOpen ? 'sidebar-open' : ''}`}>
         <Routes>
           <Route path="/" element={<Home />} />

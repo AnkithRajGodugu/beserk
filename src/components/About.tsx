@@ -82,7 +82,6 @@ const About: React.FC = () => (
     <Helmet>
       <title>Ankith Raj Godugu - About</title>
       <meta
-        contentType="text/html"
         content="Learn more about Ankith Raj Godugu, his background, and his journey in Computer Science."
       />
     </Helmet>

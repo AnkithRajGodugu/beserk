@@ -472,7 +472,7 @@ const Skills: React.FC = () => (
     <Helmet>
       <title>Ankith Raj Godugu - Skills</title>
       <meta
-        contentType="text/html"
+        
         content="Technical and creative skills of Ankith Raj Godugu, including programming languages, web development, databases, cloud technologies, and certifications."
       />
     </Helmet>

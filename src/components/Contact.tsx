@@ -133,7 +133,6 @@ const Contact: React.FC = () => (
     <Helmet>
       <title>Ankith Raj Godugu - Contact</title>
       <meta
-        contentType="text/html"
         content="Get in touch with Ankith Raj Godugu for collaboration or inquiries."
       />
     </Helmet>

@@ -248,25 +248,90 @@
 // export default Home;
 
 
-import React from "react";
+// import React from "react";
+// import { motion } from "framer-motion";
+// import { Helmet } from "react-helmet-async";
+
+// const Home: React.FC = () => {
+//   // Define lines as complete text for each section
+  
+
+//   // Animation variants for line-by-line effect
+//   const lineVariants = {
+//     hidden: { opacity: 0, y: 50 },
+//     visible: (i: number) => ({
+//       opacity: 1,
+//       y: 0,
+//       transition: { delay: i * 0.5, duration: 0.8 },
+//     }),
+//   };
+
+//   return (
+//     <section id="home" className="page-section min-h-screen flex items-center justify-center">
+//       <Helmet>
+//         <title>Ankith Raj Godugu - Home</title>
+//       </Helmet>
+//       <div className="page-content">
+//         <div className="hero-content flex flex-col items-center text-center">
+          
+//           <motion.div
+//             className="hero-title"
+//             custom={0}
+//             variants={lineVariants}
+//             initial="hidden"
+//             animate="visible"
+//           >
+//             Ankith Raj Godugu
+//           </motion.div>
+//           <motion.div
+//             className="hero-subtitle mt-4"
+//             custom={1}
+//             variants={lineVariants}
+//             initial="hidden"
+//             animate="visible"
+//           >
+//             Computer Science student with experience in web development, AI modeling, and project management tools. Skilled in JavaScript, Python, and cloud-based solutions; eager to contribute technical skills to real-world software challenges.
+//           </motion.div>
+//           <motion.a
+//             href="/about"
+//             className="hero-button mb-8" /* Button above content with margin below */
+//             custom={3}
+//             variants={lineVariants}
+//             initial="hidden"
+//             animate="visible"
+//           >
+//             Learn More
+//           </motion.a>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default Home;
+
+
+
+
+//import React from "react";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 
-const Home: React.FC = () => {
+const Home = () => {
   // Define lines as complete text for each section
-  const lines = [
-    "Ankith Raj Godugu",
-    "Final-year Computer Science student and aspiring Software Engineer passionate about building scalable, reliable, and user-centric applications.",
-    "Learn More",
-  ];
+//   const lines = [
+//     "Ankith Raj Godugu",
+//     "Final-year Computer Science student and aspiring Software Engineer passionate about building scalable, reliable, and user-centric applications.",
+//     "Learn More",
+//   ];
 
   // Animation variants for line-by-line effect
   const lineVariants = {
     hidden: { opacity: 0, y: 50 },
-    visible: (i: number) => ({
+    visible: () => ({
       opacity: 1,
       y: 0,
-      transition: { delay: i * 0.5, duration: 0.8 },
+      transition: { delay: 1 * 0.5, duration: 0.8 },
     }),
   };
 
@@ -274,46 +339,23 @@ const Home: React.FC = () => {
     <section id="home" className="page-section min-h-screen flex items-center justify-center">
       <Helmet>
         <title>Ankith Raj Godugu - Home</title>
-        <meta
-          name="description"
-          content="Welcome to the portfolio of Ankith Raj Godugu, a final-year Computer Science student and aspiring Software Engineer."
-        />
+        {/* <meta name="description" content="Welcome to the portfolio of Ankith Raj Godugu, a final-year Computer Science student and aspiring Software Engineer."/> */}
       </Helmet>
       <div className="page-content">
         <div className="hero-content flex flex-col items-center text-center">
-          
-          <motion.div
-            className="hero-title"
-            custom={0}
-            variants={lineVariants}
-            initial="hidden"
-            animate="visible"
-          >
+          <motion.div className="hero-title" custom={0} variants={lineVariants} initial="hidden" animate="visible">
             Ankith Raj Godugu
           </motion.div>
-          <motion.div
-            className="hero-subtitle mt-4"
-            custom={1}
-            variants={lineVariants}
-            initial="hidden"
-            animate="visible"
-          >
+          <motion.div className="hero-subtitle mt-4" custom={1} variants={lineVariants} initial="hidden" animate="visible">
             Computer Science student with experience in web development, AI modeling, and project management tools. Skilled in JavaScript, Python, and cloud-based solutions; eager to contribute technical skills to real-world software challenges.
           </motion.div>
-          <motion.a
-            href="/about"
-            className="hero-button mb-8" /* Button above content with margin below */
-            custom={3}
-            variants={lineVariants}
-            initial="hidden"
-            animate="visible"
-          >
+          <motion.a href="/about" className="hero-button mb-8" custom={2} variants={lineVariants} initial="hidden" animate="visible">
             Learn More
           </motion.a>
         </div>
       </div>
     </section>
-  );
+  ); // Semicolon outside the parentheses (optional)
 };
 
 export default Home;
