@@ -109,27 +109,14 @@ Cursor	Description
 🐙 GitHub
  | 🔗 LinkedIn
 
-📜 License
+## 📜 License
 
 This project is licensed under the MIT License — free to use, modify, and share.
 
-⚡ Deploy Your Own
-
-You can deploy your own copy instantly on Vercel:
-
-✨ “The smell of steel and ambition — code forged like a sword.”
-
+ ✨ “The smell of steel and ambition — code forged like a sword.”
 
 ---
 
-
-## 🪶 Next Steps
-
-1. After pasting and saving the file:
-   ```bash
-   git add README.md
-   git commit -m "Updated README with Vercel deployment and branding"
-   git push origin main
 
 ## 📁 Project Structure
 
