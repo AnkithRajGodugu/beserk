@@ -1,6 +1,6 @@
 # ⚔️ Ankith Raj Godugu — Portfolio  
 
-![Portfolio Banner](./assets/banner.png)
+![Portfolio Banner](./src/assets/banner.png)
 
 A dark-themed, anime-inspired portfolio website built with **React + TypeScript + Vite**.  
 This project blends modern web design with **Berserk-inspired aesthetics**, featuring animated elements like the *Brand of Sacrifice cursor* and *Guts’ Dragonslayer sword*.  
