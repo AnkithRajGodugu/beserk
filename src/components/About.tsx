@@ -143,7 +143,6 @@ const About: React.FC = () => (
     </Helmet>
 
     <div className="page-content">
-<<<<<<< HEAD
       <h2 className="section-title flex items-center gap-2">
         <User className="w-6 h-6 text-primary-400" /> About Me
       </h2>
@@ -192,40 +191,6 @@ const About: React.FC = () => (
           >
             <FileText className="w-5 h-5" /> View Resume
           </a>
-=======
-      <h2 className="section-title">About Me</h2>
-      <div className="about-content">
-        <div className="about-text">
-          <p>
-            I am a final-year Computer Science student with a passion for software development and problem-solving. My educational journey is as follows:
-          </p>
-          <ul className="list-disc pl-6 mt-2">
-            <li>
-              <strong>Bachelor of Technology - Computer Science Engineering</strong>
-              <ul className="list-none pl-4">
-                <li>Guru Nanak Institute of Technology, Hyderabad )</li>
-                <li>2022-2026</li>
-              </ul>
-            </li>
-            <li>
-              <strong>Intermediate</strong>
-              <ul className="list-none pl-4">
-                <li>Resonance Junior College, Khammam </li>
-                <li>2020-2022</li>
-              </ul>
-            </li>
-            <li>
-              <strong>10th Standard</strong>
-              <ul className="list-none pl-4">
-                <li>Triveni School </li>
-                <li>2019-2020</li>
-              </ul>
-            </li>
-          </ul>
-          <p className="mt-4">
-            Originally from Khammam, India, I bring a diverse perspective to my work, aiming to create impactful solutions that enhance user experiences. My skills include programming languages like Python and JavaScript, frameworks like ReactJS, and cloud platforms like AWS. I am always eager to learn and collaborate on innovative projects.
-          </p>
->>>>>>> origin/main
         </div>
       </div>
     </div>

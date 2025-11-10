@@ -534,44 +534,10 @@ import { Helmet } from "react-helmet-async";
 
 
 const skillCategories = [
-<<<<<<< HEAD
 { category: "Programming Languages", icon: <Code className="skill-icon" />, skills: ["Python", "Java", "JavaScript", "Data Structures (DS)"] },
 { category: "Web Development", icon: <Globe className="skill-icon" />, skills: ["HTML", "CSS", "NodeJS", "ReactJS"] },
 { category: "Databases", icon: <Database className="skill-icon" />, skills: ["MySQL", "MongoDB"] },
 { category: "Cloud & DevOps", icon: <Cloud className="skill-icon" />, skills: ["Linux (Ubuntu)", "AWS", "System Security", "Log Debugging", "Cloud Networking", "Apache", "Bash/Shell Scripting", "Cloudflare DNS", "SSL/TLS", "HTTPS"] },
-=======
-  {
-    category: "Programming Languages",
-    icon: <Code className="skill-icon" />,
-    skills: ["Python", "Java", "JavaScript"],
-  },
-  {
-    category: "Web Development",
-    icon: <Globe className="skill-icon" />,
-    skills: ["HTML", "CSS", "NodeJS", "ReactJS"],
-  },
-  {
-    category: "Databases",
-    icon: <Database className="skill-icon" />,
-    skills: ["MySQL", "MongoDB"],
-  },
-  {
-    category: "Cloud & DevOps",
-    icon: <Cloud className="skill-icon" />,
-    skills: [
-      "Linux ",
-      "AWS",
-      "System Security",
-      "Log Debugging",
-      "Cloud Networking",
-      "Apache",
-      "Bash/Shell Scripting",
-      "Cloudflare DNS",
-      "SSL/TLS",
-      "HTTPS",
-    ],
-  },
->>>>>>> origin/main
 ];
 
 
@@ -633,9 +599,5 @@ aria-label={`Open certificate: ${cert.title}`}>
 </section>
 );
 
-<<<<<<< HEAD
 
 export default Skills;
-=======
-export default Skills;
->>>>>>> origin/main
