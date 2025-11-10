@@ -43,30 +43,7 @@ This project blends modern web design with **Berserk-inspired aesthetics**, feat
 
 ---
 
-## 📁 Project Structure
-
-```bash
-portfolio-m/
-├── src/
-│   ├── components/
-│   │   ├── Home.tsx
-│   │   ├── Projects.tsx
-│   │   ├── Skills.tsx
-│   │   ├── About.tsx
-│   │   ├── Contact.tsx
-│   │   └── CustomCursor.tsx
-│   ├── assets/
-│   │   ├── brand-cursor.png
-│   │   ├── guts-sword.png
-│   │   └── my-icon.png
-│   ├── App.tsx
-│   ├── App.css
-│   └── main.tsx
-├── package.json
-├── vite.config.ts
-└── README.md
-
-🧩 Installation & Setup
+## 🧩 Installation & Setup
 # Clone this repository
 git clone https://github.com/AnkithRajGodugu/portfolio-m.git
 
@@ -82,7 +59,7 @@ npm run dev
 
 Then open your browser at http://localhost:5173/
 
-☁️ Deployment
+## ☁️ Deployment
 
 This portfolio is deployed using Vercel
  for fast, secure, and automatic CI/CD builds from GitHub.
@@ -105,11 +82,9 @@ GitHub integration for instant updates
 
 Optimized caching and compression
 
-🖼️ Preview
-Home Page	Projects Page
 
 	
-🎨 Cursor Effects
+## 🎨 Cursor Effects
 Cursor	Description
 🩸 Brand of Sacrifice	Pulsing red glow with dripping blood animation. Vibrates when clicked to simulate a curse trigger.
 ⚔️ Guts’ Dragonslayer Sword	Tracks mouse movement with a sweeping animation and anti-magic visual effect.
@@ -123,7 +98,7 @@ Cursor	Description
 
 🕹️ Optional theme toggle between Light / Berserk Mode
 
-🧠 Author
+## 🧠 Author
 
 👤 Ankith Raj Godugu
 💼 DevOps & Cloud Enthusiast | Full Stack Developer
@@ -147,6 +122,7 @@ You can deploy your own copy instantly on Vercel:
 
 ---
 
+
 ## 🪶 Next Steps
 
 1. After pasting and saving the file:
@@ -155,7 +131,30 @@ You can deploy your own copy instantly on Vercel:
    git commit -m "Updated README with Vercel deployment and branding"
    git push origin main
 
+## 📁 Project Structure
 
+```bash
+portfolio-m/
+├── src/
+│   ├── components/
+│   │   ├── Home.tsx
+│   │   ├── Projects.tsx
+│   │   ├── Skills.tsx
+│   │   ├── About.tsx
+│   │   ├── Contact.tsx
+│   │   └── CustomCursor.tsx
+│   ├── assets/
+│   │   ├── brand-cursor.png
+│   │   ├── guts-sword.png
+│   │   └── my-icon.png
+│   ├── App.tsx
+│   ├── App.css
+│   └── main.tsx
+├── package.json
+├── vite.config.ts
+└── README.md
+
+---
 
 
 
