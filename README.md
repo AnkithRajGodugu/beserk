@@ -1,69 +1,162 @@
-# React + TypeScript + Vite
+# ⚔️ Ankith Raj Godugu — Portfolio  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Portfolio Banner](./assets/banner.png)
 
-Currently, two official plugins are available:
+A dark-themed, anime-inspired portfolio website built with **React + TypeScript + Vite**.  
+This project blends modern web design with **Berserk-inspired aesthetics**, featuring animated elements like the *Brand of Sacrifice cursor* and *Guts’ Dragonslayer sword*.  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Category | Technology |
+|-----------|-------------|
+| ⚙️ **Frontend Framework** | React (with TypeScript + Vite) |
+| 🎨 **Styling** | Tailwind CSS + Custom Animations |
+| 🧠 **Routing** | React Router DOM |
+| 🌌 **Meta Management** | React Helmet Async |
+| 🧩 **Icons & UI** | Lucide Icons + Custom assets |
+| 🔥 **Hosting** | Vercel (with Custom Domain) |
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 🖥️ Features
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- ⚔️ **Custom Animated Cursors**  
+  - *Guts’ Dragonslayer sword* follows your mouse  
+  - *Brand of Sacrifice* glows and pulses when clicked  
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- 🌫️ **Aurora Particle Background**  
+  Dynamic parallax gradients with floating particles  
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- 🧱 **Modular Components**  
+  Pages for Home, Projects, Skills, About, and Contact  
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- 🌐 **Responsive Layout**  
+  Perfectly adapts to mobile, tablet, and desktop  
+
+- 🧠 **SEO Ready**  
+  Meta tags managed by React Helmet for better indexing  
+
+- 🎭 **Dark Fantasy Theme**  
+  Blends deep crimson, blue, and gold tones inspired by *Berserk*  
+
+---
+
+## 📁 Project Structure
+
+```bash
+portfolio-m/
+├── src/
+│   ├── components/
+│   │   ├── Home.tsx
+│   │   ├── Projects.tsx
+│   │   ├── Skills.tsx
+│   │   ├── About.tsx
+│   │   ├── Contact.tsx
+│   │   └── CustomCursor.tsx
+│   ├── assets/
+│   │   ├── brand-cursor.png
+│   │   ├── guts-sword.png
+│   │   └── my-icon.png
+│   ├── App.tsx
+│   ├── App.css
+│   └── main.tsx
+├── package.json
+├── vite.config.ts
+└── README.md
+
+🧩 Installation & Setup
+# Clone this repository
+git clone https://github.com/AnkithRajGodugu/portfolio-m.git
+
+# Move into project directory
+cd portfolio-m
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+
+
+Then open your browser at http://localhost:5173/
+
+☁️ Deployment
+
+This portfolio is deployed using Vercel
+ for fast, secure, and automatic CI/CD builds from GitHub.
+
+Environment	URL
+🧪 Preview (Vercel)	https://portfolio-8lm2a8kr1-ankithrajgodugus-projects.vercel.app
+
+🌐 Production (Custom Domain)	https://portfolio.ankithtech.xyz
+
+🔄 Automatic Deployment:
+Every push to the main branch triggers a new Vercel build and deployment automatically.
+
+⚙️ Vercel Configuration Includes:
+
+React + TypeScript build using Vite
+
+Global CDN and HTTPS by default
+
+GitHub integration for instant updates
+
+Optimized caching and compression
+
+🖼️ Preview
+Home Page	Projects Page
+
+	
+🎨 Cursor Effects
+Cursor	Description
+🩸 Brand of Sacrifice	Pulsing red glow with dripping blood animation. Vibrates when clicked to simulate a curse trigger.
+⚔️ Guts’ Dragonslayer Sword	Tracks mouse movement with a sweeping animation and anti-magic visual effect.
+🔧 Future Enhancements
+
+🌪️ Add environment-based lighting effects
+
+🧬 Integrate backend contact form via Node/Express
+
+💾 Add motion-based project preview cards
+
+🕹️ Optional theme toggle between Light / Berserk Mode
+
+🧠 Author
+
+👤 Ankith Raj Godugu
+💼 DevOps & Cloud Enthusiast | Full Stack Developer
+🌐 Portfolio
+
+📧 ankithrajgodugu@gmail.com
+
+🐙 GitHub
+ | 🔗 LinkedIn
+
+📜 License
+
+This project is licensed under the MIT License — free to use, modify, and share.
+
+⚡ Deploy Your Own
+
+You can deploy your own copy instantly on Vercel:
+
+✨ “The smell of steel and ambition — code forged like a sword.”
+
+
+---
+
+## 🪶 Next Steps
+
+1. After pasting and saving the file:
+   ```bash
+   git add README.md
+   git commit -m "Updated README with Vercel deployment and branding"
+   git push origin main
+
+
+
+
+
+

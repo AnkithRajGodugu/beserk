@@ -415,22 +415,368 @@
 // export default App;
 
 
+// src/App.tsx
+// import React, { useState, useEffect, useRef } from "react";
+// import { BrowserRouter as Router, Route, Routes, useLocation, Link } from "react-router-dom";
+// import { Github, Linkedin } from "lucide-react";
+// import { HelmetProvider } from "react-helmet-async";
+// import "./App.css";
+
+// import Home from "./components/Home";
+// import Projects from "./components/Projects";
+// import Skills from "./components/Skills";
+// import About from "./components/About";
+// import Contact from "./components/Contact";
+
+// import myIcon from "./assets/my-icon.png";
+
+// interface SocialLinks {
+//   github: string;
+//   linkedin: string;
+//   email: string;
+// }
+
+// const SOCIALS: SocialLinks = {
+//   github: "https://github.com/ankithrajgodugu",
+//   linkedin: "https://www.linkedin.com/in/ankith-raj-a90111302/",
+//   email: "mailto:ankithrajgodugu@gmail.com",
+// };
+
+// type NavProps = {
+//   toggleSidebar: () => void;
+//   isSidebarOpen: boolean;
+// };
+
+// const Nav: React.FC<NavProps> = ({ toggleSidebar, isSidebarOpen }) => {
+//   const navRef = useRef<HTMLDivElement>(null);
+
+//   // Close when clicking outside the sidebar
+//   useEffect(() => {
+//     const handleOutsideClick = (event: MouseEvent) => {
+//       if (isSidebarOpen && navRef.current && !navRef.current.contains(event.target as Node)) {
+//         toggleSidebar();
+//       }
+//     };
+//     document.addEventListener("mousedown", handleOutsideClick);
+//     return () => document.removeEventListener("mousedown", handleOutsideClick);
+//   }, [isSidebarOpen, toggleSidebar]);
+
+//   return (
+//     <>
+//       <button className="toggle-icon" onClick={toggleSidebar} aria-label="Toggle sidebar">
+//         <div
+//           style={{
+//             backgroundImage: `url(${myIcon})`,
+//             backgroundSize: "contain",
+//             backgroundRepeat: "no-repeat",
+//             backgroundPosition: "center",
+//             width: "100%",
+//             height: "100%",
+//           }}
+//         />
+//       </button>
+
+//       <header className={`header ${isSidebarOpen ? "open" : ""}`} ref={navRef}>
+//         <nav className="nav-container">
+//           <Link to="/" className="nav-logo" onClick={toggleSidebar} aria-label="Go to home">
+//             <span>Ankith Raj Godugu</span>
+//           </Link>
+
+//           <div className="nav-links">
+//             <Link className="nav-link" to="/projects" onClick={toggleSidebar}>
+//               Projects
+//             </Link>
+//             <Link className="nav-link" to="/skills" onClick={toggleSidebar}>
+//               Skills
+//             </Link>
+//             <Link className="nav-link" to="/about" onClick={toggleSidebar}>
+//               About
+//             </Link>
+//             <Link className="nav-link" to="/contact" onClick={toggleSidebar}>
+//               Contact
+//             </Link>
+//           </div>
+
+//           <div className="nav-icons">
+//             <a href={SOCIALS.github} target="_blank" rel="noreferrer" aria-label="GitHub">
+//               <Github className="w-5 h-5 text-white" />
+//             </a>
+//             <a href={SOCIALS.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
+//               <Linkedin className="w-5 h-5 text-white" />
+//             </a>
+//           </div>
+//         </nav>
+//       </header>
+//     </>
+//   );
+// };
+
+// const AppContent: React.FC = () => {
+//   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+//   const location = useLocation();
+
+//   // Close sidebar on route change
+//   useEffect(() => {
+//     setIsSidebarOpen(false);
+//   }, [location.pathname]);
+
+//   const toggleSidebar = () => setIsSidebarOpen((v) => !v);
+
+//   // Cursor-tracked highlight for .hero-button / .form-button / .about-button
+//   useEffect(() => {
+//     const handleMouseMove = (e: MouseEvent) => {
+//       const buttons = document.querySelectorAll<HTMLElement>(".hero-button, .form-button, .about-button");
+//       if (!buttons.length) return;
+//       buttons.forEach((btn) => {
+//         const r = btn.getBoundingClientRect();
+//         btn.style.setProperty("--x", `${e.clientX - r.left}px`);
+//         btn.style.setProperty("--y", `${e.clientY - r.top}px`);
+//       });
+//     };
+//     document.addEventListener("mousemove", handleMouseMove);
+//     return () => document.removeEventListener("mousemove", handleMouseMove);
+//   }, [location.pathname]);
+
+//   // Floating background particles
+//   const particles = Array.from({ length: 5 }, (_, index) => {
+//     const isLeaf = Math.random() > 0.5;
+//     return (
+//       <div
+//         key={index}
+//         className={`${isLeaf ? "leaf-particle" : "dust-particle"} background-particle`}
+//         style={{
+//           width: `${isLeaf ? Math.random() * 20 + 15 : Math.random() * 10 + 5}px`,
+//           height: `${isLeaf ? Math.random() * 30 + 20 : Math.random() * 10 + 5}px`,
+//           left: `${Math.random() * 100}vw`,
+//           top: `${Math.random() * 100}vh`,
+//         }}
+//       />
+//     );
+//   });
+
+//   return (
+//     <div className="background-animation min-h-screen relative">
+//       {particles}
+//       <Nav toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
+//       <main className={`main ${isSidebarOpen ? "sidebar-open" : ""}`}>
+//         <Routes>
+//           <Route path="/" element={<Home />} />
+//           <Route path="/projects" element={<Projects />} />
+//           <Route path="/skills" element={<Skills />} />
+//           <Route path="/about" element={<About />} />
+//           <Route path="/contact" element={<Contact />} />
+//         </Routes>
+//       </main>
+//       <footer className="footer">© {new Date().getFullYear()} Ankith Raj Godugu</footer>
+//     </div>
+//   );
+// };
+
+// const App: React.FC = () => {
+//   return (
+//     <HelmetProvider>
+//       <Router>
+//         <AppContent />
+//       </Router>
+//     </HelmetProvider>
+//   );
+// };
+
+// export default App;
+
+
+// import React, { useState, useEffect, useRef } from "react";
+// import { BrowserRouter as Router, Route, Routes, useLocation, Link } from "react-router-dom";
+// import { Github, Linkedin } from "lucide-react";
+// import { HelmetProvider } from "react-helmet-async";
+// import "./App.css";
+
+// import Home from "./components/Home";
+// import Projects from "./components/Projects";
+// import Skills from "./components/Skills";
+// import About from "./components/About";
+// import Contact from "./components/Contact";
+
+// import myIcon from "./assets/my-icon.png";
+
+// interface SocialLinks {
+//   github: string;
+//   linkedin: string;
+//   email: string;
+// }
+
+// const SOCIALS: SocialLinks = {
+//   github: "https://github.com/ankithrajgodugu",
+//   linkedin: "https://www.linkedin.com/in/ankith-raj-a90111302/",
+//   email: "mailto:ankithrajgodugu@gmail.com",
+// };
+
+// type NavProps = {
+//   toggleSidebar: () => void;
+//   isSidebarOpen: boolean;
+// };
+
+// const Nav: React.FC<NavProps> = ({ toggleSidebar, isSidebarOpen }) => {
+//   const navRef = useRef<HTMLDivElement>(null);
+
+//   // Close when clicking outside the sidebar
+//   useEffect(() => {
+//     const handleOutsideClick = (event: MouseEvent) => {
+//       if (isSidebarOpen && navRef.current && !navRef.current.contains(event.target as Node)) {
+//         toggleSidebar();
+//       }
+//     };
+//     document.addEventListener("mousedown", handleOutsideClick);
+//     return () => document.removeEventListener("mousedown", handleOutsideClick);
+//   }, [isSidebarOpen, toggleSidebar]);
+//   useEffect(() => {
+//   const onMove = (e: MouseEvent) => {
+//     document.querySelectorAll<HTMLElement>(".project-card").forEach(card => {
+//       const r = card.getBoundingClientRect();
+//       card.style.setProperty("--x", `${e.clientX - r.left}px`);
+//       card.style.setProperty("--y", `${e.clientY - r.top}px`);
+//     });
+//   };
+//   document.addEventListener("mousemove", onMove);
+//   return () => document.removeEventListener("mousemove", onMove);
+// }, []);
+
+
+//   return (
+//     <>
+//       <button className="toggle-icon" onClick={toggleSidebar} aria-label="Toggle sidebar">
+//         <div
+//           style={{
+//             backgroundImage: `url(${myIcon})`,
+//             backgroundSize: "contain",
+//             backgroundRepeat: "no-repeat",
+//             backgroundPosition: "center",
+//             width: "100%",
+//             height: "100%",
+//           }}
+//         />
+//       </button>
+
+//       <header className={`header ${isSidebarOpen ? "open" : ""}`} ref={navRef}>
+//         <nav className="nav-container">
+//           <Link to="/" className="nav-logo" onClick={toggleSidebar} aria-label="Go to home">
+//             <span>Ankith Raj Godugu</span>
+//           </Link>
+
+//           <div className="nav-links">
+//             <Link className="nav-link" to="/projects" onClick={toggleSidebar}>Projects</Link>
+//             <Link className="nav-link" to="/skills" onClick={toggleSidebar}>Skills</Link>
+//             <Link className="nav-link" to="/about" onClick={toggleSidebar}>About</Link>
+//             <Link className="nav-link" to="/contact" onClick={toggleSidebar}>Contact</Link>
+//           </div>
+
+//           <div className="nav-icons">
+//             <a href={SOCIALS.github} target="_blank" rel="noreferrer" aria-label="GitHub">
+//               <Github className="w-5 h-5 text-white" />
+//             </a>
+//             <a href={SOCIALS.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
+//               <Linkedin className="w-5 h-5 text-white" />
+//             </a>
+//           </div>
+//         </nav>
+//       </header>
+//     </>
+//   );
+// };
+
+// const AppContent: React.FC = () => {
+//   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+//   const location = useLocation();
+
+//   // Close sidebar on route change
+//   useEffect(() => {
+//     setIsSidebarOpen(false);
+//   }, [location.pathname]);
+
+//   const toggleSidebar = () => setIsSidebarOpen((v) => !v);
+
+//   // Cursor-tracked highlight for .hero-button / .form-button / .about-button
+//   useEffect(() => {
+//     const handleMouseMove = (e: MouseEvent) => {
+//       const buttons = document.querySelectorAll<HTMLElement>(".hero-button, .form-button, .about-button");
+//       if (!buttons.length) return;
+//       buttons.forEach((btn) => {
+//         const r = btn.getBoundingClientRect();
+//         btn.style.setProperty("--x", `${e.clientX - r.left}px`);
+//         btn.style.setProperty("--y", `${e.clientY - r.top}px`);
+//       });
+//     };
+//     document.addEventListener("mousemove", handleMouseMove);
+//     return () => document.removeEventListener("mousemove", handleMouseMove);
+//   }, [location.pathname]);
+
+//   // Floating background particles (visual only)
+//   const particles = Array.from({ length: 5 }, (_, index) => {
+//     const isLeaf = Math.random() > 0.5;
+//     return (
+//       <div
+//         key={index}
+//         className={`${isLeaf ? "leaf-particle" : "dust-particle"} background-particle`}
+//         style={{
+//           width: `${isLeaf ? Math.random() * 20 + 15 : Math.random() * 10 + 5}px`,
+//           height: `${isLeaf ? Math.random() * 30 + 20 : Math.random() * 10 + 5}px`,
+//           left: `${Math.random() * 100}vw`,
+//           top: `${Math.random() * 100}vh`,
+//         }}
+//       />
+//     );
+//   });
+
+//   return (
+//     <div className="app-root min-h-screen relative">
+//       {/* Fixed background layer (not in scroll flow) */}
+//       <div className="background-animation" aria-hidden="true">
+//         {particles}
+//       </div>
+
+//       {/* Foreground content */}
+//       <Nav toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
+//       <main className={`main ${isSidebarOpen ? "sidebar-open" : ""}`}>
+//         <Routes>
+//           <Route path="/" element={<Home />} />
+//           <Route path="/projects" element={<Projects />} />
+//           <Route path="/skills" element={<Skills />} />
+//           <Route path="/about" element={<About />} />
+//           <Route path="/contact" element={<Contact />} />
+//         </Routes>
+//       </main>
+//       <footer className="footer">© {new Date().getFullYear()} Ankith Raj Godugu</footer>
+//     </div>
+//   );
+// };
+
+// const App: React.FC = () => {
+//   return (
+//     <HelmetProvider>
+//       <Router>
+//         <AppContent />
+//       </Router>
+//     </HelmetProvider>
+//   );
+// };
+
+// export default App;
+
+
 import React, { useState, useEffect, useRef } from "react";
-import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
-//import { motion } from "framer-motion";
-import { Github, Linkedin, } from "lucide-react";
+import { BrowserRouter as Router, Route, Routes, useLocation, Link } from "react-router-dom";
+import { Github, Linkedin, Flame, Sword } from "lucide-react";
 import { HelmetProvider } from "react-helmet-async";
 import "./App.css";
+
 import Home from "./components/Home";
-//import Portfolio from "../../Portfolio";
 import Projects from "./components/Projects";
 import Skills from "./components/Skills";
 import About from "./components/About";
 import Contact from "./components/Contact";
 
-
-// Import the local PNG file (place my-icon.png in src/assets/)
-import myIcon from './assets/my-icon.png'; // Update the path to match your file location
+import myIcon from "./assets/my-icon.png";
+import CustomCursor from "./components/CustomCursor";
 
 interface SocialLinks {
   github: string;
@@ -444,9 +790,19 @@ const SOCIALS: SocialLinks = {
   email: "mailto:ankithrajgodugu@gmail.com",
 };
 
-const Nav: React.FC<{ toggleSidebar: () => void; isSidebarOpen: boolean;  handleClickOutside: (event: MouseEvent) => void }> = ({ toggleSidebar, isSidebarOpen }) => {
+type CursorType = "brand" | "sword";
+
+type NavProps = {
+  toggleSidebar: () => void;
+  isSidebarOpen: boolean;
+  cursorType: CursorType;
+  onToggleCursor: () => void;
+};
+
+const Nav: React.FC<NavProps> = ({ toggleSidebar, isSidebarOpen, cursorType, onToggleCursor }) => {
   const navRef = useRef<HTMLDivElement>(null);
 
+  // Close when clicking outside the sidebar
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (isSidebarOpen && navRef.current && !navRef.current.contains(event.target as Node)) {
@@ -457,33 +813,53 @@ const Nav: React.FC<{ toggleSidebar: () => void; isSidebarOpen: boolean;  handle
     return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, [isSidebarOpen, toggleSidebar]);
 
+  const isBrand = cursorType === "brand";
+
   return (
     <>
       <button className="toggle-icon" onClick={toggleSidebar} aria-label="Toggle sidebar">
         <div
-          style={{ backgroundImage: `url(${myIcon})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', width: '100%', height: '100%' }}
-        ></div>
+          style={{
+            backgroundImage: `url(${myIcon})`,
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            width: "100%",
+            height: "100%",
+          }}
+        />
       </button>
-      <header className={`header ${isSidebarOpen ? 'open' : ''}`} ref={navRef}>
+
+      <header className={`header ${isSidebarOpen ? "open" : ""}`} ref={navRef}>
         <nav className="nav-container">
-          <a href="/" className="nav-logo" onClick={toggleSidebar}>
+          <Link to="/" className="nav-logo" onClick={toggleSidebar} aria-label="Go to home">
             <span>Ankith Raj Godugu</span>
-          </a>
+          </Link>
+
           <div className="nav-links">
-            {/* <a className="nav-link" href="/portfolio" onClick={toggleSidebar}>Portfolio</a> */}
-            <a className="nav-link" href="/projects" onClick={toggleSidebar}>Projects</a>
-            <a className="nav-link" href="/skills" onClick={toggleSidebar}>Skills</a>
-            <a className="nav-link" href="/about" onClick={toggleSidebar}>About</a>
-            <a className="nav-link" href="/contact" onClick={toggleSidebar}>Contact</a>
+            <Link className="nav-link" to="/projects" onClick={toggleSidebar}>Projects</Link>
+            <Link className="nav-link" to="/skills" onClick={toggleSidebar}>Skills</Link>
+            <Link className="nav-link" to="/about" onClick={toggleSidebar}>About</Link>
+            <Link className="nav-link" to="/contact" onClick={toggleSidebar}>Contact</Link>
           </div>
-          <div className="nav-icons">
+
+          <div className="nav-icons items-center gap-3">
+            {/* Cursor toggle button */}
+            <button
+              onClick={onToggleCursor}
+              className="w-9 h-9 rounded-xl flex items-center justify-center border border-white/10 hover:border-white/20 transition shadow-sm bg-white/5"
+              title={isBrand ? "Switch to Guts’ Sword cursor" : "Switch to Brand of Sacrifice cursor"}
+              aria-label="Toggle cursor style"
+            >
+              {isBrand ? <Sword className="w-4 h-4 text-white" /> : <Flame className="w-4 h-4 text-white" />}
+            </button>
+
             <a href={SOCIALS.github} target="_blank" rel="noreferrer" aria-label="GitHub">
               <Github className="w-5 h-5 text-white" />
             </a>
             <a href={SOCIALS.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
               <Linkedin className="w-5 h-5 text-white" />
             </a>
-           
           </div>
         </nav>
       </header>
@@ -493,29 +869,68 @@ const Nav: React.FC<{ toggleSidebar: () => void; isSidebarOpen: boolean;  handle
 
 const AppContent: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [cursorType, setCursorType] = useState<CursorType>(() => {
+    const saved = localStorage.getItem("cursorType");
+    return (saved === "sword" || saved === "brand") ? (saved as CursorType) : "brand";
+  });
+
   const location = useLocation();
 
+  // Close sidebar on route change
   useEffect(() => {
-    // Close sidebar when navigating to a new page
     setIsSidebarOpen(false);
   }, [location.pathname]);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  // Persist cursor preference
+  useEffect(() => {
+    localStorage.setItem("cursorType", cursorType);
+  }, [cursorType]);
 
- 
+  const toggleSidebar = () => setIsSidebarOpen((v) => !v);
+  const onToggleCursor = () => setCursorType((t) => (t === "brand" ? "sword" : "brand"));
 
-  // Generate a mix of leaves and dust particles
+  // rAF-throttled cursor highlights for buttons & project cards
+  useEffect(() => {
+    let ticking = false;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        // Buttons: .hero-button, .form-button, .about-button
+        const buttons = document.querySelectorAll<HTMLElement>(".hero-button, .form-button, .about-button");
+        buttons.forEach((el) => {
+          const r = el.getBoundingClientRect();
+          el.style.setProperty("--x", `${e.clientX - r.left}px`);
+          el.style.setProperty("--y", `${e.clientY - r.top}px`);
+        });
+
+        // Project cards spotlight: .project-card
+        const cards = document.querySelectorAll<HTMLElement>(".project-card");
+        cards.forEach((card) => {
+          const r = card.getBoundingClientRect();
+          card.style.setProperty("--x", `${e.clientX - r.left}px`);
+          card.style.setProperty("--y", `${e.clientY - r.top}px`);
+        });
+
+        ticking = false;
+      });
+    };
+
+    document.addEventListener("mousemove", handleMouseMove);
+    return () => document.removeEventListener("mousemove", handleMouseMove);
+  }, [location.pathname]);
+
+  // Floating background particles (visual only)
   const particles = Array.from({ length: 5 }, (_, index) => {
-    const isLeaf = Math.random() > 0.5; // 50% chance for leaf or dust
+    const isLeaf = Math.random() > 0.5;
     return (
       <div
         key={index}
-        className={`${isLeaf ? 'leaf-particle' : 'dust-particle'} background-particle`}
+        className={`${isLeaf ? "leaf-particle" : "dust-particle"} background-particle`}
         style={{
-          width: `${isLeaf ? Math.random() * 20 + 15 : Math.random() * 10 + 5}px`, // Leaves: 15-35px, Dust: 5-15px
-          height: `${isLeaf ? Math.random() * 30 + 20 : Math.random() * 10 + 5}px`, // Leaves: 20-50px, Dust: 5-15px
+          width: `${isLeaf ? Math.random() * 20 + 15 : Math.random() * 10 + 5}px`,
+          height: `${isLeaf ? Math.random() * 30 + 20 : Math.random() * 10 + 5}px`,
           left: `${Math.random() * 100}vw`,
           top: `${Math.random() * 100}vh`,
         }}
@@ -524,22 +939,33 @@ const AppContent: React.FC = () => {
   });
 
   return (
-    <div className="background-animation min-h-screen relative">
-      {particles}
-      <Nav toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen}  handleClickOutside={toggleSidebar} />
-      <main className={`main ${isSidebarOpen ? 'sidebar-open' : ''}`}>
+    <div className="app-root min-h-screen relative">
+      {/* Custom cursor (brand or sword) */}
+      <CustomCursor type={cursorType} />
+
+      {/* Fixed background layer (not in scroll flow) */}
+      <div className="background-animation" aria-hidden="true">
+        {particles}
+      </div>
+
+      {/* Foreground content */}
+      <Nav
+        toggleSidebar={toggleSidebar}
+        isSidebarOpen={isSidebarOpen}
+        cursorType={cursorType}
+        onToggleCursor={onToggleCursor}
+      />
+
+      <main className={`main ${isSidebarOpen ? "sidebar-open" : ""}`}>
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route path="/portfolio" element={<Portfolio />} /> */}
           <Route path="/projects" element={<Projects />} />
           <Route path="/skills" element={<Skills />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>
-      <footer className="footer">
-        © {new Date().getFullYear()} Ankith Raj Godugu
-      </footer>
+      <footer className="footer">© {new Date().getFullYear()} Ankith Raj Godugu</footer>
     </div>
   );
 };

@@ -1,425 +1,760 @@
-/* App.css: Extracted Tailwind classes using @apply */
+/* App.css — Bright Dark theme + enhanced Projects effects */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.header {
-  @apply fixed left-0 top-0 h-full z-50 bg-red-900 w-48 p-4 transition-all duration-300 transform -translate-x-full;
-  &.open {
-    @apply translate-x-0;
-  }
+/* =============================
+   THEME — bright dark palette
+   ============================= */
+:root{
+  --bg:#0b0f14;              /* near-black with blue tint */
+  --surface:#121722;         /* card base */
+  --surface-2:#1a2030;       /* card top */
+  --accent:#66e0ff;          /* cyan accent */
+  --accent-2:#7c4dff;        /* violet accent */
+  --hot:#ff4d8a;             /* pink/hot */
+  --gold:#ffd166;            /* warm gold */
+  --text-soft:rgba(255,255,255,.82);
+  --text-dimmer:rgba(255,255,255,.65);
+  --ring:0 0 0 8px rgb(102 224 255 / 10%);
+
+  --brand-tilt: -20deg;
 }
 
-.toggle-icon {
-  @apply fixed top-4 left-4 z-50 w-8 h-8 cursor-pointer bg-gray-100 rounded-full p-1 flex items-center justify-center;
+html,body{ background:var(--bg); }
+
+/* =============================
+   SIDEBAR / NAV
+   ============================= */
+.header{
+  @apply fixed left-0 top-0 h-full z-50 w-56 p-4 transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)];
+  backdrop-filter: blur(10px);
+  background: linear-gradient(180deg, rgb(16 20 28 / 75%), rgb(10 12 18 / 75%));
+  border-right:1px solid rgb(255 255 255 / 10%);
+  box-shadow:10px 0 40px -20px rgb(0 0 0 / 50%);
+  transform:translateX(-100%);
+}
+.header.open{ transform:translateX(0); }
+
+.toggle-icon{
+  @apply fixed top-4 left-4 z-50 w-10 h-10 cursor-pointer rounded-full p-2 flex items-center justify-center shadow-lg transition-transform duration-300;
+  background: linear-gradient(180deg, #ffffff, #dbe8ff);
+}
+.toggle-icon:hover{ transform:translateY(-1px) scale(1.05); box-shadow: var(--ring); }
+
+.nav-container{ @apply flex flex-col h-full justify-between; }
+.nav-logo{ @apply flex items-center gap-2 font-semibold text-white mb-6; }
+.nav-links{ @apply flex flex-col gap-2 flex-grow; }
+.nav-link{
+  @apply text-white/90 py-2 rounded-xl px-3 transition-all;
+  background:linear-gradient(90deg, transparent, transparent);
+}
+.nav-link:hover{
+  color:#dff7ff;
+  background:linear-gradient(90deg, rgb(102 224 255 / 12%), transparent);
+  box-shadow:0 10px 24px -14px rgb(102 224 255 / 35%);
+  transform:translateY(-1px);
+}
+.nav-icons{ @apply flex flex-row gap-4; }
+
+/* push content when sidebar opens */
+.page-section{ @apply relative ml-0 transition-[margin] duration-500 ease-[cubic-bezier(.22,1,.36,1)] z-20; }
+.page-section.sidebar-open{ @apply ml-56; }
+
+/* =============================
+   BACKGROUND — bright dark aurora
+   ============================= */
+.background-animation{
+  position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none;
+  background:
+    radial-gradient(1100px 700px at 15% 15%, rgb(102 224 255 / 14%), transparent),
+    radial-gradient(900px 600px at 85% 20%, rgb(124 77 255 / 10%), transparent),
+    linear-gradient(135deg, #0b0f14, #0c0f1a);
+}
+.background-animation::after{
+  content:""; position:absolute; inset:-20% -10% -10% -20%;
+  background: conic-gradient(from 180deg at 50% 50%,
+    rgb(102 224 255 / 10%),
+    rgb(124 77 255 / 10%),
+    rgb(255 77 138 / 10%),
+    rgb(102 224 255 / 10%));
+  filter: blur(70px) saturate(120%);
+  animation: aurora 18s linear infinite;
 }
 
-.scroll-to-top {
-  @apply absolute bottom-4 left-4 w-8 h-8 cursor-pointer text-white hover:text-red-300 transition-colors;
+/* particles (kept lightweight) */
+.background-particle{
+  @apply absolute rounded-full;
+  opacity:.5; width:var(--sz,8px); height:var(--sz,8px);
+  background: radial-gradient(circle at 30% 30%, var(--dot, #66e0ff), transparent 60%);
+  animation: floatParticle 16s linear infinite, pulse 4s ease-in-out infinite;
+}
+.leaf-particle{
+  @apply absolute; opacity:.6; width:var(--w,18px); height:var(--h,22px);
+  background: linear-gradient(180deg, #66e0ff, #7c4dff);
+  clip-path: polygon(50% 0%, 100% 45%, 55% 100%, 0% 55%);
+  animation: floatLeaf 14s ease-in-out infinite, hue 6s linear infinite;
+}
+.dust-particle{
+  @apply absolute rounded-full; width:var(--sz,10px); height:var(--sz,10px);
+  background: radial-gradient(circle at 35% 35%, #ffd166, transparent 60%);
+  animation: floatDust 12s linear infinite, pulse 5s ease-in-out infinite;
 }
 
-.nav-container {
-  @apply flex flex-col  h-full justify-between;
+/* =============================
+   CONTENT / HERO
+   ============================= */
+.page-content{ @apply relative z-20 max-w-6xl mx-auto px-6 py-12; }
+.hero-content{ @apply relative z-20 flex items-center justify-center min-h-screen text-center text-white font-inter; }
+
+.hero-title{
+  @apply text-5xl md:text-7xl font-extrabold mb-6 tracking-tight;
+  background: linear-gradient(90deg, #dff7ff, #66e0ff 40%, #7c4dff 70%, #ffd166);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  text-shadow:0 6px 40px rgb(102 224 255 / 18%);
+  animation: shimmer 8s linear infinite;
+}
+.hero-subtitle{ @apply mt-4 text-xl md:text-2xl max-w-2xl mx-auto; color:var(--text-soft); }
+
+.hero-button{
+  @apply mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-2xl font-semibold text-lg transition-all relative overflow-hidden;
+  background: linear-gradient(180deg, #66e0ff, #3fbbe0);
+  color:#001017;
+  box-shadow:0 10px 28px -12px rgb(102 224 255 / 50%);
+}
+.hero-button:hover{ transform:translateY(-2px); box-shadow:0 14px 32px -12px rgb(102 224 255 / 65%); }
+.hero-button::after{
+  content:""; position:absolute; inset:0; opacity:0;
+  background: radial-gradient(600px 180px at var(--x,50%) var(--y,50%), rgb(255 255 255 / 22%), transparent 40%);
+  transition:opacity .2s;
+}
+.hero-button:is(:hover,:focus)::after{ opacity:1; }
+
+/* =============================
+   SECTIONS
+   ============================= */
+.section-title{ @apply text-3xl font-semibold text-left mb-8 font-inter text-white; }
+
+.portfolio-section,.projects-section,.skills-section,.about-section,.contact-section{
+  @apply max-w-6xl mx-auto px-6 py-16;
 }
 
-.nav-logo {
-  @apply   flex items-center gap-2 font-semibold text-white mb-4; /* Removed margin-bottom */
+/* =============================
+   PROJECTS — bright dark glow
+   ============================= */
+.projects-grid{ @apply grid gap-6 sm:grid-cols-2 lg:grid-cols-3; }
+
+.project-card{
+  @apply rounded-2xl overflow-hidden flex flex-col h-full transition-transform duration-300;
+  background: linear-gradient(180deg, var(--surface), var(--surface-2));
+  border:1px solid rgb(255 255 255 / 10%);
+  box-shadow: 0 10px 30px -18px rgb(12 24 40 / 80%);
+  position:relative;
+}
+.project-card::before{
+  /* soft spotlight follows hover center */
+  content:""; position:absolute; inset:-1px;
+  background: radial-gradient(600px 200px at var(--x,50%) var(--y,20%), rgb(102 224 255 / 10%), transparent 40%);
+  pointer-events:none; opacity:0; transition: opacity .2s;
+  border-radius:inherit;
+}
+.project-card::after{
+  /* animated border glow */
+  content:""; position:absolute; inset:0; border-radius:inherit; padding:1px; pointer-events:none;
+  background: linear-gradient(90deg, #66e0ff, #7c4dff, #ff4d8a, #66e0ff);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  opacity:.0; transition:opacity .25s;
+}
+.project-card:hover{ transform: translateY(-6px); }
+.project-card:hover::before{ opacity:1; }
+.project-card:hover::after{ opacity:.35; }
+
+.inner-card{ @apply p-4 rounded-xl flex flex-col flex-grow; background:transparent; }
+.project-title{ @apply text-xl font-semibold text-white mb-2; }
+.project-description{ color:var(--text-soft); }
+.project-tags{ @apply flex flex-wrap gap-2 mb-2; }
+.project-tag{
+  @apply text-sm px-2 py-1 rounded-full;
+  background: rgb(255 255 255 / 10%); border:1px solid rgb(255 255 255 / 14%);
+  color:#e9f9ff;
+}
+.project-links{ @apply p-4 flex gap-4 mt-auto; }
+.project-link{ @apply flex items-center gap-2 text-white/90 transition-transform; }
+.project-link:hover{
+  color:#dff7ff;
+  text-shadow:0 0 16px rgb(102 224 255 / 35%);
+  transform: translateY(-2px);
 }
 
-.nav-logo-icon {
-  @apply hidden;
+/* =============================
+   SKILLS (no nested scroll locks)
+   ============================= */
+.skills-section{ min-height:100vh; }
+.skills-grid{ @apply grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4; }
+.skill-card,.certification-card{
+  @apply p-6 rounded-2xl text-center transition-transform duration-300;
+  background: linear-gradient(180deg, var(--surface), var(--surface-2));
+  border:1px solid rgb(255 255 255 / 10%);
+  box-shadow: 0 10px 24px -16px rgb(12 24 40 / 70%);
+}
+.skill-card:hover,.certification-card:hover{ transform: translateY(-8px); box-shadow:0 20px 40px -20px rgb(12 24 40 / 80%); }
+.skill-name,.certification-title{ @apply text-lg font-medium text-white; }
+.certification-details{ color:var(--text-dimmer); }
+
+/* =============================
+   ABOUT & CONTACT
+   ============================= */
+.about-text{ color:var(--text-soft); }
+.about-button{
+  @apply inline-flex items-center gap-2 px-4 py-2 rounded-2xl transition-all font-inter mt-auto self-start;
+  background: linear-gradient(180deg, #66e0ff, #3fbbe0);
+  color:#001017;
+  box-shadow:0 10px 28px -12px rgb(102 224 255 / 45%);
+}
+.about-button:hover{ transform:translateY(-2px); box-shadow:0 12px 30px -12px rgb(102 224 255 / 60%); }
+
+.contact-details{
+  @apply p-6 rounded-xl shadow-md mb-8;
+  background: linear-gradient(180deg, #121722, #0f1520);
+  border:1px solid rgb(255 255 255 / 10%);
+}
+.contact-link{ color:var(--text-soft); }
+.contact-link:hover{ color:#dff7ff; }
+
+/* =============================
+   FOOTER & MAIN
+   ============================= */
+.footer{ @apply text-center py-8 font-inter z-30 relative w-full; color:var(--text-dimmer); background-color: rgb(0 0 0 / 70%); }
+.main{ @apply min-h-screen bg-transparent text-white font-inter; overflow-x:hidden; position:relative; z-index:1; }
+
+/* =============================
+   ANIMATIONS & UTILITIES
+   ============================= */
+@keyframes floatParticle{
+  0%{ transform:translate(0,0) rotate(0); opacity:.45 }
+  50%{ transform:translate(22vw,18vh) rotate(180deg); opacity:.25 }
+  100%{ transform:translate(44vw,36vh) rotate(360deg); opacity:.45 }
+}
+@keyframes floatLeaf{
+  0%{ transform:translate(0,0) rotate(0) scale(1); opacity:.65 }
+  50%{ transform:translate(14vw,12vh) rotate(110deg) scale(1.1); opacity:.45 }
+  100%{ transform:translate(28vw,24vh) rotate(220deg) scale(1); opacity:.65 }
+}
+@keyframes floatDust{
+  0%{ transform:translate(0,0) scale(1); opacity:.7 }
+  50%{ transform:translate(18vw,16vh) scale(.85); opacity:.52 }
+  100%{ transform:translate(36vw,32vh) scale(1); opacity:.7 }
+}
+@keyframes aurora{ to{ transform: translateX(-6%) rotate(1deg); } }
+@keyframes shimmer{ 0%{ background-position:0% 50%; } 100%{ background-position:200% 50%; } }
+@keyframes pulse{ 0%,100%{ filter:saturate(100%); } 50%{ filter:saturate(140%); } }
+@keyframes hue{ 0%{ filter:hue-rotate(0deg); } 100%{ filter:hue-rotate(18deg); } }
+
+/* Scrollbar tint */
+*::-webkit-scrollbar{ width:10px; height:10px; }
+*::-webkit-scrollbar-thumb{ background: linear-gradient(180deg, #66e0ff, #7c4dff); border-radius:999px; }
+*::-webkit-scrollbar-track{ background: transparent; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .header,.page-section,.hero-button,.project-card,.portfolio-figure,
+  .background-particle,.leaf-particle,.dust-particle,.background-animation::after,
+  .reveal{ transition:none !important; animation:none !important; }
 }
 
-.nav-links {
-  @apply flex flex-grow gap-5 flex-col gap-2;
+
+/* Guts Dragonslayer cursor */
+/* body {
+  cursor: url('/cursors/guts-sword.png') 10 10, auto;
+} */
+
+/* body {
+  cursor: none; /* Hide normal system cursor 
+/* Custom glowing red Berserk Brand cursor */
+/* .berserk-cursor {
+  width: 24px;
+  height: 24px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  background: url('/cursors/brand-of-sacrifice.png') center/contain no-repeat;
+  filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.8));
+  animation: pulse-glow 1.5s infinite alternate;
 }
 
-.nav-link {
-  @apply text-white hover:text-red-300 transition-colors py-1;
+@keyframes pulse-glow {
+  from { filter: drop-shadow(0 0 4px rgba(255, 0, 0, 0.6)); }
+  to { filter: drop-shadow(0 0 12px rgba(255, 0, 0, 1)); }
+} */
+
+/* ===== Custom Cursor Base ===== */
+.cursor-root{
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
 }
 
-.nav-icons {
-  @apply flex flex-row  gap-4;
+/* Hide on touch screens (optional) */
+@media (pointer: coarse) {
+  .cursor-root { display: none; }
+  body { cursor: auto !important; }
 }
 
-.page-section {
-  @apply relative ml-0 transition-all duration-300 z-20;
-  &.sidebar-open {
-    @apply ml-48;
-  }
+/* ===== Sword Cursor ===== */
+/* ===== Sword Cursor (sway + slash) ===== */
+.sword-cursor{
+  width: 54px; height: 54px;
+  background: center / contain no-repeat;
+  filter:
+    drop-shadow(0 0 8px rgba(255,255,255,.18))
+    drop-shadow(0 0 14px rgba(255,0,0,.15));
+  transform: translate(-14px, -8px) rotate(-18deg);
+  will-change: transform, filter;
+  animation: swordSway 2.2s ease-in-out infinite;
 }
 
-.background-animation {
-  @apply absolute inset-0 z-0 overflow-y-auto;
-  height: 100vh;
-  background: linear-gradient(to bottom right, #8b0000, #000000); /* Red-Black theme */
-  position: relative; /* Ensure particles are positioned relative to this container */
+/* gentle idle sway */
+@keyframes swordSway {
+  0%   { transform: translate(-14px, -8px) rotate(-18deg); }
+  50%  { transform: translate(-14px, -8px) rotate(-12deg); }
+  100% { transform: translate(-14px, -8px) rotate(-18deg); }
 }
 
-/* Multiple background particles with varied starting positions and delays */
-.background-particle {
-  @apply absolute opacity-50;
-  animation: floatParticle 15s infinite linear, changeColor 3s infinite;
+/* quick slash on click */
+.sword-cursor.attack{
+  animation: swordSlash 0.18s ease-out forwards;
+  filter:
+    drop-shadow(0 0 10px rgba(61, 6, 6, 0.811))
+    drop-shadow(0 0 20px rgba(255,60,60,.35));
 }
 
-.background-particle:nth-child(1) {
-  left: 10%;
-  top: 20%;
-  animation-delay: 0s;
+@keyframes swordSlash {
+  0%   { transform: translate(-14px, -8px) rotate(-12deg) scale(1); }
+  100% { transform: translate(-10px, -12px) rotate(-50deg) scale(1.05); }
 }
 
-.background-particle:nth-child(2) {
-  left: 30%;
-  top: 40%;
-  animation-delay: 2s;
+
+/* ===== Brand Cursor (glow + pulse + blood drip) ===== */
+/* ===== Brand Cursor (glow + pulse + blood drip + tilt) ===== */
+.brand-cursor{
+  width: 66px; height: 66px;
+  /* base transform includes tilt; animations will also include this tilt */
+  transform: translate(-50%, -50%) rotate(var(--brand-tilt));
+  filter:
+    drop-shadow(0 0 8px rgba(255,0,0,.7))
+    drop-shadow(0 0 24px rgba(255,0,0,.5))
+    drop-shadow(0 0 32px rgba(255,0,0,.35));
+  will-change: transform, filter;
+  animation: brandPulse 1.6s ease-in-out infinite;
 }
 
-.background-particle:nth-child(3) {
+/* ===== Animations ===== */
+@keyframes brandPulse {
+  0%   { transform: translate(-50%, -50%) rotate(var(--brand-tilt)) scale(0.98);
+         filter: drop-shadow(0 0 6px rgba(255,0,0,.6)) drop-shadow(0 0 14px rgba(255,0,0,.45)) drop-shadow(0 0 22px rgba(255,0,0,.3)); }
+  50%  { transform: translate(-50%, -50%) rotate(var(--brand-tilt)) scale(1.04);
+         filter: drop-shadow(0 0 10px rgba(255,0,0,.9)) drop-shadow(0 0 20px rgba(255,0,0,.6)) drop-shadow(0 0 32px rgba(255,0,0,.45)); }
+  100% { transform: translate(-50%, -50%) rotate(var(--brand-tilt)) scale(0.98);
+         filter: drop-shadow(0 0 6px rgba(255,0,0,.6)) drop-shadow(0 0 14px rgba(255,0,0,.45)) drop-shadow(0 0 22px rgba(255,0,0,.3)); }
+}
+
+
+/* the symbol image */
+.brand-cursor .brand-core{
+  width: 100%; height: 100%;
+  background: center / contain no-repeat;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* blood drips */
+.brand-cursor .drip{
+  position: absolute;
   left: 50%;
-  top: 60%;
-  animation-delay: 4s;
+  width: 4px; height: 4px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 35%, #ff3b3b, #a10000 70%);
+  box-shadow:
+    0 0 8px rgba(255,0,0,.6),
+    0 0 18px rgba(255,0,0,.35);
+  transform: translateX(-50%);
+  opacity: .85;
 }
 
-.background-particle:nth-child(4) {
-  left: 70%;
-  top: 80%;
-  animation-delay: 6s;
+/* two different drip paths */
+.brand-cursor .drip-a{
+  top: 26px;
+  animation: dripA 1.8s ease-in infinite;
+}
+.brand-cursor .drip-b{
+  top: 28px;
+  animation: dripB 2.2s ease-in infinite .3s;
 }
 
-.background-particle:nth-child(5) {
-  left: 90%;
-  top: 10%;
-  animation-delay: 8s;
+
+/* blood drip trajectories */
+@keyframes dripA {
+  0%   { transform: translate(-50%, 0) scale(1); opacity: .95; }
+  65%  { transform: translate(-50%, 16px) scale(1.15); opacity: .85; }
+  100% { transform: translate(-50%, 22px) scale(0.9); opacity: 0; }
+}
+@keyframes dripB {
+  0%   { transform: translate(-50%, 0) scale(0.9); opacity: .9; }
+  55%  { transform: translate(-50%, 14px) scale(1.1); opacity: .82; }
+  100% { transform: translate(-50%, 24px) scale(0.85); opacity: 0; }
 }
 
-/* Leaf particles with varied animation */
-.leaf-particle {
-  @apply w-6 h-8 bg-transparent;
-  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+/* On-click animation: vibration + pulse */
+.brand-clicked {
+  animation: brandClickEffect 0.3s ease-in-out;
+}
+
+@keyframes brandClickEffect {
+  0%   { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  25%  { transform: translate(-48%, -52%) scale(1.1) rotate(-3deg); }
+  50%  { transform: translate(-50%, -50%) scale(1.15) rotate(3deg); }
+  75%  { transform: translate(-52%, -48%) scale(1.1) rotate(-2deg); }
+  100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+}
+
+.brand-clicked::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,0,0,0.5) 0%, transparent 70%);
+  animation: shockwave 0.4s ease-out;
+}
+
+@keyframes shockwave {
+  from { transform: scale(0.6); opacity: 0.8; }
+  to   { transform: scale(1.8); opacity: 0; }
+}
+
+/* ===== Hide system cursor everywhere (desktop only) ===== */
+@media (pointer: fine) {
+  html, body, body * {
+    cursor: none !important;
+  }
+  /* Keep text caret visible in inputs/textareas (optional) */
+  input, textarea, [contenteditable="true"] {
+    cursor: text !important;
+  }
+}
+
+/* If you want the caret hidden as well, comment the block above ^^ */
+
+/* Make sure our custom cursor never blocks clicks */
+.cursor-root { pointer-events: none !important; }
+
+/* Common interactive elements — ensure no hand pointer shows */
+a, button, [role="button"], .toggle-icon,
+.nav-link, .project-link, .hero-button, .about-button, .form-button {
+  cursor: none !important;
+}
+
+/* On touch devices, restore normal cursor/behavior */
+@media (pointer: coarse) {
+  .cursor-root { display: none !important; }
+  html, body, body * { cursor: auto !important; }
+}
+
+/* /* =========================
+   BLACK CLOVER — ANTI-MAGIC
+   ========================= */
+
+/* turn on/off with .anti-on on .brand-cursor container */
+/* .brand-cursor.anti-on {
+  /* a cooler, darker overall glow */
+  /* filter:
+    drop-shadow(0 0 8px rgba(140, 0, 255, .30))
+    drop-shadow(0 0 16px rgba(80, 0, 120, .45))
+    drop-shadow(0 0 26px rgba(0, 0, 0, .55));
+} */ 
+
+/* swirling dark ring */
+/* .brand-cursor.anti-on .anti-ring{
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background:
+    radial-gradient(closest-side, rgba(120,0,200,.25), rgba(0,0,0,0) 70%),
+    conic-gradient(from 0deg,
+      rgba(160,0,255,.2),
+      rgba(0,0,0,0) 180deg,
+      rgba(160,0,255,.2),
+      rgba(0,0,0,0));
+  filter: blur(6px);
+  animation: antiRingSpin 3.4s linear infinite;
+  opacity: .9;
+} */
+/* 
+@keyframes antiRingSpin {
+  to { transform: rotate(360deg); }
+} */
+/* 
+shadowy wisps rotating counter to ring */
+/* .brand-cursor.anti-on .anti-wisp{
+  position: absolute; inset: -2px;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(8px) brightness(1.1);
+  opacity: .85;
+  mix-blend-mode: screen;
+  background:
+    radial-gradient(40% 60% at 30% 50%, rgba(80,0,120,.2), transparent 60%),
+    radial-gradient(50% 40% at 70% 50%, rgba(160,0,255,.18), transparent 60%);
+}
+.brand-cursor.anti-on .anti-wisp.w1 { animation: antiWispSpin 5.4s linear infinite reverse; }
+.brand-cursor.anti-on .anti-wisp.w2 { animation: antiWispSpin 6.2s linear infinite;     }
+
+@keyframes antiWispSpin {
+  0%   { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(1.06); }
+  100% { transform: rotate(360deg) scale(1); }
+} */
+
+/* purple-black crackle sparks that ping on/off */
+/* .brand-cursor.anti-on .anti-spark{
+  position: absolute;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,140,255,.85), rgba(120,0,255,.0) 70%);
+  box-shadow:
+    0 0 8px rgba(180,120,255,.6),
+    0 0 16px rgba(120,0,255,.35);
+  pointer-events: none;
+  animation: antiSpark 1.1s ease-in-out infinite;
+  opacity: .85;
+}
+.brand-cursor.anti-on .anti-spark.s1 { left: -4px; top: 6px;  animation-delay: .1s; }
+.brand-cursor.anti-on .anti-spark.s2 { right: -6px; top: -2px; animation-delay: .45s; }
+
+@keyframes antiSpark {
+  0%   { transform: scale(.6) translate(0,0);   opacity: .9; }
+  50%  { transform: scale(1.05) translate(2px,-2px); opacity: .6; }
+  100% { transform: scale(.7) translate(-1px,1px);   opacity: .85; }
+} */
+
+/* 🔥 On click, intensify anti-magic briefly */
+/* .brand-cursor.anti-on.brand-clicked {
+  filter:
+    drop-shadow(0 0 10px rgba(170, 80, 255, .55))
+    drop-shadow(0 0 22px rgba(120, 0, 255, .55))
+    drop-shadow(0 0 36px rgba(0, 0, 0, .65));
+} */
+ 
+
+/* =========================
+   SWORD — ANTI-MAGIC SWEEP
+   ========================= */
+
+/* make sword container relative for layering */
+.sword-cursor{
+  position: fixed; /* already from .cursor-root */
+  width: 56px; height: 56px;
+  transform: translate(-14px, -8px) rotate(-18deg);
+  filter: drop-shadow(0 0 8px rgba(220, 157, 10, 0.685)) drop-shadow(0 0 14px rgba(3, 15, 2, 0.663));
+  will-change: transform, filter;
+  animation: swordSway 2.2s ease-in-out infinite;
+}
+.sword-cursor .sword-blade{
+  position: absolute; inset: 0;
+  background: center / contain no-repeat;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Flame streaks behind the blade */
+.sword-cursor .slash-flame{
+  position: absolute;
+  left: 8px; top: 16px;             /* origin near mid-back of blade */
+  width: 64px; height: 24px;
+  border-radius: 999px;
+  transform-origin: left center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;                        /* behind blade */
+  filter: blur(6px) brightness(1.05);
+  background:
+    radial-gradient(80% 140% at 20% 50%, rgba(9, 2, 2, 0.841), rgba(123, 13, 13, 0.7) 70%),
+    linear-gradient(90deg, rgba(93, 8, 8, 0.55), rgba(105, 11, 22, 0.682), rgba(0, 0, 0, 0.852), rgba(0,0,0,0));
+}
+.sword-cursor .slash-flame.f1{ transform: rotate(-8deg) scaleX(.4); }
+.sword-cursor .slash-flame.f2{ transform: rotate(-14deg) scaleX(.35) translateY(-6px); }
+
+/* Crackle sparks that pop during slash */
+.sword-cursor .slash-spark{
+  position: absolute;
+  width: 10px; height: 10px; border-radius: 50%;
+  pointer-events: none;
+  opacity: 0; z-index: 3;           /* above blade */
+  background: radial-gradient(circle, rgba(13, 3, 3, 0.9), rgba(120,0,255,0) 70%);
+  box-shadow: 0 0 10px rgba(119, 3, 3, 0.704), 0 0 20px rgba(206, 13, 13, 0.35);
+}
+.sword-cursor .slash-spark.s1{ left: -4px; top: 6px; }
+.sword-cursor .slash-spark.s2{ right: -2px; top: -4px; }
+
+/* When clicking: run sweep & sparks */
+.sword-cursor.attack .slash-flame.f1{ animation: flameSweep 0.22s ease-out forwards; }
+.sword-cursor.attack .slash-flame.f2{ animation: flameSweep 0.22s ease-out .02s forwards; }
+.sword-cursor.attack .slash-spark.s1 { animation: sparkPop 0.22s ease-out forwards; }
+.sword-cursor.attack .slash-spark.s2 { animation: sparkPop 0.22s ease-out .04s forwards; }
+
+/* idle sway (already present; keep) */
+@keyframes swordSway {
+  0%   { transform: translate(-14px, -8px) rotate(-18deg); }
+  50%  { transform: translate(-14px, -8px) rotate(-12deg); }
+  100% { transform: translate(-14px, -8px) rotate(-18deg); }
+}
+
+/* fast directional sweep */
+@keyframes flameSweep {
+  0%   { opacity: 0; transform: translateX(-4px) rotate(-8deg) scaleX(.2) scaleY(.9); }
+  45%  { opacity: .95; transform: translateX(18px) rotate(-18deg) scaleX(1.1) scaleY(1.05); }
+  100% { opacity: 0; transform: translateX(36px) rotate(-30deg) scaleX(1.4) scaleY(.9); }
+}
+
+/* spark pop */
+@keyframes sparkPop {
+  0%   { opacity: 0; transform: translate(0,0) scale(.6); }
+  40%  { opacity: 1; transform: translate(3px,-3px) scale(1.1); }
+  100% { opacity: 0; transform: translate(8px,-10px) scale(.9); }
+}
+
+.sword-cursor.attack { animation: swordSlash 0.18s ease-out forwards, swordShake 0.12s ease-out; }
+
+@keyframes swordSlash {
+  0%   { transform: translate(-14px, -8px) rotate(-12deg) scale(1); }
+  100% { transform: translate(-10px, -12px) rotate(-50deg) scale(1.06); }
+}
+@keyframes swordShake {
+  0%,100% { filter: drop-shadow(0 0 8px rgba(255,255,255,.28)) drop-shadow(0 0 20px rgba(255,60,60,.35)); }
+  50%     { filter: drop-shadow(0 0 12px rgba(255,255,255,.35)) drop-shadow(0 0 26px rgba(255,60,120,.45)); }
+}
+
+/* ==============================
+   SWORD — velocity trail (fast)
+   ============================== */
+
+/* base container already defined in your .sword-cursor rules */
+.sword-cursor .trail{
+  position: absolute;
+  left: -6px; top: 12px;           /* behind/left of blade */
+  width: 70px; height: 26px;
+  border-radius: 999px;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 1;                       /* behind blade */
+  transform-origin: left center;
+  filter: blur(8px) brightness(1.05) saturate(120%);
+  background:
+    radial-gradient(90% 150% at 50% 50%, rgba(145, 96, 5, 0.847), rgba(0,0,0,0) 70%),
+    linear-gradient(90deg, rgba(153, 111, 6, 0.873), rgba(0, 0, 0, 0.736), rgba(10, 2, 2, 0.653), rgba(0,0,0,0));
+}
+
+.sword-cursor .trail.t1 { transform: rotate(-10deg) scaleX(.45); }
+.sword-cursor .trail.t2 { transform: rotate(-16deg) scaleX(.40) translateY(-6px); opacity: .9; }
+.sword-cursor .trail.t3 { transform: rotate(-22deg) scaleX(.35) translateY(-10px); opacity: .8; }
+
+/* when speed threshold hit in JS: briefly show trails */
+.sword-cursor.fast .trail {
+  animation: trailSweep 0.28s ease-out;
+  opacity: 1;
+}
+
+@keyframes trailSweep {
+  0%   { opacity: 0; transform: translateX(-8px) rotate(-10deg) scaleX(.25); }
+  50%  { opacity: 1; transform: translateX(18px) rotate(-18deg) scaleX(1);   }
+  100% { opacity: 0; transform: translateX(40px) rotate(-26deg) scaleX(1.2); }
+}
+
+
+/* ===========================================
+   SCREEN-CRACK / FRACTURE AT CLICK POSITION
+   =========================================== */
+:root{
+  /* tune fracture tones */
+  --fx-core: rgba(255,255,255,0.95);
+  --fx-accent: rgba(102, 224, 255, 0.85); /* cyan glow to match theme */
+  --fx-shadow: rgba(12, 24, 40, 0.6);
+}
+
+.fracture{
+  position: fixed;
+  left: 0; top: 0;
+  transform: translate(-50%, -50%);
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0;
+}
+.fracture.go{ opacity: 1; }
+
+/* expanding shockwave ring */
+.fracture .fx-ring{
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 12px; height: 12px;
+  transform: translate(-50%, -50%) scale(0.2);
+  border-radius: 999px;
+  box-shadow:
+    0 0 0 2px var(--fx-core),
+    0 0 14px var(--fx-accent),
+    0 0 26px var(--fx-shadow);
+  opacity: .9;
+  transition: transform .5s cubic-bezier(.2,.9,.2,1), opacity .5s ease-out;
+}
+.fracture.go .fx-ring{
+  transform: translate(-50%, -50%) scale(5.5);
+  opacity: 0;
+}
+
+/* radial hairline cracks */
+.fracture .fx-crack{
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 2px; height: 0;
+  transform-origin: top center;
+  transform: translateX(-50%) translateY(-50%) rotate(var(--rot, 0deg));
+  background: linear-gradient(to bottom, var(--fx-core), rgba(255,255,255,0));
+  box-shadow:
+    0 0 6px var(--fx-accent),
+    0 2px 10px var(--fx-shadow);
+  border-radius: 1px;
+  opacity: .95;
+  animation: crackGrow .45s cubic-bezier(.25,.9,.25,1) forwards;
+  animation-delay: var(--delay, 0s);
+  filter: drop-shadow(0 0 6px rgba(102, 224, 255, .25));
+}
+@keyframes crackGrow{
+  0%   { height: 0;   opacity: 1; }
+  60%  { height: var(--len, 80px); opacity: .9; }
+  100% { height: var(--len, 80px); opacity: 0; }
+}
+
+/* tiny shards popping out */
+.fracture .fx-shard{
+  position: absolute;
+  left: 50%; top: 50%;
+  width: var(--sz, 3px); height: var(--sz, 3px);
   transform-origin: center;
-  animation: floatLeaf 12s infinite ease-in-out, changeColor 3s infinite;
-}
-
-.leaf-particle:nth-child(6) {
-  left: 15%;
-  top: 30%;
-  animation-delay: 1s;
-}
-
-.leaf-particle:nth-child(7) {
-  left: 35%;
-  top: 50%;
-  animation-delay: 3s;
-}
-
-.leaf-particle:nth-child(8) {
-  left: 65%;
-  top: 70%;
-  animation-delay: 5s;
-}
-
-/* Dust particles with varied animation */
-.dust-particle {
-  @apply w-4 h-4 rounded-full bg-transparent;
-  animation: floatDust 10s infinite linear, changeColor 3s infinite;
-}
-
-.dust-particle:nth-child(9) {
-  left: 20%;
-  top: 10%;
-  animation-delay: 0.5s;
-}
-
-.dust-particle:nth-child(10) {
-  left: 40%;
-  top: 25%;
-  animation-delay: 2.5s;
-}
-
-.dust-particle:nth-child(11) {
-  left: 60%;
-  top: 45%;
-  animation-delay: 4.5s;
-}
-
-@keyframes floatParticle {
-  0% {
-    transform: translate(0, 0) rotate(0deg);
-    opacity: 0.5;
-  }
-  50% {
-    transform: translate(25vw, 25vh) rotate(180deg);
-    opacity: 0.3;
-  }
-  100% {
-    transform: translate(50vw, 50vh) rotate(360deg);
-    opacity: 0.5;
-  }
-}
-
-@keyframes floatLeaf {
-  0% {
-    transform: translate(0, 0) rotate(0deg) scale(1);
-    opacity: 0.6;
-  }
-  50% {
-    transform: translate(15vw, 15vh) rotate(90deg) scale(1.2);
-    opacity: 0.4;
-  }
-  100% {
-    transform: translate(30vw, 30vh) rotate(180deg) scale(1);
-    opacity: 0.6;
-  }
-}
-
-@keyframes floatDust {
-  0% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0.7;
-  }
-  50% {
-    transform: translate(20vw, 20vh) scale(0.8);
-    opacity: 0.5;
-  }
-  100% {
-    transform: translate(40vw, 40vh) scale(1);
-    opacity: 0.7;
-  }
-}
-
-@keyframes changeColor {
-  0% { background: #ff0000; } /* Red */
-  33% { background: #ff4500; } /* OrangeRed */
-  66% { background: #ffd700; } /* Gold */
-  100% { background: #ff0000; } /* Back to Red */
-}
-
-.leaf-particle {
-  @apply w-6 h-8 bg-transparent;
-  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-  transform-origin: center;
-}
-
-.dust-particle {
-  @apply w-4 h-4 rounded-full bg-transparent;
-}
-
-.page-content {
-  @apply relative z-20 max-w-6xl mx-auto px-6 py-12;
-}
-
-.hero-content {
-  @apply relative z-20 flex items-center justify-center min-h-screen text-center text-white font-inter;
-}
-
-.hero-title {
-  @apply text-5xl md:text-7xl font-bold mb-6;
-}
-
-.hero-subtitle {
-  @apply mt-4 text-xl md:text-2xl max-w-2xl mx-auto;
-}
-
-.hero-button {
-  @apply mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-red-800 text-white font-semibold text-lg hover:bg-red-700 transition-colors;
-}
-
-.portfolio-section {
-  @apply max-w-6xl mx-auto px-6 py-12;
-}
-
-.section-title {
-  @apply text-3xl font-semibold text-left mb-8 font-inter text-white;
-}
-
-.portfolio-filters {
-  @apply flex flex-wrap gap-2 justify-center mb-8;
-}
-
-.filter-button {
-  @apply px-4 py-2 rounded-2xl border text-sm font-inter text-white;
-}
-
-.filter-button-active {
-  @apply bg-red-800 text-white;
-}
-
-.filter-button-inactive {
-  @apply bg-red-900 text-white;
-}
-
-.portfolio-grid {
-  @apply columns-1 sm:columns-2 md:columns-3 gap-4 space-y-4;
-}
-
-.portfolio-figure {
-  @apply break-inside-avoid rounded-2xl overflow-hidden bg-red-800 shadow;
-}
-
-.portfolio-image {
-  @apply w-full h-auto object-cover;
-}
-
-.portfolio-figcaption {
-  @apply px-4 py-3 text-sm text-white font-inter;
-}
-
-.projects-section {
-  @apply max-w-6xl mx-auto px-6 py-12;
-}
-
-.projects-grid {
-  @apply grid gap-6 sm:grid-cols-2 lg:grid-cols-3;
-}
-
-.project-card {
-  @apply rounded-2xl overflow-hidden bg-red-800 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col h-full;
-}
-
-.inner-card {
-  @apply bg-red-900 p-4 rounded-xl flex flex-col flex-grow;
-}
-
-.project-content {
-  @apply p-6;
-}
-
-.project-title {
-  @apply text-xl font-semibold text-white mb-2;
-}
-
-.project-description {
-  @apply text-gray-200 text-base leading-relaxed mb-4;
-}
-
-.project-tags {
-  @apply flex flex-wrap gap-2 mb-2;
-}
-
-.project-tag {
-  @apply text-sm bg-gray-700 text-white px-2 py-1 rounded-full;
-}
-
-.project-links {
-  @apply p-4 flex gap-4 mt-auto;
-}
-
-.project-link {
-  @apply flex items-center gap-2 text-white hover:text-red-300 transition-colors text-sm;
-}
-
-.skills-section {
-  @apply max-w-6xl mx-auto px-6 py-32 z-20;
-  min-height: 100vh;
-  overflow-y: auto;
-}
-
-.skills-grid {
-  @apply grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 overflow-y-auto;
-  height: auto;
-  @apply z-20;
-}
-
-.skill-card {
-  @apply p-6 rounded-2xl bg-red-800 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 font-inter text-center;
-}
-
-.skill-icon {
-  @apply w-6 h-6 inline-block mr-2 text-white;
-}
-
-.skill-name {
-  @apply text-lg font-medium text-white;
-}
-
-.certification-card {
-  @apply p-6 rounded-2xl bg-red-800 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 font-inter text-center;
-}
-
-.certification-title {
-  @apply text-lg font-medium text-white mb-1;
-}
-
-.certification-details {
-  @apply text-sm text-gray-200;
-}
-
-.category-header {
-  @apply flex items-center mb-2 ml-4;
-}
-
-.category-header-left {
-  @apply flex items-center mb-2 ml-4;
-}
-
-.category-header-center {
-  @apply flex items-center justify-center mb-2 ml-4;
-}
-
-.about-section {
-  @apply max-w-5xl mx-auto px-6 py-12;
-}
-
-.about-content {
-  @apply flex flex-col h-full justify-between;
-}
-
-.about-text {
-  @apply text-gray-200 leading-7 flex-1 font-inter;
-}
-
-.about-button {
-  @apply inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-red-800 text-white hover:bg-red-700 transition-colors font-inter mt-auto self-start;
-}
-
-.contact-section {
-  @apply max-w-4xl mx-auto px-6 py-12;
-}
-
-.contact-details {
-  @apply bg-red-900 p-6 rounded-xl shadow-md mb-8;
-}
-
-.contact-item {
-  @apply flex items-center gap-4 mb-4 last:mb-0;
-}
-
-.contact-icon {
-  @apply w-6 h-6 text-white transition-transform duration-300;
-}
-
-.contact-link {
-  @apply text-gray-200 hover:text-red-300 transition-colors hover:underline;
-}
-
-.contact-form {
-  @apply space-y-4;
-}
-
-.form-label {
-  @apply block text-sm font-medium font-inter text-white;
-}
-
-.form-input {
-  @apply w-full rounded-xl border border-gray-600 px-3 py-2 bg-red-900 text-white font-inter;
-}
-
-.form-textarea {
-  @apply w-full rounded-xl border border-gray-600 px-3 py-2 bg-red-900 text-white font-inter;
-}
-
-.form-button {
-  @apply inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-red-800 text-white hover:bg-red-700 transition-colors font-inter;
-}
-
-.footer {
-  @apply text-center py-8 text-gray-200 font-inter z-30;
-  position: relative;
-  background-color: rgba(0, 0, 0, 0.8);
-  width: 100%;
-  bottom: 0;
-}
-.main {
-  @apply min-h-screen bg-transparent text-white font-inter;
-  overflow-x: hidden;
+  transform: translate(-50%, -50%) rotate(var(--ang, 0deg)) translateY(0) scale(1);
+  border-radius: 1px;
+  background: var(--fx-core);
+  box-shadow:
+    0 0 10px var(--fx-accent),
+    0 0 20px rgba(102, 224, 255, .25);
+  opacity: .95;
+  animation: shardFly .6s ease-out forwards;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes shardFly{
+  0%   { transform: translate(-50%, -50%) rotate(var(--ang)) translateY(0)      scale(1);   opacity: 1; }
+  100% { transform: translate(-50%, -50%) rotate(var(--ang)) translateY(var(--dist)) scale(.7); opacity: 0; }
 }

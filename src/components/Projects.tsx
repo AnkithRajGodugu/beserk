@@ -617,10 +617,141 @@
 
 
 
+// import React from "react";
+// import { motion } from "framer-motion";
+// //import { LazyLoadImage } from "react-lazy-load-image-component";
+// import { Github } from "lucide-react";
+// import { Helmet } from "react-helmet-async";
+
+// interface Project {
+//   title: string;
+//   description: string;
+//   tags: string[];
+//   links: {
+//     github?: string;
+//     demo?: string;
+//   };
+// }
+
+// const projects: Project[] = [
+//   {
+//     title: "Auction Platform",
+//     description: "Online Auction Platform with React and ExpressJS Framework. The platform will allow sellers to list products and buyers to place bids, all while providing secure payments, user-friendly interfaces, and scalable performance.",
+//     tags: ["React", "ExpressJS", "JavaScript", "NodeJS"],
+//     links: { 
+//       github: "https://github.com/ankithrajgodugu/Auction",
+//       demo: "https://auction-vrv8-rose.vercel.app" 
+//     },
+//   },
+//   {
+//     title: "Stock Market Prediction Using Machine Learning",
+//     description: "The challenge of this project is to accurately predict the future closing value of a given stock across a given period of time in the future. For this project I have used a Long Short Term Memory networks – usually just “LSTMs” to predict the closing price.",
+//     tags: ["Python", "Machine Learning", "LSTM", "Keras", "TensorFlow"],
+//     links: { 
+//       github: "https://github.com/AnkithRajGodugu/Stock-Market-Perdiction"
+//     },
+//   },
+//   {
+//     title: "ANN for Solar Still Performance",
+//     description: "Artificial Neural Network predicting desalination output.",
+//     tags: ["Python", "ANN", "NumPy"],
+//     links: { github: "https://github.com/coriuday/solar-still-predictor" },
+//   },
+//   {
+//     title: "Self-Hosted Cloud Storage Server (Nextcloud)",
+//     description: "I built a secure, self-hosted cloud storage solution using Nextcloud on an Ubuntu virtual machine. This project demonstrates hands-on experience in cloud infrastructure, server administration, and secure multi-user system deployment.",
+//     tags: ["Nextcloud", "Ubuntu", "Cloud Infrastructure", "Server Administration"],
+//     links: { 
+//       demo: "https://vault.ankithtech.xyz/" // Placeholder; replace with actual repo if available
+//     },
+//   },
+// ];
+
+// const Projects: React.FC = () => (
+//   <section id="projects" className="page-section">
+//     <Helmet>
+//       <title>Ankith Raj Godugu - Projects</title>
+//       <meta
+//         name="description"
+//         content="Explore the software projects of Ankith Raj Godugu, including web development, machine learning, and cloud solutions."
+//       />
+//     </Helmet>
+//     <div className="page-overlay" />
+//     <div className="page-content">
+//       <motion.h2
+//         className="section-title"
+//         initial={{ opacity: 0, y: 20, rotate: -5 }}
+//         animate={{ opacity: 1, y: 0, rotate: 0 }}
+//         transition={{ type: "spring", stiffness: 100, damping: 10, duration: 1 }}
+//       >
+//         Projects
+//       </motion.h2>
+//       <div className="projects-grid">
+//         {projects.map((project, index) => (
+//           <motion.div
+//             key={`${project.title}-${index}`}
+//             className="project-card"
+//             initial={{ opacity: 0, y: 50, scale: 0.9 }}
+//             whileInView={{ opacity: 1, y: 0, scale: 1 }}
+//             viewport={{ once: true }}
+//             transition={{ duration: 0.6, delay: index * 0.2, type: "tween" }}
+//             whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
+//           >
+//             <motion.div
+//               className="inner-card bg-red-900 p-4 rounded-xl flex flex-col flex-grow"
+//               initial={{ opacity: 0, y: 30 }}
+//               animate={{ opacity: 1, y: 0 }}
+//               transition={{ duration: 0.5, delay: index * 0.2 + 0.1 }}
+//             >
+//               <h3 className="project-title">{project.title}</h3>
+//               <p className="project-description text-sm mb-4">{project.description}</p>
+//               <hr className="border-gray-600 my-4" />
+//               <div className="project-tags">
+//                 {project.tags.map((tag) => (
+//                   <span key={tag} className="project-tag">{tag}</span>
+//                 ))}
+//               </div>
+//             </motion.div>
+//             <div className="project-links mt-auto p-4">
+//               <motion.a
+//                 href={project.links.github}
+//                 target="_blank"
+//                 rel="noreferrer"
+//                 className="project-link"
+//                 whileHover={{ scale: 1.1, color: "#ff4500" }}
+//                 transition={{ duration: 0.3 }}
+//               >
+//                 <Github className="w-5 h-5" /> GitHub
+//               </motion.a>
+//               {project.links.demo && (
+//                 <motion.a
+//                   href={project.links.demo}
+//                   target="_blank"
+//                   rel="noreferrer"
+//                   className="project-link"
+//                   whileHover={{ scale: 1.1, color: "#ff4500" }}
+//                   transition={{ duration: 0.3 }}
+//                 >
+//                   Demo
+//                 </motion.a>
+//               )}
+//             </div>
+//           </motion.div>
+//         ))}
+//       </div>
+//     </div>
+//   </section>
+// );
+
+// export default Projects;
+
+
+
+
+// src/components/Projects.tsx
 import React from "react";
 import { motion } from "framer-motion";
-//import { LazyLoadImage } from "react-lazy-load-image-component";
-import { Github } from "lucide-react";
+import { Github, ExternalLink } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 
 interface Project {
@@ -636,36 +767,60 @@ interface Project {
 const projects: Project[] = [
   {
     title: "Auction Platform",
-    description: "Online Auction Platform with React and ExpressJS Framework. The platform will allow sellers to list products and buyers to place bids, all while providing secure payments, user-friendly interfaces, and scalable performance.",
+    description:
+      "Online Auction Platform with React and ExpressJS. Sellers list products; buyers place bids with secure flows and scalable performance.",
     tags: ["React", "ExpressJS", "JavaScript", "NodeJS"],
-    links: { 
+    links: {
       github: "https://github.com/ankithrajgodugu/Auction",
-      demo: "https://auction-vrv8-rose.vercel.app" 
+      demo: "https://auction-vrv8-rose.vercel.app",
     },
   },
   {
     title: "Stock Market Prediction Using Machine Learning",
-    description: "The challenge of this project is to accurately predict the future closing value of a given stock across a given period of time in the future. For this project I have used a Long Short Term Memory networks – usually just “LSTMs” to predict the closing price.",
+    description:
+      "Predicts future closing prices using LSTM networks (Keras/TensorFlow). Trains on historical data; evaluates with MAE/RMSE.",
     tags: ["Python", "Machine Learning", "LSTM", "Keras", "TensorFlow"],
-    links: { 
-      github: "https://github.com/AnkithRajGodugu/Stock-Market-Perdiction"
+    links: {
+      github: "https://github.com/AnkithRajGodugu/Stock-Market-Perdiction",
     },
   },
   {
     title: "ANN for Solar Still Performance",
-    description: "Artificial Neural Network predicting desalination output.",
+    description:
+      "Artificial Neural Network predicting desalination output from environmental inputs.",
     tags: ["Python", "ANN", "NumPy"],
-    links: { github: "https://github.com/coriuday/solar-still-predictor" },
+    links: {
+      github: "https://github.com/coriuday/solar-still-predictor",
+    },
   },
   {
     title: "Self-Hosted Cloud Storage Server (Nextcloud)",
-    description: "I built a secure, self-hosted cloud storage solution using Nextcloud on an Ubuntu virtual machine. This project demonstrates hands-on experience in cloud infrastructure, server administration, and secure multi-user system deployment.",
+    description:
+      "Secure, self-hosted cloud storage on Ubuntu VM. Includes reverse proxy, SSL/TLS, multi-user, and backup policies.",
     tags: ["Nextcloud", "Ubuntu", "Cloud Infrastructure", "Server Administration"],
-    links: { 
-      demo: "https://vault.ankithtech.xyz/" // Placeholder; replace with actual repo if available
+    links: {
+      demo: "https://vault.ankithtech.xyz/",
     },
   },
 ];
+
+const container = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15, delayChildren: 0.1 },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 24, scale: 0.98 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+  },
+};
 
 const Projects: React.FC = () => (
   <section id="projects" className="page-section">
@@ -673,72 +828,70 @@ const Projects: React.FC = () => (
       <title>Ankith Raj Godugu - Projects</title>
       <meta
         name="description"
-        content="Explore the software projects of Ankith Raj Godugu, including web development, machine learning, and cloud solutions."
+        content="Explore projects by Ankith Raj Godugu: web development, machine learning, and cloud infrastructure."
       />
     </Helmet>
-    <div className="page-overlay" />
+
     <div className="page-content">
       <motion.h2
         className="section-title"
-        initial={{ opacity: 0, y: 20, rotate: -5 }}
-        animate={{ opacity: 1, y: 0, rotate: 0 }}
-        transition={{ type: "spring", stiffness: 100, damping: 10, duration: 1 }}
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       >
         Projects
       </motion.h2>
-      <div className="projects-grid">
-        {projects.map((project, index) => (
-          <motion.div
-            key={`${project.title}-${index}`}
-            className="project-card"
-            initial={{ opacity: 0, y: 50, scale: 0.9 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: index * 0.2, type: "tween" }}
-            whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
-          >
-            <motion.div
-              className="inner-card bg-red-900 p-4 rounded-xl flex flex-col flex-grow"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 + 0.1 }}
-            >
+
+      <motion.div
+        className="projects-grid"
+        variants={container}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
+        {projects.map((project) => (
+          <motion.article key={project.title} className="project-card" variants={item}>
+            <div className="inner-card">
               <h3 className="project-title">{project.title}</h3>
-              <p className="project-description text-sm mb-4">{project.description}</p>
-              <hr className="border-gray-600 my-4" />
+              <p className="project-description">{project.description}</p>
               <div className="project-tags">
-                {project.tags.map((tag) => (
-                  <span key={tag} className="project-tag">{tag}</span>
+                {project.tags.map((t) => (
+                  <span key={t} className="project-tag">
+                    {t}
+                  </span>
                 ))}
               </div>
-            </motion.div>
-            <div className="project-links mt-auto p-4">
-              <motion.a
-                href={project.links.github}
-                target="_blank"
-                rel="noreferrer"
-                className="project-link"
-                whileHover={{ scale: 1.1, color: "#ff4500" }}
-                transition={{ duration: 0.3 }}
-              >
-                <Github className="w-5 h-5" /> GitHub
-              </motion.a>
+            </div>
+
+            <div className="project-links">
+              {project.links.github && (
+                <motion.a
+                  href={project.links.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-link"
+                  aria-label={`Open GitHub repo: ${project.title}`}
+                  whileHover={{ scale: 1.06 }}
+                >
+                  <Github className="w-5 h-5" /> GitHub
+                </motion.a>
+              )}
               {project.links.demo && (
                 <motion.a
                   href={project.links.demo}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="project-link"
-                  whileHover={{ scale: 1.1, color: "#ff4500" }}
-                  transition={{ duration: 0.3 }}
+                  aria-label={`Open live demo: ${project.title}`}
+                  whileHover={{ scale: 1.06 }}
                 >
-                  Demo
+                  <ExternalLink className="w-5 h-5" /> Demo
                 </motion.a>
               )}
             </div>
-          </motion.div>
+          </motion.article>
         ))}
-      </div>
+      </motion.div>
     </div>
   </section>
 );
