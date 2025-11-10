@@ -401,6 +401,7 @@ const Home: React.FC = () => {
             variants={lineVariants}
           >
             Ankith Raj Godugu
+<<<<<<< HEAD
           </motion.h1>
 
           <motion.p
@@ -428,6 +429,15 @@ const Home: React.FC = () => {
               </Link>
             </motion.div>
           </div>
+=======
+          </motion.div>
+          <motion.div className="hero-subtitle mt-4" custom={1} variants={lineVariants} initial="hidden" animate="visible">
+            Computer Science student with experience in web development, AI modeling, and project management tools. Skilled in Java, Python, and cloud-based solutions; eager to contribute technical skills to real-world software challenges.
+          </motion.div>
+          <motion.a href="/about" className="hero-button mb-8" custom={2} variants={lineVariants} initial="hidden" animate="visible">
+            Learn More
+          </motion.a>
+>>>>>>> origin/main
         </div>
       </div>
     </section>
