@@ -749,10 +749,163 @@
 
 
 // src/components/Projects.tsx
+// import React from "react";
+// import { motion } from "framer-motion";
+// import { Github, ExternalLink } from "lucide-react";
+// import { Helmet } from "react-helmet-async";
+// import type { Variant } from "framer-motion";
+
+
+// interface Project {
+//   title: string;
+//   description: string;
+//   tags: string[];
+//   links: {
+//     github?: string;
+//     demo?: string;
+//   };
+// }
+
+// const projects: Project[] = [
+//   {
+//     title: "Auction Platform",
+//     description:
+//       "Online Auction Platform with React and ExpressJS. Sellers list products; buyers place bids with secure flows and scalable performance.",
+//     tags: ["React", "ExpressJS", "JavaScript", "NodeJS"],
+//     links: {
+//       github: "https://github.com/ankithrajgodugu/Auction",
+//       demo: "https://auction-vrv8-rose.vercel.app",
+//     },
+//   },
+//   {
+//     title: "Stock Market Prediction Using Machine Learning",
+//     description:
+//       "Predicts future closing prices using LSTM networks (Keras/TensorFlow). Trains on historical data; evaluates with MAE/RMSE.",
+//     tags: ["Python", "Machine Learning", "LSTM", "Keras", "TensorFlow"],
+//     links: {
+//       github: "https://github.com/AnkithRajGodugu/Stock-Market-Perdiction",
+//     },
+//   },
+//   {
+//     title: "ANN for Solar Still Performance",
+//     description:
+//       "Artificial Neural Network predicting desalination output from environmental inputs.",
+//     tags: ["Python", "ANN", "NumPy"],
+//     links: {
+//       github: "https://github.com/coriuday/solar-still-predictor",
+//     },
+//   },
+//   {
+//     title: "Self-Hosted Cloud Storage Server (Nextcloud)",
+//     description:
+//       "Secure, self-hosted cloud storage on Ubuntu VM. Includes reverse proxy, SSL/TLS, multi-user, and backup policies.",
+//     tags: ["Nextcloud", "Ubuntu", "Cloud Infrastructure", "Server Administration"],
+//     links: {
+//       demo: "https://vault.ankithtech.xyz/",
+//     },
+//   },
+// ];
+
+// const container = {
+//   hidden: { opacity: 0 },
+//   visible: {
+//     opacity: 1,
+//     transition: { staggerChildren: 0.15, delayChildren: 0.1 },
+//   },
+// };
+
+// const item = {
+//   hidden: { opacity: 0, y: 24, scale: 0.98 },
+//   visible: {
+//     opacity: 1,
+//     y: 0,
+//     scale: 1,
+//     transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+//   },
+// };
+
+// const Projects: React.FC = () => (
+//   <section id="projects" className="page-section">
+//     <Helmet>
+//       <title>Ankith Raj Godugu - Projects</title>
+//       <meta
+//         name="description"
+//         content="Explore projects by Ankith Raj Godugu: web development, machine learning, and cloud infrastructure."
+//       />
+//     </Helmet>
+
+//     <div className="page-content">
+//       <motion.h2
+//         className="section-title"
+//         initial={{ opacity: 0, y: 16 }}
+//         animate={{ opacity: 1, y: 0 }}
+//         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+//       >
+//         Projects
+//       </motion.h2>
+
+//       <motion.div
+//         className="projects-grid"
+//         variants={container}
+//         initial="hidden"
+//         whileInView="visible"
+//         viewport={{ once: true, amount: 0.2 }}
+//       >
+//         {projects.map((project) => (
+//           <motion.article key={project.title} className="project-card" variants={item}>
+//             <div className="inner-card">
+//               <h3 className="project-title">{project.title}</h3>
+//               <p className="project-description">{project.description}</p>
+//               <div className="project-tags">
+//                 {project.tags.map((t) => (
+//                   <span key={t} className="project-tag">
+//                     {t}
+//                   </span>
+//                 ))}
+//               </div>
+//             </div>
+
+//             <div className="project-links">
+//               {project.links.github && (
+//                 <motion.a
+//                   href={project.links.github}
+//                   target="_blank"
+//                   rel="noopener noreferrer"
+//                   className="project-link"
+//                   aria-label={`Open GitHub repo: ${project.title}`}
+//                   whileHover={{ scale: 1.06 }}
+//                 >
+//                   <Github className="w-5 h-5" /> GitHub
+//                 </motion.a>
+//               )}
+//               {project.links.demo && (
+//                 <motion.a
+//                   href={project.links.demo}
+//                   target="_blank"
+//                   rel="noopener noreferrer"
+//                   className="project-link"
+//                   aria-label={`Open live demo: ${project.title}`}
+//                   whileHover={{ scale: 1.06 }}
+//                 >
+//                   <ExternalLink className="w-5 h-5" /> Demo
+//                 </motion.a>
+//               )}
+//             </div>
+//           </motion.article>
+//         ))}
+//       </motion.div>
+//     </div>
+//   </section>
+// );
+
+// export default Projects;
+
+
 import React from "react";
 import { motion } from "framer-motion";
 import { Github, ExternalLink } from "lucide-react";
 import { Helmet } from "react-helmet-async";
+import type { Variants, Easing } from "framer-motion";
 
 interface Project {
   title: string;
@@ -804,7 +957,10 @@ const projects: Project[] = [
   },
 ];
 
-const container = {
+// custom easing — typed to satisfy framer-motion/TS
+const customEase: Easing = [0.22, 1, 0.36, 1];
+
+const container: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -812,13 +968,13 @@ const container = {
   },
 };
 
-const item = {
+const item: Variants = {
   hidden: { opacity: 0, y: 24, scale: 0.98 },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.45, ease: customEase },
   },
 };
 
@@ -837,7 +993,7 @@ const Projects: React.FC = () => (
         className="section-title"
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.5, ease: customEase }}
       >
         Projects
       </motion.h2>
@@ -850,7 +1006,13 @@ const Projects: React.FC = () => (
         viewport={{ once: true, amount: 0.2 }}
       >
         {projects.map((project) => (
-          <motion.article key={project.title} className="project-card" variants={item}>
+          <motion.article
+            key={project.title}
+            className="project-card"
+            variants={item}
+            tabIndex={0}
+            aria-label={`Project: ${project.title}`}
+          >
             <div className="inner-card">
               <h3 className="project-title">{project.title}</h3>
               <p className="project-description">{project.description}</p>
