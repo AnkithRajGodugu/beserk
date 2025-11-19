@@ -142,15 +142,18 @@ const AppContent: React.FC = () => {
         onToggleCursor={onToggleCursor}
       />
 
-      <main className={`main relative z-20 ${isSidebarOpen ? "sidebar-open" : ""}`}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/skills" element={<Skills />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </main>
+    <main className="main relative z-20">
+  <div className={`page-section ${isSidebarOpen ? "sidebar-open" : ""}`}>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/projects" element={<Projects />} />
+      <Route path="/skills" element={<Skills />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/contact" element={<Contact />} />
+    </Routes>
+  </div>
+</main>
+
 
       <footer className="footer relative z-20">© {new Date().getFullYear()} Ankith Raj Godugu</footer>
     </div>

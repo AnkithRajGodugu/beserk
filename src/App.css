@@ -1,480 +1,569 @@
-/* src/App.css — Cleaned, merged, copy-paste ready
-   Put rune SVGs in public/runes/:
-     /public/runes/rune1.svg ... rune6.svg
-     /public/runes/eclipse_sigil.svg
-*/
+/* -------------------------------------------------------------------------- */
+/*  App.css – Ember Gold (Optimized)                                          */
+/*  - Fully fixed runes (visible, animated, no layout overflow)               */
+/*  - Fixed cursor (always on top)                                            */
+/*  - Sidebar no longer shifts/scrolls layout                                 */
+/*  - BladeScene stays visible                                                 */
+/* -------------------------------------------------------------------------- */
 
-/* Tailwind directives (if using Tailwind PostCSS) */
+/* Tailwind */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* =============================
-   THEME — bright dark palette
-   ============================= */
-:root{
-  --bg:#0b0f14;
-  --surface:#121722;
-  --surface-2:#1a2030;
-  --accent:#66e0ff;
-  --accent-2:#7c4dff;
-  --hot:#ff4d8a;
-  --gold:#ffd166;
-  --text-soft:rgba(255,255,255,.82);
-  --text-dimmer:rgba(255,255,255,.65);
-  --ring:0 0 0 8px rgb(102 224 255 / 10%);
-  --brand-tilt: -20deg;
+/* THEME */
+:root {
+  --bg: #0b0f14;
+  --surface: #121722;
+  --surface-2: #161a21;
+  --accent: #ffd166;
+  --accent-2: #e0b24a;
+  --accent-muted: rgba(255,209,102,0.12);
+  --text-soft: rgba(255,255,255,.92);
+  --text-dimmer: rgba(255,255,255,.65);
+  --ring: 0 0 0 8px rgba(255,209,102,0.06);
+  --brand-tilt: -18deg;
+  --ui-radius: 14px;
 }
 
-/* base backgrounds */
-html,body{ background:var(--bg); }
-
-/* =============================
-   LAYOUT: Sidebar / Nav
-   ============================= */
-.header{
-  @apply fixed left-0 top-0 h-full z-50 w-56 p-4 transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)];
-  backdrop-filter: blur(10px);
-  background: linear-gradient(180deg, rgb(16 20 28 / 75%), rgb(10 12 18 / 75%));
-  border-right:1px solid rgb(255 255 255 / 10%);
-  box-shadow:10px 0 40px -20px rgb(0 0 0 / 50%);
-  transform:translateX(-100%);
-}
-.header.open{ transform:translateX(0); }
-
-.toggle-icon{
-  @apply fixed top-4 left-4 z-50 w-10 h-10 cursor-pointer rounded-full p-2 flex items-center justify-center shadow-lg transition-transform duration-300;
-  background: linear-gradient(180deg, #ffffff, #dbe8ff);
-}
-.toggle-icon:hover{ transform:translateY(-1px) scale(1.05); box-shadow: var(--ring); }
-
-.nav-container{ @apply flex flex-col h-full justify-between; }
-.nav-logo{ @apply flex items-center gap-2 font-semibold text-white mb-6; }
-.nav-links{ @apply flex flex-col gap-2 flex-grow; }
-.nav-link{
-  @apply text-white/90 py-2 rounded-xl px-3 transition-all;
-  background:linear-gradient(90deg, transparent, transparent);
-}
-.nav-link:hover{
-  color:#dff7ff;
-  background:linear-gradient(90deg, rgb(102 224 255 / 12%), transparent);
-  box-shadow:0 10px 24px -14px rgb(102 224 255 / 35%);
-  transform:translateY(-1px);
+html, body {
+  background: var(--bg);
+  color: var(--text-soft);
+  height: 100%;
+  overflow-x: hidden;
 }
 
-/* push content when sidebar opens */
-.page-section{ @apply relative ml-0 transition-[margin] duration-500 ease-[cubic-bezier(.22,1,.36,1)] z-20; }
-.page-section.sidebar-open{ @apply ml-56; }
+/* -------------------------------------------------------------------------- */
+/* SIDEBAR                                                                    */
+/* -------------------------------------------------------------------------- */
 
-/* =============================
-   BACKGROUND — aurora & particles
-   ============================= */
-.background-animation{
-  position:fixed; inset:0; z-index:4; overflow:hidden; pointer-events:none;
-  background:
-    radial-gradient(1100px 700px at 15% 15%, rgb(102 224 255 / 14%), transparent),
-    radial-gradient(900px 600px at 85% 20%, rgb(124 77 255 / 10%), transparent),
-    linear-gradient(135deg, #0b0f14, #0c0f1a);
-}
-.background-animation::after{
-  content:""; position:absolute; inset:-20% -10% -10% -20%;
-  background: conic-gradient(from 180deg at 50% 50%,
-    rgb(102 224 255 / 10%),
-    rgb(124 77 255 / 10%),
-    rgb(255 77 138 / 10%),
-    rgb(102 224 255 / 10%));
-  filter: blur(70px) saturate(120%);
-  animation: aurora 18s linear infinite;
+.header {
+  @apply fixed top-0 left-0 z-50 h-full;
+  width: 240px;
+  padding: 1rem;
+  transform: translateX(-100%);
+  transition: transform .45s cubic-bezier(.22,1,.36,1);
+  backdrop-filter: blur(12px) saturate(120%);
+  background: linear-gradient(180deg, rgba(20,25,30,0.75), rgba(10,12,15,0.55));
+  border-right: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 10px 0 48px -26px rgba(0,0,0,0.6);
 }
 
-/* particles */
-.background-particle{ @apply absolute rounded-full; opacity:.5; width:var(--sz,8px); height:var(--sz,8px); background: radial-gradient(circle at 30% 30%, var(--dot, #66e0ff), transparent 60%); animation: floatParticle 16s linear infinite, pulse 4s ease-in-out infinite; }
-.leaf-particle{ @apply absolute; opacity:.6; width:var(--w,18px); height:var(--h,22px); background: linear-gradient(180deg, #66e0ff, #7c4dff); clip-path: polygon(50% 0%, 100% 45%, 55% 100%, 0% 55%); animation: floatLeaf 14s ease-in-out infinite, hue 6s linear infinite; }
-.dust-particle{ @apply absolute rounded-full; width:var(--sz,10px); height:var(--sz,10px); background: radial-gradient(circle at 35% 35%, #ffd166, transparent 60%); animation: floatDust 12s linear infinite, pulse 5s ease-in-out infinite; }
+.header.open {
+  transform: translateX(0);
+}
 
-/* =============================
-   UI / HERO / content
-   ============================= */
-.page-content{ @apply relative z-20 max-w-6xl mx-auto px-6 py-12; }
-.hero-content{ @apply relative z-20 flex items-center justify-center min-h-screen text-center text-white font-inter; }
+.toggle-icon {
+  @apply fixed top-4 left-4 w-10 h-10 rounded-full p-2 flex items-center justify-center shadow-lg;
+  z-index: 9999;
+  background: linear-gradient(180deg,#fff7ea,#fff2d1);
+  transition: transform 0.25s ease;
+}
 
-.hero-title{
-  @apply text-5xl md:text-7xl font-extrabold mb-6 tracking-tight;
-  background: linear-gradient(90deg, #ffd166 0%, #e0b24a 30%, #d9c8a9 60%, #ffd166 100%);
-  -webkit-background-clip:text; background-clip:text; color:transparent;
-  text-shadow:0 6px 40px rgb(0 0 0 / 45%);
+.toggle-icon:hover {
+  transform: translateY(-2px) scale(1.05);
+}
+
+.nav-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.nav-link {
+  padding: 0.55rem 0.75rem;
+  border-radius: 12px;
+  transition: all .18s ease;
+}
+
+.nav-link:hover {
+  background: rgba(255,209,102,0.12);
+  color: #1d1200;
+}
+
+/* DO NOT PUSH CONTENT */
+.page-section {
+  margin-left: 0 !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* BACKDROP                                                                   */
+/* -------------------------------------------------------------------------- */
+
+.background-animation {
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* -------------------------------------------------------------------------- */
+/* MAIN CONTENT                                                                */
+/* -------------------------------------------------------------------------- */
+
+.page-content {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 2.25rem;
+  position: relative;
+  z-index: 20;
+}
+
+.hero-content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* HERO TITLE (gold gradient) */
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 800;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2), #ffffff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   animation: shimmer 8s linear infinite;
 }
 
-/* project card styles (kept) */
-.project-card{ @apply rounded-2xl overflow-hidden flex flex-col h-full transition-transform duration-300; background: linear-gradient(180deg, var(--surface), var(--surface-2)); border:1px solid rgb(255 255 255 / 10%); box-shadow: 0 10px 30px -18px rgb(12 24 40 / 80%); position:relative; }
-.project-card::before{ content:""; position:absolute; inset:-1px; background: radial-gradient(600px 200px at var(--x,50%) var(--y,20%), rgb(102 224 255 / 10%), transparent 40%); pointer-events:none; opacity:0; transition: opacity .2s; border-radius:inherit; }
-.project-card:hover{ transform: translateY(-6px); }
-.project-card:hover::before{ opacity:1; }
+/* -------------------------------------------------------------------------- */
+/* CUSTOM CURSOR (ALWAYS ABOVE EVERYTHING)                                    */
+/* -------------------------------------------------------------------------- */
 
-/* =============================
-   Cursor components
-   ============================= */
-.cursor-root{ position: fixed; z-index: 9999; pointer-events: none; transform: translate(-50%, -50%); }
-@media (pointer: coarse) { .cursor-root { display: none; } body { cursor: auto !important; } }
-
-.sword-cursor{ position: fixed; width: 54px; height: 54px; background: center / contain no-repeat; filter: drop-shadow(0 0 8px rgba(255,255,255,.18)) drop-shadow(0 0 14px rgba(255,0,0,.12)); transform: translate(-14px, -8px) rotate(-18deg); animation: swordSway 2.2s ease-in-out infinite; }
-.sword-cursor.attack{ animation: swordSlash 0.18s ease-out forwards; }
-
-.brand-cursor{ width: 66px; height: 66px; transform: translate(-50%, -50%) rotate(var(--brand-tilt)); filter: drop-shadow(0 0 12px rgba(160,120,40,0.15)); animation: brandPulse 1.6s ease-in-out infinite; }
-.brand-clicked { animation: brandClickEffect 0.28s ease-in-out; }
-.brand-clicked::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle, rgba(160,80,32,0.16) 0%, transparent 60%); animation: shockwave 0.42s ease-out; mix-blend-mode: screen; }
-
-/* =============================
-   RUNE LAYER (occult overlays)
-   ============================= */
-.rune-layer { position: absolute; inset: 0; z-index: 10; pointer-events: none; overflow: visible; }
-
-.eclipse-sigil {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: clamp(360px, 48vw, 800px);
-  height: clamp(360px, 48vw, 800px);
-  transform: translate(-50%, -50%) rotate(0deg) scale(1);
-  background: url('/runes/eclipse_sigil.svg') center/contain no-repeat;
-  opacity: 0.11;
-  filter: brightness(1.05) contrast(1.06) saturate(0.95);
-  mix-blend-mode: screen;
-  animation: runeRotateSlow 180s linear infinite;
-  pointer-events: none;
+.cursor-root {
+  position: fixed !important;
+  z-index: 999999 !important;
+  pointer-events: none !important;
+  transform: translate(-50%, -50%);
 }
 
-.halo-runes { position:absolute; left:50%; top:50%; width:100%; height:100%; transform:translate(-50%,-50%); pointer-events:none; }
-.halo-rune {
-  --radius: clamp(220px, 26vw, 420px);
-  --angle: calc(var(--i) * (360deg / 5));
-  position: absolute; left:50%; top:50%; width:88px; height:88px; transform-origin:center center;
-  transform: rotate(var(--angle)) translateY(calc(-1 * var(--radius))) rotate(calc(-1 * var(--angle)));
-  opacity:0.92; filter: drop-shadow(0 6px 18px rgba(0,0,0,0.55)); animation: haloOrbit 48s linear infinite;
-}
-.halo-rune img { width:100%; height:100%; object-fit:contain; animation: runeSpin calc(10s + (var(--i) * 1s)) linear infinite; }
-
-/* ===== REPLACE existing glyph-cloud / scripture-col rules with this block ===== */
-
-/* glyph cloud wrapper: now expects an <img> inside (preferable to background-image) */
-.glyph-cloud {
-  position: absolute;
-  width: clamp(160px, 18vw, 360px);
-  height: clamp(80px, 12vw, 220px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  opacity: 0.08;                /* subtle by default */
-  mix-blend-mode: screen;
-  transform-origin: center;
-  will-change: transform, opacity;
+/* Sword cursor */
+.sword-cursor {
+  width: 54px;
+  height: 54px;
+  position: fixed;
+  transform: translate(-14px, -8px) rotate(-18deg);
+  background: center/contain no-repeat;
+  filter: drop-shadow(0 0 8px rgba(255,180,60,0.12));
+  animation: swordSway 2.2s ease-in-out infinite;
 }
 
-/* img inside glyph-cloud so CSS filters apply reliably */
-.glyph-cloud img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-  filter: blur(4px) brightness(1.2) saturate(1.05);
-  /* if your SVGs are dark use invert(1) to make them light:
-     remove invert() if SVG already white/light */
-  /* filter: invert(1) blur(4px) brightness(1.2) saturate(1.05); */
-  opacity: 0.9; /* container controls overall opacity */
-  pointer-events: none;
+/* Brand cursor */
+.brand-cursor {
+  width: 66px;
+  height: 66px;
+  position: fixed;
+  transform: translate(-50%, -50%) rotate(var(--brand-tilt));
+  animation: brandPulse 1.6s ease-in-out infinite;
 }
 
-/* positions & per-cloud tweaks */
-.glyph-cloud.cloud-a { left:8%; top:10%; animation: cloudFloat 46s linear infinite; }
-.glyph-cloud.cloud-b { right:8%; top:22%; animation: cloudFloat 58s linear infinite; opacity:0.06; }
-.glyph-cloud.cloud-c { left:12%; bottom:8%; animation: cloudFloat 66s linear infinite; opacity:0.06; }
+/* -------------------------------------------------------------------------- */
+/* RUNE LAYER (FIXED, NON-SCROLLING, ALWAYS BEHIND UI)                        */
+/* -------------------------------------------------------------------------- */
 
-/* scripture columns — show as <img> fallback if your SVG is dark */
-.scripture-col {
-  position:absolute;
-  top:-200%;
-  width:220px;
-  height:400%;
-  opacity:0.045;
-  animation: scriptureScroll 48s linear infinite;
-  pointer-events:none;
-  display:flex;
-  align-items:flex-start;
-  justify-content:center;
-}
-.scripture-col img {
-  width:100%;
-  height:auto;
-  object-fit:cover;
-  filter: brightness(1.15) contrast(1.05);
-  /* use invert() if your SVG is black strokes */
-  /* filter: invert(1) brightness(1.15) contrast(1.05); */
-}
-
-/* eclipse sigil block — if the background-image approach gives trouble,
-   prefer an <img> positioned absolutely instead (works with filters) */
-.eclipse-sigil {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: clamp(360px, 48vw, 800px);
-  height: clamp(360px, 48vw, 800px);
-  transform: translate(-50%, -50%) rotate(0deg) scale(1);
-  background: none; /* remove background-image approach by default */
-  opacity: 0.11;
-  pointer-events: none;
-  mix-blend-mode: screen;
-}
-
-/* if you keep background-image approach, ensure it uses 'contain' */
-.eclipse-sigil.with-bg {
-  background: url('/runes/eclipse_sigil.svg') center/contain no-repeat;
-  filter: brightness(1.05) contrast(1.06) saturate(0.95);
-}
-
-/* helper: fallback style for inline <img> inside eclipse container */
-.eclipse-sigil img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: brightness(1.08) contrast(1.02);
-}
-
-
-/* =============================
-   Three.js canvas & stacking polish
-   ============================= */
-/* Default: canvas sits above aurora but below rune layer & UI.
-   Adjusted later for Ultra-Dark stack. */
-.blade-canvas {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-.blade-canvas canvas { background: transparent !important; display: block; width: 100% !important; height: 100% !important; }
-
-.blade-canvas::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(60% 60% at 60% 35%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.7) 100%);
-  mix-blend-mode: multiply;
-  z-index: 1;
-}
-.blade-canvas::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><filter id="n"><feTurbulence baseFrequency="0.8" numOctaves="1" seed="2"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.03" /></svg>');
-  opacity: 0.06;
-  z-index: 2;
-  mix-blend-mode: overlay;
-}
-
-/* Ensure UI sits above everything */
-.header, .main, .page-content, .footer { position: relative; z-index: 20; }
-
-/* =============================
-   ANIMATIONS & UTILITIES
-   ============================= */
-@keyframes floatParticle{ 0%{ transform:translate(0,0) rotate(0); opacity:.45 } 50%{ transform:translate(22vw,18vh) rotate(180deg); opacity:.25 } 100%{ transform:translate(44vw,36vh) rotate(360deg); opacity:.45 } }
-@keyframes floatLeaf{ 0%{ transform:translate(0,0) rotate(0) scale(1); opacity:.65 } 50%{ transform:translate(14vw,12vh) rotate(110deg) scale(1.1); opacity:.45 } 100%{ transform:translate(28vw,24vh) rotate(220deg) scale(1); opacity:.65 } }
-@keyframes floatDust{ 0%{ transform:translate(0,0) scale(1); opacity:.7 } 50%{ transform:translate(18vw,16vh) scale(.85); opacity:.52 } 100%{ transform:translate(36vw,32vh) scale(1); opacity:.7 } }
-@keyframes aurora{ to{ transform: translateX(-6%) rotate(1deg); } }
-@keyframes shimmer{ 0%{ background-position:0% 50%; } 100%{ background-position:200% 50%; } }
-@keyframes runeRotateSlow { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
-@keyframes haloOrbit { from { transform: rotate(var(--angle)) translateY(calc(-1 * var(--radius))) rotate(calc(-1 * var(--angle))) } to { transform: rotate(calc(var(--angle) + 360deg)) translateY(calc(-1 * var(--radius))) rotate(calc(-1 * var(--angle) - 360deg)); } }
-@keyframes runeSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-@keyframes cloudFloat { 0%{ transform: translateY(0px) rotate(0deg) scale(1); } 50%{ transform: translateY(-20px) rotate(3deg) scale(1.05); } 100%{ transform: translateY(0px) rotate(0deg) scale(1); } }
-@keyframes scriptureScroll { from { transform: translateY(0); } to { transform: translateY(100%); } }
-@keyframes brandPulse { 0% { transform: translate(-50%, -50%) rotate(var(--brand-tilt)) scale(0.98); } 50% { transform: translate(-50%, -50%) rotate(var(--brand-tilt)) scale(1.04); } 100% { transform: translate(-50%, -50%) rotate(var(--brand-tilt)) scale(0.98); } }
-@keyframes brandClickEffect { 0% { transform: translate(-50%,-50%) scale(1) rotate(0deg);} 25% { transform: translate(-48%,-52%) scale(1.08) rotate(-3deg);} 50% { transform: translate(-50%,-50%) scale(1.12) rotate(3deg);} 100% { transform: translate(-50%,-50%) scale(1) rotate(0deg);} }
-@keyframes shockwave { from { transform: scale(0.6); opacity: 0.8; } to { transform: scale(1.8); opacity: 0; } }
-
-/* Scrollbar tint */
-*::-webkit-scrollbar{ width:10px; height:10px; }
-*::-webkit-scrollbar-thumb{ background: linear-gradient(180deg, #66e0ff, #7c4dff); border-radius:999px; }
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce){
-  .header,.page-section,.hero-button,.project-card,.portfolio-figure,
-  .background-particle,.leaf-particle,.dust-particle,.background-animation::after,
-  .reveal, .rune-layer, .glyph-cloud, .scripture-col { transition:none !important; animation:none !important; }
-}
-
-/* Mobile/fallback tweaks */
-@supports not (background: conic-gradient(red, blue)) { .background-animation { background: linear-gradient(180deg, #071119, #05040a); } }
-@media (max-width: 768px) { .blade-canvas { opacity: 0.95; } .glyph-cloud { display:none; } }
-
-/* =============================
-   Ultra-Dark stack adjustments
-   - Ensure 3D sword is primary focus (above runes)
-   - If you want DOM runes visible remove the display:none below
-   ============================= */
-
-/* ensure canvas sits above aurora but below UI */
-.blade-canvas { z-index: 12; pointer-events: none; }
-
-/* slightly darker vignette */
-.blade-canvas::after {
-  background: radial-gradient(60% 60% at 55% 40%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.88) 100%);
-  mix-blend-mode: multiply;
-  opacity: 1;
-}
-
-/* Hide DOM rune visuals for Ultra-Dark stack (uncomment/remove to show them)
-.rune-layer, .glyph-cloud, .scripture-col, .eclipse-sigil {
-  display: none !important;
-} */
-
-/* Keep UI on top */
-.header, .main, .page-content, .footer { z-index: 20; position: relative; }
-/* ===== DEBUG: force custom cursor visible & show bounding box =====
-   Remove/comment after verifying visual alignment.
-*/
-.debug-force-cursor .cursor-root,
-.cursor-root.debug-visible {
-  opacity: 1 !important;
-  transition: none !important;
+.rune-layer {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 11;
+  overflow: hidden !important;
   pointer-events: none !important;
 }
 
-/* Outline to see actual hit area */
-.cursor-root.debug-visible {
-  box-shadow: 0 0 0 2px rgba(255,255,255,0.06) inset,
-              0 0 0 1px rgba(255,200,120,0.12);
-  border-radius: 8px;
-  background: rgba(255,255,255,0.01);
-}
-
-/* Show brand and sword layers strongly while debugging */
-.brand-cursor.debug-visible, .sword-cursor.debug-visible {
-  opacity: 1 !important;
-  filter: none !important;
-  animation: none !important;
-}
-/* Remove any forced hiding and ensure rune layer is visible */
-.rune-layer, .glyph-cloud, .scripture-col, .eclipse-sigil {
-  /* ensure visible — remove display:none used for special modes */
-  display: block !important;
-}
-
-/* Keep rune layer stacking correct */
-.rune-layer { z-index: 11; pointer-events: none; }
-.eclipse-sigil { z-index: 10; pointer-events: none; }
-.glyph-cloud { z-index: 9; pointer-events: none; }
-.scripture-col { z-index: 8; pointer-events: none; }
-
-/* =============================
-   RUNE LAYER — image-based
-   ============================= */
-
-/* Rune layer container */
-.rune-layer {
-  position: absolute;
-  inset: 0;
-  z-index: 11;   /* below UI, above canvas */
-  pointer-events: none;
-}
-
-/* ---- CENTRAL SIGIL ---- */
+/* --- SIGIL (center) --- */
 .eclipse-sigil {
-  position: absolute;
-  left: 50%;
-  top: 50%;
+  position: absolute !important;
+  left: 50%; top: 50%;
   width: clamp(360px, 48vw, 800px);
   height: clamp(360px, 48vw, 800px);
   transform: translate(-50%, -50%);
   opacity: 0.12;
   mix-blend-mode: screen;
+  z-index: 11;
+}
+
+.eclipse-sigil img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  filter: brightness(1.1) contrast(1.1);
   animation: runeRotateSlow 180s linear infinite;
 }
-.eclipse-sigil img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: brightness(1.2) contrast(1.2);
+
+/* --- Halo runes --- */
+.halo-runes {
+  position: absolute;
+  inset: 0;
   pointer-events: none;
 }
 
-/* ---- HALO RUNES ---- */
-.halo-runes {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 100%;
-  height: 100%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
 .halo-rune {
-  --radius: clamp(220px, 26vw, 420px);
-  --angle: calc(var(--i) * (360deg / 5));
   position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 88px;
-  height: 88px;
+  left: 50%; top: 50%;
+  width: 90px; height: 90px;
   transform-origin: center;
-  transform:
-    rotate(var(--angle))
+  --radius: clamp(220px, 26vw, 400px);
+  --angle: calc(var(--i) * 72deg);
+  transform: rotate(var(--angle))
     translateY(calc(-1 * var(--radius)))
     rotate(calc(-1 * var(--angle)));
   animation: haloOrbit 48s linear infinite;
   opacity: 0.9;
 }
+
 .halo-rune img {
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   object-fit: contain;
-  filter: brightness(1.5) contrast(1.4) drop-shadow(0 0 12px rgba(255,255,255,0.35));
-  animation: runeSpin calc(10s + (var(--i) * 1s)) linear infinite;
-  pointer-events: none;
+  filter: brightness(1.5) contrast(1.2)
+          drop-shadow(0 0 12px rgba(255,255,255,0.25));
 }
 
-/* ---- GLYPH CLOUDS ---- */
+/* --- Clouds --- */
 .glyph-cloud {
   position: absolute;
-  width: clamp(160px, 18vw, 360px);
-  height: clamp(80px, 12vw, 220px);
-  opacity: 0.16;
+  width: clamp(160px, 18vw, 340px);
+  height: clamp(120px, 16vw, 300px);
+  opacity: 0.12;
   mix-blend-mode: screen;
+  z-index: 10;
 }
+
 .glyph-cloud img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: brightness(1.4) contrast(1.2) blur(1px);
-  pointer-events: none;
+  filter: blur(4px) brightness(1.2);
 }
 
-.cloud-a { left: 8%;  top: 10%;  animation: cloudFloat 46s linear infinite; }
-.cloud-b { right: 8%; top: 22%; animation: cloudFloat 58s linear infinite; }
-.cloud-c { left: 12%; bottom: 8%; animation: cloudFloat 66s linear infinite; }
+/* positions */
+.cloud-a { left: 8%; top: 10%; animation: cloudFloat 46s infinite ease-in-out; }
+.cloud-b { right: 8%; top: 24%; animation: cloudFloat 58s infinite ease-in-out; }
+.cloud-c { left: 12%; bottom: 8%; animation: cloudFloat 66s infinite ease-in-out; }
 
-/* ---- SCRIPTURE COLUMNS ---- */
+/* --- Scripture Columns --- */
 .scripture-col {
   position: absolute;
-  top: -200%;
-  width: clamp(140px, 12vw, 220px);
-  height: 400%;
+  top: -120%;
+  width: clamp(120px, 12vw, 220px);
+  height: 300%;
+  opacity: 0.045;
   mix-blend-mode: overlay;
-  opacity: 0.06;
   animation: scriptureScroll 48s linear infinite;
-  pointer-events: none;
 }
+
 .scripture-col img {
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: brightness(1.4) contrast(1.2);
+  object-fit: cover;
+}
+
+/* -------------------------------------------------------------------------- */
+/* BLADE SCENE (Three.js Canvas)                                              */
+/* -------------------------------------------------------------------------- */
+
+.blade-canvas {
+  position: fixed !important;
+  inset: 0;
+  z-index: 12;
   pointer-events: none;
 }
 
-.scripture-col.col-left  { left: 4%;  transform: rotate(-6deg); }
-.scripture-col.col-right { right: 8%; transform: rotate(6deg); }
+.blade-canvas canvas {
+  width: 100% !important;
+  height: 100% !important;
+  background: transparent !important;
+}
+
+/* vignette */
+.blade-canvas::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    60% 60% at 55% 40%,
+    rgba(0,0,0,0) 0%,
+    rgba(0,0,0,0.55) 50%,
+    rgba(0,0,0,0.9) 100%
+  );
+  mix-blend-mode: multiply;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Animations                                                                  */
+/* -------------------------------------------------------------------------- */
+
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes haloOrbit {
+  100% { transform: rotate(calc(var(--angle) + 360deg))
+    translateY(calc(-1 * var(--radius)))
+    rotate(calc(-1 * var(--angle) - 360deg)); }
+}
+
+@keyframes cloudFloat {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-20px) scale(1.04); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes swordSway {
+  0% { transform: translate(-14px,-8px) rotate(-18deg); }
+  50% { transform: translate(-16px,-10px) rotate(-14deg); }
+  100% { transform: translate(-14px,-8px) rotate(-18deg); }
+}
+
+@keyframes runeRotateSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes scriptureScroll {
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Mobile                                                                      */
+/* -------------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .glyph-cloud { opacity: 0.08; }
+  .halo-rune { opacity: 0.75; }
+  .header { backdrop-filter: blur(16px); }
+  .toggle-icon { transform: scale(0.9); }
+}
+
+
+
+
+
+/* ===== Custom Cursor (copy/paste into App.css) =====
+   Works with src/components/CustomCursor.tsx
+   - sword cursor: .sword-cursor + .sword-blade + .slash-flame + .slash-spark
+   - brand cursor: .brand-cursor + .brand-core + .brand-clicked
+   - fracture visual: .fracture .fx-ring .fx-crack .fx-shard
+   - helper states: .fast, .attack
+*/
+
+/* base root */
+.cursor-root{
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  will-change: transform, left, top, opacity;
+  transition: opacity 160ms linear;
+}
+
+/* hide on touch devices */
+@media (pointer: coarse) {
+  .cursor-root { display: none !important; }
+  body { cursor: auto !important; }
+}
+
+/* =========== SWORD CURSOR =========== */
+.sword-cursor{
+  width: 56px;
+  height: 56px;
+  position: fixed; /* CustomCursor sets explicit left/top */
+  transform: translate(-14px, -8px) rotate(-18deg);
+  filter: drop-shadow(0 6px 18px rgba(0,0,0,0.45)) drop-shadow(0 0 10px rgba(255,200,120,0.05));
+  will-change: transform, filter, left, top;
+  transition: transform 220ms cubic-bezier(.2,.9,.3,1), filter 220ms ease;
+  pointer-events: none;
+  opacity: 0; /* JS toggles opacity */
+}
+
+/* subtle idle sway */
+@keyframes swordSway {
+  0%   { transform: translate(-14px, -8px) rotate(-18deg); }
+  50%  { transform: translate(-14px, -8px) rotate(-12deg); }
+  100% { transform: translate(-14px, -8px) rotate(-18deg); }
+}
+.sword-cursor { animation: swordSway 2.2s ease-in-out infinite; }
+
+/* sword image */
+.sword-cursor .sword-blade{
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* flame streaks behind blade (soft, not bloody) */
+.sword-cursor .slash-flame{
+  position: absolute;
+  left: 8px; top: 14px;
+  width: 64px; height: 24px;
+  border-radius: 999px;
+  transform-origin: left center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+  filter: blur(6px) brightness(1.05);
+  background:
+    radial-gradient(80% 140% at 20% 50%, rgba(255,190,130,0.07), rgba(180,80,20,0.06) 70%),
+    linear-gradient(90deg, rgba(255,150,90,0.06), rgba(0,0,0,0));
+}
+.sword-cursor .slash-flame.f1{ transform: rotate(-8deg) scaleX(.4); }
+.sword-cursor .slash-flame.f2{ transform: rotate(-14deg) scaleX(.35) translateY(-6px); }
+
+/* sparks for slash */
+.sword-cursor .slash-spark{
+  position: absolute;
+  width: 10px; height: 10px; border-radius: 50%;
+  pointer-events: none;
+  opacity: 0; z-index: 3;
+  background: radial-gradient(circle, rgba(255,220,160,0.9), rgba(255,120,40,0) 70%);
+  box-shadow: 0 0 10px rgba(255,180,110,0.12), 0 0 20px rgba(255,120,40,0.06);
+}
+.sword-cursor .slash-spark.s1{ left: -4px; top: 6px; }
+.sword-cursor .slash-spark.s2{ right: -2px; top: -4px; }
+
+/* attack state (fast slash) — JS toggles .attack class */
+.sword-cursor.attack .slash-flame.f1{ animation: flameSweep 0.22s ease-out forwards; }
+.sword-cursor.attack .slash-flame.f2{ animation: flameSweep 0.22s ease-out .02s forwards; }
+.sword-cursor.attack .slash-spark.s1 { animation: sparkPop 0.22s ease-out forwards; }
+.sword-cursor.attack .slash-spark.s2 { animation: sparkPop 0.22s ease-out .04s forwards; }
+
+@keyframes flameSweep {
+  0%   { opacity: 0; transform: translateX(-4px) rotate(-8deg) scaleX(.2) scaleY(.9); }
+  45%  { opacity: .95; transform: translateX(18px) rotate(-18deg) scaleX(1.1) scaleY(1.05); }
+  100% { opacity: 0; transform: translateX(36px) rotate(-30deg) scaleX(1.4) scaleY(.9); }
+}
+@keyframes sparkPop {
+  0%   { opacity: 0; transform: translate(0,0) scale(.6); }
+  40%  { opacity: 1; transform: translate(3px,-3px) scale(1.1); }
+  100% { opacity: 0; transform: translate(8px,-10px) scale(.9); }
+}
+
+/* fast movement shows trails (JS toggles .fast) */
+.sword-cursor.fast { filter: drop-shadow(0 10px 24px rgba(255,200,120,0.06)) drop-shadow(0 0 18px rgba(255,150,80,0.04)); }
+
+/* =========== BRAND CURSOR (occult pulse, no blood) =========== */
+.brand-cursor{
+  width: 64px;
+  height: 64px;
+  position: fixed;
+  transform: translate(-50%, -50%) rotate(var(--brand-tilt, -20deg));
+  filter: drop-shadow(0 0 12px rgba(160,120,40,0.12));
+  will-change: transform, filter, left, top;
+  pointer-events: none;
+  opacity: 0;
+  transition: transform 160ms cubic-bezier(.2,.9,.3,1), opacity 120ms linear;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* core sigil image */
+.brand-cursor .brand-core{
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* brand click ephemeral pulse (non-violent) */
+.brand-clicked {
+  animation: brandClickEffect 0.28s ease-in-out;
+}
+@keyframes brandClickEffect {
+  0%   { transform: translate(-50%, -50%) rotate(var(--brand-tilt, -20deg)) scale(1); }
+  25%  { transform: translate(-48%,-52%) rotate(calc(var(--brand-tilt, -20deg) - 3deg)) scale(1.08); }
+  50%  { transform: translate(-50%,-50%) rotate(calc(var(--brand-tilt, -20deg) + 3deg)) scale(1.12); }
+  100% { transform: translate(-50%,-50%) rotate(var(--brand-tilt, -20deg)) scale(1); }
+}
+.brand-clicked::after {
+  content: "";
+  position: absolute;
+  inset: -12%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(160,120,40,0.12) 0%, transparent 60%);
+  mix-blend-mode: screen;
+  animation: shockwave 0.42s ease-out;
+}
+@keyframes shockwave { from { transform: scale(.6); opacity: .9 } to { transform: scale(1.8); opacity: 0 } }
+
+/* =========== FRACTURE (click visual) =========== */
+.fracture{
+  position: fixed;
+  left: 0; top: 0;
+  transform: translate(-50%, -50%);
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms linear;
+}
+.fracture.go{ opacity: 1; }
+
+/* expanding ring */
+.fracture .fx-ring{
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 12px; height: 12px;
+  transform: translate(-50%, -50%) scale(0.2);
+  border-radius: 999px;
+  box-shadow: 0 0 0 2px rgba(255,240,210,0.95), 0 0 14px rgba(255,200,120,0.18), 0 0 26px rgba(12,24,40,0.5);
+  opacity: .9;
+  transition: transform .5s cubic-bezier(.2,.9,.2,1), opacity .5s ease-out;
+}
+.fracture.go .fx-ring{ transform: translate(-50%, -50%) scale(5.5); opacity: 0; }
+
+/* radial hairline cracks */
+.fracture .fx-crack{
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 2px; height: 0;
+  transform-origin: top center;
+  transform: translateX(-50%) translateY(-50%) rotate(var(--rot, 0deg));
+  background: linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(255,255,255,0));
+  box-shadow: 0 0 6px rgba(255,200,120,0.08), 0 2px 10px rgba(12,24,40,0.35);
+  border-radius: 1px;
+  opacity: .95;
+  animation: crackGrow .45s cubic-bezier(.25,.9,.25,1) forwards;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes crackGrow{
+  0%   { height: 0;   opacity: 1; }
+  60%  { height: var(--len, 80px); opacity: .9; }
+  100% { height: var(--len, 80px); opacity: 0; }
+}
+
+/* tiny shards popping out */
+.fracture .fx-shard{
+  position: absolute;
+  left: 50%; top: 50%;
+  width: var(--sz, 3px); height: var(--sz, 3px);
+  transform-origin: center;
+  transform: translate(-50%, -50%) rotate(var(--ang, 0deg)) translateY(0) scale(1);
+  border-radius: 1px;
+  background: rgba(255,240,210,0.98);
+  box-shadow: 0 0 10px rgba(255,200,120,0.14), 0 0 20px rgba(12,24,40,0.12);
+  opacity: .95;
+  animation: shardFly .6s ease-out forwards;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes shardFly {
+  0%   { transform: translate(-50%, -50%) rotate(var(--ang)) translateY(0) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, -50%) rotate(var(--ang)) translateY(var(--dist, 80px)) scale(.7); opacity: 0; }
+}
+
+/* =========== VISIBILITY HELPERS =========== */
+/* JS will set inline left/top and opacity. Make sure cursor is hidden initially. */
+.cursor-root { opacity: 0; pointer-events: none; }
+
+/* reduced-motion: snap cursor, simplify effects */
+@media (prefers-reduced-motion: reduce) {
+  .sword-cursor, .brand-cursor { animation: none !important; transition: none !important; }
+  .fracture .fx-crack, .fracture .fx-shard, .sword-cursor.attack, .sword-cursor.fast { animation: none !important; }
+}
