@@ -1,0 +1,87 @@
+/* -------------------------------------------------------------------------- */
+/* CONTACT — Ember Gold Arcane Theme                                          */
+/* -------------------------------------------------------------------------- */
+
+.contact-card {
+  margin-top: 1.5rem;
+  padding: 2rem;
+  border-radius: 18px;
+
+  background: rgba(18, 14, 10, 0.55);
+  border: 1px solid rgba(255, 209, 102, 0.08);
+  backdrop-filter: blur(16px) saturate(140%);
+
+  box-shadow:
+    0 8px 28px rgba(0,0,0,0.55),
+    inset 0 0 18px rgba(255,209,102,0.04);
+
+  color: var(--text-soft);
+  font-size: 1rem;
+  line-height: 1.65;
+
+  transition: all 0.3s ease;
+}
+
+.contact-card:hover {
+  border-color: rgba(255, 209, 102, 0.18);
+  box-shadow:
+    0 0 26px rgba(255, 209, 102, 0.18),
+    0 12px 40px rgba(0,0,0,0.60);
+}
+
+/* Contact links wrapper */
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 1rem;
+}
+
+/* Each link */
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255, 209, 102, 0.15),
+    rgba(224,178,74,0.05)
+  );
+  border: 1px solid rgba(255, 209, 102, 0.08);
+
+  color: var(--text-soft);
+  font-weight: 600;
+  text-decoration: none;
+
+  box-shadow: 0 5px 14px rgba(0,0,0,0.45);
+  transition: all 0.25s cubic-bezier(.22,1,.36,1);
+}
+
+.contact-link svg {
+  width: 20px;
+  height: 20px;
+  color: var(--accent);
+}
+
+/* hover animation */
+.contact-link:hover {
+  transform: translateY(-4px) scale(1.03);
+  border-color: rgba(255, 209, 102, 0.18);
+  box-shadow:
+    0 0 26px rgba(255, 209, 102, 0.18),
+    0 10px 36px rgba(0,0,0,0.55);
+}
+
+/* For smaller screens */
+@media (max-width: 600px) {
+  .contact-links {
+    gap: 10px;
+  }
+  .contact-link {
+    padding: 0.65rem 0.9rem;
+  }
+}

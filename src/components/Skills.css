@@ -1,0 +1,135 @@
+/* -------------------------------------------------------------------------- */
+/* SKILLS PAGE — Ember Gold Arcane Theme                                      */
+/* -------------------------------------------------------------------------- */
+
+/* Section title */
+.section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  background: linear-gradient(90deg, var(--accent), #fff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 2rem;
+  letter-spacing: -0.5px;
+  text-shadow: 0 0 20px rgba(255, 209, 102, 0.22);
+}
+
+/* Category headers */
+.category-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-soft);
+
+  background: linear-gradient(
+    90deg,
+    var(--accent),
+    rgba(255, 255, 255, 0.9)
+  );
+  -webkit-background-clip: text;
+  color: transparent;
+
+  text-shadow: 0 0 16px rgba(255, 209, 102, 0.25);
+}
+
+.skill-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--accent);
+  filter: drop-shadow(0 0 8px rgba(255, 209, 102, 0.25));
+}
+
+/* Skills Grid Layout */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 18px;
+  margin-bottom: 2rem;
+}
+
+/* Skill card */
+.skill-card {
+  padding: 1rem 1.3rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 14px;
+  background: rgba(22, 18, 12, 0.45);
+  border: 1px solid rgba(255, 209, 102, 0.08);
+  backdrop-filter: blur(12px) saturate(135%);
+  color: var(--text-soft);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.4),
+    inset 0 0 12px rgba(255, 209, 102, 0.04);
+  transition: all 0.35s cubic-bezier(.22,1,.36,1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover effect */
+.skill-card:hover {
+  transform: translateY(-6px) scale(1.015);
+  border-color: rgba(255, 209, 102, 0.22);
+  box-shadow:
+    0 0 26px rgba(255, 209, 102, 0.18),
+    0 12px 45px rgba(0, 0, 0, 0.55);
+}
+
+/* Glow on hover */
+.skill-card::before {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  opacity: 0;
+  background: radial-gradient(
+    600px circle at center,
+    rgba(255, 209, 102, 0.18),
+    transparent 60%
+  );
+  filter: blur(22px);
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+.skill-card:hover::before {
+  opacity: 1;
+}
+
+/* Certification card */
+.certification-card {
+  padding: 1.1rem 1.4rem;
+  border-radius: 14px;
+  background: rgba(14, 12, 8, 0.55);
+  border: 1px solid rgba(255, 209, 102, 0.08);
+  backdrop-filter: blur(14px) saturate(150%);
+  color: var(--text-soft);
+  text-decoration: none;
+  display: block;
+  transition: all 0.35s cubic-bezier(.22,1,.36,1);
+}
+
+.certification-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  border-color: rgba(255, 209, 102, 0.22);
+  box-shadow:
+    0 0 26px rgba(255, 209, 102, 0.18),
+    0 12px 45px rgba(0, 0, 0, 0.55);
+}
+
+/* Cert Title */
+.cert-title {
+  font-weight: 700;
+  font-size: 1rem;
+  background: linear-gradient(90deg, var(--accent), #fff);
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-bottom: 4px;
+}
+
+/* Cert Details */
+.cert-details {
+  font-size: 0.85rem;
+  color: var(--text-dimmer);
+}

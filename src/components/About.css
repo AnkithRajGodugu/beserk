@@ -1,0 +1,124 @@
+/* -------------------------------------------------------------------------- */
+/* ABOUT PAGE — Ember Gold Arcane Theme                                       */
+/* -------------------------------------------------------------------------- */
+
+/* About card container */
+.about-card {
+  margin-top: 1.5rem;
+  padding: 1.8rem 2rem;
+  border-radius: 18px;
+
+  background: rgba(18, 14, 10, 0.55);
+  border: 1px solid rgba(255, 209, 102, 0.08);
+  backdrop-filter: blur(16px) saturate(140%);
+
+  box-shadow:
+    0 8px 28px rgba(0, 0, 0, 0.5),
+    inset 0 0 18px rgba(255, 209, 102, 0.04);
+
+  color: var(--text-soft);
+  line-height: 1.65;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+/* Hover glow */
+.about-card:hover {
+  border-color: rgba(255, 209, 102, 0.18);
+  box-shadow:
+    0 0 26px rgba(255, 209, 102, 0.15),
+    0 12px 45px rgba(0, 0, 0, 0.55);
+}
+
+/* Section title */
+.section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  background: linear-gradient(90deg, var(--accent), #fff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 2rem;
+  letter-spacing: -0.5px;
+  text-shadow: 0 0 20px rgba(255, 209, 102, 0.22);
+}
+
+/* Subtitles (Education, etc.) */
+.about-subtitle {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-top: 1.6rem;
+  margin-bottom: 1rem;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  background: linear-gradient(90deg, var(--accent), #fff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* List */
+.about-list {
+  list-style: none;
+  padding: 0;
+  margin-left: 0.4rem;
+}
+
+.about-list li {
+  margin-bottom: 1.1rem;
+  padding-left: 0.2rem;
+  font-size: 1rem;
+  color: var(--text-soft);
+}
+
+.about-list li b {
+  color: var(--accent);
+}
+
+.dim {
+  font-size: 0.85rem;
+  color: var(--text-dimmer);
+}
+
+/* Buttons container */
+.about-buttons {
+  display: flex;
+  gap: 14px;
+  margin-top: 2rem;
+}
+
+/* Buttons */
+.about-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 0.7rem 1.2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255, 209, 102, 0.15),
+    rgba(224, 178, 74, 0.05)
+  );
+  border: 1px solid rgba(255, 209, 102, 0.08);
+
+  color: var(--text-soft);
+  text-decoration: none;
+
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s cubic-bezier(.22,1,.36,1);
+}
+
+.about-button:hover {
+  transform: translateY(-4px) scale(1.03);
+  border-color: rgba(255, 209, 102, 0.18);
+  box-shadow:
+    0 0 26px rgba(255, 209, 102, 0.18),
+    0 12px 40px rgba(0, 0, 0, 0.55);
+}

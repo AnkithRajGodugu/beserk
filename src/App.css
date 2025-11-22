@@ -1,180 +1,222 @@
 /* -------------------------------------------------------------------------- */
-/*  App.css – Ember Gold (Optimized)                                          */
-/*  - Fully fixed runes (visible, animated, no layout overflow)               */
-/*  - Fixed cursor (always on top)                                            */
-/*  - Sidebar no longer shifts/scrolls layout                                 */
-/*  - BladeScene stays visible                                                 */
+/*  Tailwind Base                                                             */
 /* -------------------------------------------------------------------------- */
-
-/* Tailwind */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* THEME */
+/* -------------------------------------------------------------------------- */
+/*  THEME                                                                     */
+/* -------------------------------------------------------------------------- */
 :root {
   --bg: #0b0f14;
   --surface: #121722;
-  --surface-2: #161a21;
   --accent: #ffd166;
   --accent-2: #e0b24a;
-  --accent-muted: rgba(255,209,102,0.12);
   --text-soft: rgba(255,255,255,.92);
   --text-dimmer: rgba(255,255,255,.65);
-  --ring: 0 0 0 8px rgba(255,209,102,0.06);
   --brand-tilt: -18deg;
-  --ui-radius: 14px;
 }
 
 html, body {
   background: var(--bg);
   color: var(--text-soft);
   height: 100%;
+  margin: 0;
   overflow-x: hidden;
 }
 
 /* -------------------------------------------------------------------------- */
-/* SIDEBAR                                                                    */
+/*  MAIN CONTENT                                                              */
 /* -------------------------------------------------------------------------- */
-
-.header {
-  @apply fixed top-0 left-0 z-50 h-full;
-  width: 240px;
-  padding: 1rem;
-  transform: translateX(-100%);
-  transition: transform .45s cubic-bezier(.22,1,.36,1);
-  backdrop-filter: blur(12px) saturate(120%);
-  background: linear-gradient(180deg, rgba(20,25,30,0.75), rgba(10,12,15,0.55));
-  border-right: 1px solid rgba(255,255,255,0.06);
-  box-shadow: 10px 0 48px -26px rgba(0,0,0,0.6);
-}
-
-.header.open {
-  transform: translateX(0);
-}
-
-.toggle-icon {
-  @apply fixed top-4 left-4 w-10 h-10 rounded-full p-2 flex items-center justify-center shadow-lg;
-  z-index: 9999;
-  background: linear-gradient(180deg,#fff7ea,#fff2d1);
-  transition: transform 0.25s ease;
-}
-
-.toggle-icon:hover {
-  transform: translateY(-2px) scale(1.05);
-}
-
-.nav-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: space-between;
-}
-
-.nav-link {
-  padding: 0.55rem 0.75rem;
-  border-radius: 12px;
-  transition: all .18s ease;
-}
-
-.nav-link:hover {
-  background: rgba(255,209,102,0.12);
-  color: #1d1200;
-}
-
-/* DO NOT PUSH CONTENT */
 .page-section {
   margin-left: 0 !important;
 }
-
-/* -------------------------------------------------------------------------- */
-/* BACKDROP                                                                   */
-/* -------------------------------------------------------------------------- */
-
-.background-animation {
-  position: fixed;
-  inset: 0;
-  z-index: 4;
-  pointer-events: none;
-}
-
-/* -------------------------------------------------------------------------- */
-/* MAIN CONTENT                                                                */
-/* -------------------------------------------------------------------------- */
-
+/* Global content container – matches reference sizing */
 .page-content {
-  max-width: 1080px;
+  max-width: 880px;               /* ⬅ perfect balanced width */
   margin: 0 auto;
-  padding: 2.25rem;
-  position: relative;
-  z-index: 20;
+  padding: 2rem 1.5rem;
 }
 
-.hero-content {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
 
-/* HERO TITLE (gold gradient) */
 .hero-title {
   font-size: clamp(2.5rem, 5vw, 4.5rem);
   font-weight: 800;
   background: linear-gradient(90deg, var(--accent), var(--accent-2), #ffffff);
   -webkit-background-clip: text;
-  background-clip: text;
   color: transparent;
   animation: shimmer 8s linear infinite;
 }
 
-/* -------------------------------------------------------------------------- */
-/* CUSTOM CURSOR (ALWAYS ABOVE EVERYTHING)                                    */
-/* -------------------------------------------------------------------------- */
-
-.cursor-root {
-  position: fixed !important;
-  z-index: 999999 !important;
-  pointer-events: none !important;
-  transform: translate(-50%, -50%);
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
 }
 
-/* Sword cursor */
+/* -------------------------------------------------------------------------- */
+/*  NAVIGATION BAR (TOP + CENTER LOGO)                                        */
+/* -------------------------------------------------------------------------- */
+.nav-horizontal {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  z-index: 2000;
+  background: rgba(0,0,0,0.2);
+  padding: 12px 28px;
+  border-radius: 16px;
+  backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 0 24px rgba(0,0,0,0.45);
+}
+
+.nav-item {
+  font-size: 1rem;
+  text-decoration: none;
+  color: var(--text-soft);
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+.nav-item:hover {
+  opacity: 1;
+}
+
+/* --- 3D NAV LOGO WRAPPER --- */
+.nav-3d-logo-wrapper {
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-3d-logo-container {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: radial-gradient(circle, rgba(255,209,102,0.25), rgba(0,0,0,0.45));
+  box-shadow: 0 0 15px rgba(255,209,102,0.25);
+  transition: transform 0.25s ease;
+}
+
+.nav-3d-logo-container:hover {
+  transform: scale(1.12);
+}
+
+/* Canvas inside the nav logo */
+.nav-3d-logo-canvas {
+  width: 48px;
+  height: 48px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  CUSTOM CURSOR (COMPLETE)                                                  */
+/* -------------------------------------------------------------------------- */
+.cursor-root {
+  position: fixed;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 99999;
+  will-change: transform;
+  opacity: 0;
+  transition: opacity 150ms linear;
+}
+
+@media (pointer: coarse) {
+  .cursor-root { display: none !important; }
+}
+
+/* ========= SWORD ========= */
 .sword-cursor {
-  width: 54px;
-  height: 54px;
+  width: 56px;
+  height: 56px;
   position: fixed;
   transform: translate(-14px, -8px) rotate(-18deg);
-  background: center/contain no-repeat;
-  filter: drop-shadow(0 0 8px rgba(255,180,60,0.12));
-  animation: swordSway 2.2s ease-in-out infinite;
+  filter: drop-shadow(0 6px 18px rgba(0,0,0,0.45));
+  pointer-events: none;
+  opacity: 0;
 }
 
-/* Brand cursor */
+@keyframes swordSway {
+  0% { transform: translate(-14px,-8px) rotate(-18deg); }
+  50% { transform: translate(-16px,-10px) rotate(-12deg); }
+  100% { transform: translate(-14px,-8px) rotate(-18deg); }
+}
+.sword-cursor { animation: swordSway 2.2s ease-in-out infinite; }
+
+.sword-cursor .sword-blade {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* ========= BRAND CURSOR ========= */
 .brand-cursor {
   width: 66px;
   height: 66px;
   position: fixed;
   transform: translate(-50%, -50%) rotate(var(--brand-tilt));
-  animation: brandPulse 1.6s ease-in-out infinite;
+  filter: drop-shadow(0 0 14px rgba(255,190,80,0.25));
+  opacity: 0;
+}
+
+.brand-cursor .brand-core {
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: contain;
 }
 
 /* -------------------------------------------------------------------------- */
-/* RUNE LAYER (FIXED, NON-SCROLLING, ALWAYS BEHIND UI)                        */
+/*  FRACTURE VISUAL (CLICK FX)                                                */
+/* -------------------------------------------------------------------------- */
+.fracture {
+  position: fixed;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
+  z-index: 99998;
+  opacity: 0;
+}
+.fracture.go { opacity: 1; }
+
+.fracture .fx-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%) scale(0.25);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(255,240,210,0.95);
+  opacity: 1;
+}
+
+/* -------------------------------------------------------------------------- */
+/* RUNE LAYER (RESTORED — ORIGINAL VERSION)                                   */
 /* -------------------------------------------------------------------------- */
 
 .rune-layer {
   position: fixed !important;
   inset: 0 !important;
   z-index: 11;
-  overflow: hidden !important;
   pointer-events: none !important;
+  overflow: hidden !important;
 }
 
-/* --- SIGIL (center) --- */
+/* CENTRAL SIGIL */
 .eclipse-sigil {
-  position: absolute !important;
-  left: 50%; top: 50%;
+  position: absolute;
+  left: 50%; 
+  top: 50%;
   width: clamp(360px, 48vw, 800px);
   height: clamp(360px, 48vw, 800px);
   transform: translate(-50%, -50%);
@@ -184,23 +226,25 @@ html, body {
 }
 
 .eclipse-sigil img {
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   filter: brightness(1.1) contrast(1.1);
   animation: runeRotateSlow 180s linear infinite;
 }
 
-/* --- Halo runes --- */
+/* HALO RUNES */
 .halo-runes {
   position: absolute;
   inset: 0;
-  pointer-events: none;
 }
 
 .halo-rune {
   position: absolute;
-  left: 50%; top: 50%;
-  width: 90px; height: 90px;
+  left: 50%; 
+  top: 50%;
+  width: 90px;
+  height: 90px;
   transform-origin: center;
   --radius: clamp(220px, 26vw, 400px);
   --angle: calc(var(--i) * 72deg);
@@ -212,13 +256,14 @@ html, body {
 }
 
 .halo-rune img {
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   filter: brightness(1.5) contrast(1.2)
-          drop-shadow(0 0 12px rgba(255,255,255,0.25));
+    drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));
 }
 
-/* --- Clouds --- */
+/* GLYPH CLOUDS */
 .glyph-cloud {
   position: absolute;
   width: clamp(160px, 18vw, 340px);
@@ -235,12 +280,12 @@ html, body {
   filter: blur(4px) brightness(1.2);
 }
 
-/* positions */
+/* cloud positions */
 .cloud-a { left: 8%; top: 10%; animation: cloudFloat 46s infinite ease-in-out; }
 .cloud-b { right: 8%; top: 24%; animation: cloudFloat 58s infinite ease-in-out; }
 .cloud-c { left: 12%; bottom: 8%; animation: cloudFloat 66s infinite ease-in-out; }
 
-/* --- Scripture Columns --- */
+/* SCRIPTURE COLUMNS */
 .scripture-col {
   position: absolute;
   top: -120%;
@@ -256,21 +301,44 @@ html, body {
   object-fit: cover;
 }
 
-/* -------------------------------------------------------------------------- */
-/* BLADE SCENE (Three.js Canvas)                                              */
-/* -------------------------------------------------------------------------- */
+/* ANIMATIONS */
+@keyframes runeRotateSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
 
+@keyframes haloOrbit {
+  100% {
+    transform: rotate(calc(var(--angle) + 360deg))
+      translateY(calc(-1 * var(--radius)))
+      rotate(calc(-1 * var(--angle) - 360deg));
+  }
+}
+
+@keyframes cloudFloat {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-20px) scale(1.04); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes scriptureScroll {
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
+}
+
+
+/* -------------------------------------------------------------------------- */
+/*  BLADE SCENE                                                               */
+/* -------------------------------------------------------------------------- */
 .blade-canvas {
-  position: fixed !important;
+  position: fixed;
   inset: 0;
   z-index: 12;
   pointer-events: none;
 }
-
 .blade-canvas canvas {
   width: 100% !important;
   height: 100% !important;
-  background: transparent !important;
 }
 
 /* vignette */
@@ -281,289 +349,23 @@ html, body {
   background: radial-gradient(
     60% 60% at 55% 40%,
     rgba(0,0,0,0) 0%,
-    rgba(0,0,0,0.55) 50%,
+    rgba(0,0,0,0.6) 50%,
     rgba(0,0,0,0.9) 100%
   );
-  mix-blend-mode: multiply;
 }
 
 /* -------------------------------------------------------------------------- */
-/* Animations                                                                  */
+/* MOBILE                                                                     */
 /* -------------------------------------------------------------------------- */
-
-@keyframes shimmer {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
-}
-
-@keyframes haloOrbit {
-  100% { transform: rotate(calc(var(--angle) + 360deg))
-    translateY(calc(-1 * var(--radius)))
-    rotate(calc(-1 * var(--angle) - 360deg)); }
-}
-
-@keyframes cloudFloat {
-  0% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-20px) scale(1.04); }
-  100% { transform: translateY(0) scale(1); }
-}
-
-@keyframes swordSway {
-  0% { transform: translate(-14px,-8px) rotate(-18deg); }
-  50% { transform: translate(-16px,-10px) rotate(-14deg); }
-  100% { transform: translate(-14px,-8px) rotate(-18deg); }
-}
-
-@keyframes runeRotateSlow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes scriptureScroll {
-  from { transform: translateY(0); }
-  to { transform: translateY(100%); }
-}
-
-/* -------------------------------------------------------------------------- */
-/* Mobile                                                                      */
-/* -------------------------------------------------------------------------- */
-
 @media (max-width: 768px) {
-  .glyph-cloud { opacity: 0.08; }
-  .halo-rune { opacity: 0.75; }
-  .header { backdrop-filter: blur(16px); }
-  .toggle-icon { transform: scale(0.9); }
-}
+  .nav-horizontal {
+    gap: 18px;
+    padding: 10px 16px;
+    transform: translateX(-50%) scale(0.85);
+  }
 
-
-
-
-
-/* ===== Custom Cursor (copy/paste into App.css) =====
-   Works with src/components/CustomCursor.tsx
-   - sword cursor: .sword-cursor + .sword-blade + .slash-flame + .slash-spark
-   - brand cursor: .brand-cursor + .brand-core + .brand-clicked
-   - fracture visual: .fracture .fx-ring .fx-crack .fx-shard
-   - helper states: .fast, .attack
-*/
-
-/* base root */
-.cursor-root{
-  position: fixed;
-  z-index: 9999;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  will-change: transform, left, top, opacity;
-  transition: opacity 160ms linear;
-}
-
-/* hide on touch devices */
-@media (pointer: coarse) {
-  .cursor-root { display: none !important; }
-  body { cursor: auto !important; }
-}
-
-/* =========== SWORD CURSOR =========== */
-.sword-cursor{
-  width: 56px;
-  height: 56px;
-  position: fixed; /* CustomCursor sets explicit left/top */
-  transform: translate(-14px, -8px) rotate(-18deg);
-  filter: drop-shadow(0 6px 18px rgba(0,0,0,0.45)) drop-shadow(0 0 10px rgba(255,200,120,0.05));
-  will-change: transform, filter, left, top;
-  transition: transform 220ms cubic-bezier(.2,.9,.3,1), filter 220ms ease;
-  pointer-events: none;
-  opacity: 0; /* JS toggles opacity */
-}
-
-/* subtle idle sway */
-@keyframes swordSway {
-  0%   { transform: translate(-14px, -8px) rotate(-18deg); }
-  50%  { transform: translate(-14px, -8px) rotate(-12deg); }
-  100% { transform: translate(-14px, -8px) rotate(-18deg); }
-}
-.sword-cursor { animation: swordSway 2.2s ease-in-out infinite; }
-
-/* sword image */
-.sword-cursor .sword-blade{
-  position: absolute;
-  inset: 0;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  pointer-events: none;
-  z-index: 2;
-}
-
-/* flame streaks behind blade (soft, not bloody) */
-.sword-cursor .slash-flame{
-  position: absolute;
-  left: 8px; top: 14px;
-  width: 64px; height: 24px;
-  border-radius: 999px;
-  transform-origin: left center;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 1;
-  filter: blur(6px) brightness(1.05);
-  background:
-    radial-gradient(80% 140% at 20% 50%, rgba(255,190,130,0.07), rgba(180,80,20,0.06) 70%),
-    linear-gradient(90deg, rgba(255,150,90,0.06), rgba(0,0,0,0));
-}
-.sword-cursor .slash-flame.f1{ transform: rotate(-8deg) scaleX(.4); }
-.sword-cursor .slash-flame.f2{ transform: rotate(-14deg) scaleX(.35) translateY(-6px); }
-
-/* sparks for slash */
-.sword-cursor .slash-spark{
-  position: absolute;
-  width: 10px; height: 10px; border-radius: 50%;
-  pointer-events: none;
-  opacity: 0; z-index: 3;
-  background: radial-gradient(circle, rgba(255,220,160,0.9), rgba(255,120,40,0) 70%);
-  box-shadow: 0 0 10px rgba(255,180,110,0.12), 0 0 20px rgba(255,120,40,0.06);
-}
-.sword-cursor .slash-spark.s1{ left: -4px; top: 6px; }
-.sword-cursor .slash-spark.s2{ right: -2px; top: -4px; }
-
-/* attack state (fast slash) — JS toggles .attack class */
-.sword-cursor.attack .slash-flame.f1{ animation: flameSweep 0.22s ease-out forwards; }
-.sword-cursor.attack .slash-flame.f2{ animation: flameSweep 0.22s ease-out .02s forwards; }
-.sword-cursor.attack .slash-spark.s1 { animation: sparkPop 0.22s ease-out forwards; }
-.sword-cursor.attack .slash-spark.s2 { animation: sparkPop 0.22s ease-out .04s forwards; }
-
-@keyframes flameSweep {
-  0%   { opacity: 0; transform: translateX(-4px) rotate(-8deg) scaleX(.2) scaleY(.9); }
-  45%  { opacity: .95; transform: translateX(18px) rotate(-18deg) scaleX(1.1) scaleY(1.05); }
-  100% { opacity: 0; transform: translateX(36px) rotate(-30deg) scaleX(1.4) scaleY(.9); }
-}
-@keyframes sparkPop {
-  0%   { opacity: 0; transform: translate(0,0) scale(.6); }
-  40%  { opacity: 1; transform: translate(3px,-3px) scale(1.1); }
-  100% { opacity: 0; transform: translate(8px,-10px) scale(.9); }
-}
-
-/* fast movement shows trails (JS toggles .fast) */
-.sword-cursor.fast { filter: drop-shadow(0 10px 24px rgba(255,200,120,0.06)) drop-shadow(0 0 18px rgba(255,150,80,0.04)); }
-
-/* =========== BRAND CURSOR (occult pulse, no blood) =========== */
-.brand-cursor{
-  width: 64px;
-  height: 64px;
-  position: fixed;
-  transform: translate(-50%, -50%) rotate(var(--brand-tilt, -20deg));
-  filter: drop-shadow(0 0 12px rgba(160,120,40,0.12));
-  will-change: transform, filter, left, top;
-  pointer-events: none;
-  opacity: 0;
-  transition: transform 160ms cubic-bezier(.2,.9,.3,1), opacity 120ms linear;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-/* core sigil image */
-.brand-cursor .brand-core{
-  width: 100%;
-  height: 100%;
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  pointer-events: none;
-  image-rendering: -webkit-optimize-contrast;
-}
-
-/* brand click ephemeral pulse (non-violent) */
-.brand-clicked {
-  animation: brandClickEffect 0.28s ease-in-out;
-}
-@keyframes brandClickEffect {
-  0%   { transform: translate(-50%, -50%) rotate(var(--brand-tilt, -20deg)) scale(1); }
-  25%  { transform: translate(-48%,-52%) rotate(calc(var(--brand-tilt, -20deg) - 3deg)) scale(1.08); }
-  50%  { transform: translate(-50%,-50%) rotate(calc(var(--brand-tilt, -20deg) + 3deg)) scale(1.12); }
-  100% { transform: translate(-50%,-50%) rotate(var(--brand-tilt, -20deg)) scale(1); }
-}
-.brand-clicked::after {
-  content: "";
-  position: absolute;
-  inset: -12%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(160,120,40,0.12) 0%, transparent 60%);
-  mix-blend-mode: screen;
-  animation: shockwave 0.42s ease-out;
-}
-@keyframes shockwave { from { transform: scale(.6); opacity: .9 } to { transform: scale(1.8); opacity: 0 } }
-
-/* =========== FRACTURE (click visual) =========== */
-.fracture{
-  position: fixed;
-  left: 0; top: 0;
-  transform: translate(-50%, -50%);
-  z-index: 9998;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 120ms linear;
-}
-.fracture.go{ opacity: 1; }
-
-/* expanding ring */
-.fracture .fx-ring{
-  position: absolute;
-  left: 50%; top: 50%;
-  width: 12px; height: 12px;
-  transform: translate(-50%, -50%) scale(0.2);
-  border-radius: 999px;
-  box-shadow: 0 0 0 2px rgba(255,240,210,0.95), 0 0 14px rgba(255,200,120,0.18), 0 0 26px rgba(12,24,40,0.5);
-  opacity: .9;
-  transition: transform .5s cubic-bezier(.2,.9,.2,1), opacity .5s ease-out;
-}
-.fracture.go .fx-ring{ transform: translate(-50%, -50%) scale(5.5); opacity: 0; }
-
-/* radial hairline cracks */
-.fracture .fx-crack{
-  position: absolute;
-  left: 50%; top: 50%;
-  width: 2px; height: 0;
-  transform-origin: top center;
-  transform: translateX(-50%) translateY(-50%) rotate(var(--rot, 0deg));
-  background: linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(255,255,255,0));
-  box-shadow: 0 0 6px rgba(255,200,120,0.08), 0 2px 10px rgba(12,24,40,0.35);
-  border-radius: 1px;
-  opacity: .95;
-  animation: crackGrow .45s cubic-bezier(.25,.9,.25,1) forwards;
-  animation-delay: var(--delay, 0s);
-}
-@keyframes crackGrow{
-  0%   { height: 0;   opacity: 1; }
-  60%  { height: var(--len, 80px); opacity: .9; }
-  100% { height: var(--len, 80px); opacity: 0; }
-}
-
-/* tiny shards popping out */
-.fracture .fx-shard{
-  position: absolute;
-  left: 50%; top: 50%;
-  width: var(--sz, 3px); height: var(--sz, 3px);
-  transform-origin: center;
-  transform: translate(-50%, -50%) rotate(var(--ang, 0deg)) translateY(0) scale(1);
-  border-radius: 1px;
-  background: rgba(255,240,210,0.98);
-  box-shadow: 0 0 10px rgba(255,200,120,0.14), 0 0 20px rgba(12,24,40,0.12);
-  opacity: .95;
-  animation: shardFly .6s ease-out forwards;
-  animation-delay: var(--delay, 0s);
-}
-@keyframes shardFly {
-  0%   { transform: translate(-50%, -50%) rotate(var(--ang)) translateY(0) scale(1); opacity: 1; }
-  100% { transform: translate(-50%, -50%) rotate(var(--ang)) translateY(var(--dist, 80px)) scale(.7); opacity: 0; }
-}
-
-/* =========== VISIBILITY HELPERS =========== */
-/* JS will set inline left/top and opacity. Make sure cursor is hidden initially. */
-.cursor-root { opacity: 0; pointer-events: none; }
-
-/* reduced-motion: snap cursor, simplify effects */
-@media (prefers-reduced-motion: reduce) {
-  .sword-cursor, .brand-cursor { animation: none !important; transition: none !important; }
-  .fracture .fx-crack, .fracture .fx-shard, .sword-cursor.attack, .sword-cursor.fast { animation: none !important; }
+  .nav-3d-logo-container {
+    width: 40px;
+    height: 40px;
+  }
 }
