@@ -3,6 +3,10 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Flame, Sword } from "lucide-react";
 import NavBar3DLogo from "./NavBar3DLogo";
+import { BufferAttribute } from "three";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const _BA = BufferAttribute;
+
 
 interface NavProps {
   cursorType: "brand" | "sword";
@@ -30,12 +34,7 @@ const Nav: React.FC<NavProps> = ({ cursorType, onToggleCursor }) => {
         Projects
       </Link>
 
-      {/* Center 3D Logo */}
-      <div className="nav-3d-logo-wrapper">
-        <div className="nav-3d-logo-container">
-          <NavBar3DLogo />
-        </div>
-      </div>
+      
 
       {/* Right Links */}
       <Link
@@ -44,6 +43,12 @@ const Nav: React.FC<NavProps> = ({ cursorType, onToggleCursor }) => {
       >
         Skills
       </Link>
+      {/* Center 3D Logo */}
+      <div className="nav-3d-logo-wrapper">
+        <div className="nav-3d-logo-container">
+          <NavBar3DLogo />
+        </div>
+      </div>
 
       <Link
         to="/about"

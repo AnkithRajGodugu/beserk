@@ -20,7 +20,6 @@ const SparkParticles: React.FC<Props> = ({ count = 300, radius = 3 }) => {
       pos[i * 3 + 2] = (Math.random() - 0.5) * 1.5;
       sp[i] = 0.2 + Math.random() * 0.6;
     }
-
     return { positions: pos, speeds: sp };
   }, [count, radius]);
 
@@ -30,6 +29,7 @@ const SparkParticles: React.FC<Props> = ({ count = 300, radius = 3 }) => {
     if (!geo) return;
 
     const attr = geo.getAttribute("position") as THREE.BufferAttribute;
+
     for (let i = 0; i < count; i++) {
       const idx = i * 3;
       let y = attr.array[idx + 1] as number;
@@ -47,13 +47,13 @@ const SparkParticles: React.FC<Props> = ({ count = 300, radius = 3 }) => {
   return (
     <points ref={ref}>
       <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
+        <BufferAttribute
+          attach="attributes.position"
           array={positions}
-          count={positions.length / 3}
           itemSize={3}
         />
       </bufferGeometry>
+
       <pointsMaterial
         size={0.03}
         transparent
