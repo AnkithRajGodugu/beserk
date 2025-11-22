@@ -3,9 +3,6 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Flame, Sword } from "lucide-react";
 import NavBar3DLogo from "./NavBar3DLogo";
-import { BufferAttribute } from "three";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const _BA = BufferAttribute;
 
 
 interface NavProps {
