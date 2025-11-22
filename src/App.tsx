@@ -13,6 +13,9 @@ import "./components/Skills.css"
 import "./components/About.css"
 import "./components/Contact.css"
 import "./components/Projects.css"
+import "./components/RuneLayer1.css"
+import "./components/CustomCursor.css"
+import "./components/BladeScene.css"
 
 // Pages
 import Home from "./components/Home";

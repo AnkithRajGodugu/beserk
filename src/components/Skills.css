@@ -1,135 +1,136 @@
 /* -------------------------------------------------------------------------- */
-/* SKILLS PAGE — Ember Gold Arcane Theme                                      */
+/*  SKILLS PAGE — DARK GOLD THEME (Matches Projects.css Style)               */
 /* -------------------------------------------------------------------------- */
 
-/* Section title */
-.section-title {
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 800;
-  background: linear-gradient(90deg, var(--accent), #fff);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  margin-bottom: 2rem;
-  letter-spacing: -0.5px;
-  text-shadow: 0 0 20px rgba(255, 209, 102, 0.22);
+#skills .page-content {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
 }
 
-/* Category headers */
+/* Title */
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: var(--text-soft);
+}
+
+/* -------------------------------------------------------------------------- */
+/* CATEGORY HEADINGS                                                          */
+/* -------------------------------------------------------------------------- */
+
 .category-header-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   font-size: 1.35rem;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 1rem;
-  color: var(--text-soft);
-
-  background: linear-gradient(
-    90deg,
-    var(--accent),
-    rgba(255, 255, 255, 0.9)
-  );
-  -webkit-background-clip: text;
-  color: transparent;
-
-  text-shadow: 0 0 16px rgba(255, 209, 102, 0.25);
+  color: var(--accent);
 }
 
 .skill-icon {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   color: var(--accent);
-  filter: drop-shadow(0 0 8px rgba(255, 209, 102, 0.25));
 }
 
-/* Skills Grid Layout */
+/* -------------------------------------------------------------------------- */
+/* GRID                                                                       */
+/* -------------------------------------------------------------------------- */
+
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 18px;
-  margin-bottom: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin-bottom: 2.2rem;
 }
 
-/* Skill card */
-.skill-card {
-  padding: 1rem 1.3rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  border-radius: 14px;
-  background: rgba(22, 18, 12, 0.45);
-  border: 1px solid rgba(255, 209, 102, 0.08);
-  backdrop-filter: blur(12px) saturate(135%);
+/* -------------------------------------------------------------------------- */
+/* SKILL CARDS                                                                */
+/* -------------------------------------------------------------------------- */
+
+.skill-card,
+.certification-card {
+  background: linear-gradient(180deg, var(--surface), #10151d);
+  border-radius: 16px;
+  padding: 16px 18px;
+  text-align: center;
+  border: 1px solid rgba(255, 209, 102, 0.07);
   color: var(--text-soft);
-  box-shadow:
-    0 4px 16px rgba(0, 0, 0, 0.4),
-    inset 0 0 12px rgba(255, 209, 102, 0.04);
-  transition: all 0.35s cubic-bezier(.22,1,.36,1);
+  font-size: 0.95rem;
+  font-weight: 500;
+  box-shadow: 0 10px 26px -18px rgba(0,0,0,0.55);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   position: relative;
   overflow: hidden;
 }
 
-/* Hover effect */
-.skill-card:hover {
-  transform: translateY(-6px) scale(1.015);
-  border-color: rgba(255, 209, 102, 0.22);
-  box-shadow:
-    0 0 26px rgba(255, 209, 102, 0.18),
-    0 12px 45px rgba(0, 0, 0, 0.55);
+/* Hover glow */
+.skill-card:hover,
+.certification-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px -14px rgba(255,209,102,0.22);
 }
 
-/* Glow on hover */
-.skill-card::before {
+.skill-card::after,
+.certification-card::after {
   content: "";
   position: absolute;
-  inset: -40px;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
   opacity: 0;
-  background: radial-gradient(
-    600px circle at center,
-    rgba(255, 209, 102, 0.18),
-    transparent 60%
+  transition: opacity 0.25s ease;
+
+  background: linear-gradient(
+    90deg,
+    rgba(255,209,102,0.35),
+    rgba(224,178,74,0.12),
+    rgba(255,209,102,0.35)
   );
-  filter: blur(22px);
-  transition: opacity 0.4s ease;
-  z-index: 0;
-}
-.skill-card:hover::before {
-  opacity: 1;
+
+  mask: 
+    linear-gradient(#000 0 0) content-box, 
+    linear-gradient(#000 0 0);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
 }
 
-/* Certification card */
-.certification-card {
-  padding: 1.1rem 1.4rem;
-  border-radius: 14px;
-  background: rgba(14, 12, 8, 0.55);
-  border: 1px solid rgba(255, 209, 102, 0.08);
-  backdrop-filter: blur(14px) saturate(150%);
-  color: var(--text-soft);
-  text-decoration: none;
-  display: block;
-  transition: all 0.35s cubic-bezier(.22,1,.36,1);
+.skill-card:hover::after,
+.certification-card:hover::after {
+  opacity: 0.35;
 }
 
-.certification-card:hover {
-  transform: translateY(-6px) scale(1.02);
-  border-color: rgba(255, 209, 102, 0.22);
-  box-shadow:
-    0 0 26px rgba(255, 209, 102, 0.18),
-    0 12px 45px rgba(0, 0, 0, 0.55);
-}
+/* -------------------------------------------------------------------------- */
+/* CERTIFICATIONS                                                             */
+/* -------------------------------------------------------------------------- */
 
-/* Cert Title */
 .cert-title {
-  font-weight: 700;
   font-size: 1rem;
-  background: linear-gradient(90deg, var(--accent), #fff);
-  -webkit-background-clip: text;
-  color: transparent;
-  margin-bottom: 4px;
+  font-weight: 600;
 }
 
-/* Cert Details */
 .cert-details {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  margin-top: 4px;
   color: var(--text-dimmer);
+}
+
+/* -------------------------------------------------------------------------- */
+/* MOBILE                                                                     */
+/* -------------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .skills-grid {
+    gap: 14px;
+  }
+  .skill-card,
+  .certification-card {
+    padding: 14px;
+  }
 }

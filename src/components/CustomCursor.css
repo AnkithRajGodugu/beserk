@@ -1,228 +1,248 @@
-/* ===== Custom Cursor (copy/paste into App.css) =====
-   Works with src/components/CustomCursor.tsx
-   - sword cursor: .sword-cursor + .sword-blade + .slash-flame + .slash-spark
-   - brand cursor: .brand-cursor + .brand-core + .brand-clicked
-   - fracture visual: .fracture .fx-ring .fx-crack .fx-shard
-   - helper states: .fast, .attack
-*/
+/* -------------------------------------------------------------------------- */
+/*  CUSTOM CURSOR ROOT                                                        */
+/* -------------------------------------------------------------------------- */
 
-/* base root */
-.cursor-root{
+.cursor-root {
   position: fixed;
-  z-index: 9999;
-  pointer-events: none;
+  pointer-events: none !important;
   transform: translate(-50%, -50%);
-  will-change: transform, left, top, opacity;
-  transition: opacity 160ms linear;
+  z-index: 99999;
+  opacity: 0;
+  transition: opacity 150ms linear;
+  will-change: transform;
 }
 
-/* hide on touch devices */
 @media (pointer: coarse) {
   .cursor-root { display: none !important; }
-  body { cursor: auto !important; }
+  html, body { cursor: auto !important; }
 }
 
-/* =========== SWORD CURSOR =========== */
-.sword-cursor{
+
+/* -------------------------------------------------------------------------- */
+/*  SWORD CURSOR — ANTI-MAGIC SWEEP                                          */
+/* -------------------------------------------------------------------------- */
+
+.sword-cursor {
   width: 56px;
   height: 56px;
-  position: fixed; /* CustomCursor sets explicit left/top */
+  position: fixed;
   transform: translate(-14px, -8px) rotate(-18deg);
-  filter: drop-shadow(0 6px 18px rgba(0,0,0,0.45)) drop-shadow(0 0 10px rgba(255,200,120,0.05));
-  will-change: transform, filter, left, top;
-  transition: transform 220ms cubic-bezier(.2,.9,.3,1), filter 220ms ease;
+  filter:
+    drop-shadow(0 0 8px rgba(220, 157, 10, 0.68))
+    drop-shadow(0 0 14px rgba(3, 15, 2, 0.66));
   pointer-events: none;
-  opacity: 0; /* JS toggles opacity */
+  opacity: 0;
+  animation: swordSway 2.2s ease-in-out infinite;
+  will-change: transform, filter;
 }
 
-/* subtle idle sway */
+/* idle sway */
 @keyframes swordSway {
   0%   { transform: translate(-14px, -8px) rotate(-18deg); }
   50%  { transform: translate(-14px, -8px) rotate(-12deg); }
   100% { transform: translate(-14px, -8px) rotate(-18deg); }
 }
-.sword-cursor { animation: swordSway 2.2s ease-in-out infinite; }
 
-/* sword image */
-.sword-cursor .sword-blade{
+.sword-cursor .sword-blade {
   position: absolute;
   inset: 0;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  pointer-events: none;
+  background: center / contain no-repeat;
   z-index: 2;
+  pointer-events: none;
 }
 
-/* flame streaks behind blade (soft, not bloody) */
-.sword-cursor .slash-flame{
+/* ---- Flame trails ---- */
+.sword-cursor .trail {
   position: absolute;
-  left: 8px; top: 14px;
-  width: 64px; height: 24px;
+  left: -6px;
+  top: 12px;
+  width: 70px;
+  height: 26px;
   border-radius: 999px;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 1;
   transform-origin: left center;
+  filter: blur(8px) brightness(1.05) saturate(120%);
+  background:
+    radial-gradient(90% 150% at 50% 50%, rgba(145, 96, 5, 0.85), rgba(0,0,0,0) 70%),
+    linear-gradient(90deg, rgba(153,111,6,0.87), rgba(0,0,0,0.73), rgba(10,2,2,0.65), rgba(0,0,0,0));
+}
+
+.sword-cursor .trail.t1 { transform: rotate(-10deg) scaleX(.45); }
+.sword-cursor .trail.t2 { transform: rotate(-16deg) scaleX(.40) translateY(-6px); }
+.sword-cursor .trail.t3 { transform: rotate(-22deg) scaleX(.35) translateY(-10px); }
+
+
+/* show trail briefly on fast movement */
+.sword-cursor.fast .trail {
+  animation: trailSweep .28s ease-out;
+  opacity: 1;
+}
+
+@keyframes trailSweep {
+  0%   { opacity: 0; transform: translateX(-8px) rotate(-10deg) scaleX(.25); }
+  50%  { opacity: 1; transform: translateX(18px) rotate(-18deg) scaleX(1); }
+  100% { opacity: 0; transform: translateX(40px) rotate(-26deg) scaleX(1.2); }
+}
+
+
+/* ---- Slash Flames (click) ---- */
+.sword-cursor .slash-flame {
+  position: absolute;
+  left: 8px;
+  top: 16px;
+  width: 64px;
+  height: 24px;
+  border-radius: 999px;
   opacity: 0;
   pointer-events: none;
   z-index: 1;
   filter: blur(6px) brightness(1.05);
   background:
-    radial-gradient(80% 140% at 20% 50%, rgba(255,190,130,0.07), rgba(180,80,20,0.06) 70%),
-    linear-gradient(90deg, rgba(255,150,90,0.06), rgba(0,0,0,0));
+    radial-gradient(80% 140% at 20% 50%, rgba(9,2,2,0.84), rgba(123,13,13,0.7) 70%),
+    linear-gradient(90deg, rgba(93,8,8,0.55), rgba(105,11,22,0.68), rgba(0,0,0,0.85), rgba(0,0,0,0));
 }
-.sword-cursor .slash-flame.f1{ transform: rotate(-8deg) scaleX(.4); }
-.sword-cursor .slash-flame.f2{ transform: rotate(-14deg) scaleX(.35) translateY(-6px); }
 
-/* sparks for slash */
-.sword-cursor .slash-spark{
+.sword-cursor .slash-flame.f1 { transform: rotate(-8deg) scaleX(.4); }
+.sword-cursor .slash-flame.f2 { transform: rotate(-14deg) scaleX(.35) translateY(-6px); }
+
+/* sparks (click) */
+.sword-cursor .slash-spark {
   position: absolute;
-  width: 10px; height: 10px; border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  opacity: 0;
+  border-radius: 50%;
   pointer-events: none;
-  opacity: 0; z-index: 3;
-  background: radial-gradient(circle, rgba(255,220,160,0.9), rgba(255,120,40,0) 70%);
-  box-shadow: 0 0 10px rgba(255,180,110,0.12), 0 0 20px rgba(255,120,40,0.06);
+  background: radial-gradient(circle, rgba(13,3,3,0.9), rgba(0,0,0,0) 70%);
+  box-shadow:
+    0 0 10px rgba(119,3,3,0.7),
+    0 0 20px rgba(206,13,13,0.35);
 }
-.sword-cursor .slash-spark.s1{ left: -4px; top: 6px; }
-.sword-cursor .slash-spark.s2{ right: -2px; top: -4px; }
 
-/* attack state (fast slash) — JS toggles .attack class */
-.sword-cursor.attack .slash-flame.f1{ animation: flameSweep 0.22s ease-out forwards; }
-.sword-cursor.attack .slash-flame.f2{ animation: flameSweep 0.22s ease-out .02s forwards; }
-.sword-cursor.attack .slash-spark.s1 { animation: sparkPop 0.22s ease-out forwards; }
-.sword-cursor.attack .slash-spark.s2 { animation: sparkPop 0.22s ease-out .04s forwards; }
+.sword-cursor .slash-spark.s1 { left: -4px; top: 6px; }
+.sword-cursor .slash-spark.s2 { right: -2px; top: -4px; }
 
+/* FLAME SWEEP */
+.sword-cursor.attack .slash-flame.f1 { animation: flameSweep 0.22s ease-out forwards; }
+.sword-cursor.attack .slash-flame.f2 { animation: flameSweep 0.22s ease-out .02s forwards; }
 @keyframes flameSweep {
-  0%   { opacity: 0; transform: translateX(-4px) rotate(-8deg) scaleX(.2) scaleY(.9); }
-  45%  { opacity: .95; transform: translateX(18px) rotate(-18deg) scaleX(1.1) scaleY(1.05); }
-  100% { opacity: 0; transform: translateX(36px) rotate(-30deg) scaleX(1.4) scaleY(.9); }
+  0%   { opacity: 0; transform: translateX(-4px) rotate(-8deg) scaleX(.2); }
+  45%  { opacity: .95; transform: translateX(18px) rotate(-18deg) scaleX(1.1); }
+  100% { opacity: 0; transform: translateX(36px) rotate(-30deg) scaleX(1.4); }
 }
+
+/* SPARK POP */
+.sword-cursor.attack .slash-spark.s1 { animation: sparkPop .22s ease-out forwards; }
+.sword-cursor.attack .slash-spark.s2 { animation: sparkPop .22s ease-out .04s forwards; }
+
 @keyframes sparkPop {
   0%   { opacity: 0; transform: translate(0,0) scale(.6); }
   40%  { opacity: 1; transform: translate(3px,-3px) scale(1.1); }
   100% { opacity: 0; transform: translate(8px,-10px) scale(.9); }
 }
 
-/* fast movement shows trails (JS toggles .fast) */
-.sword-cursor.fast { filter: drop-shadow(0 10px 24px rgba(255,200,120,0.06)) drop-shadow(0 0 18px rgba(255,150,80,0.04)); }
 
-/* =========== BRAND CURSOR (occult pulse, no blood) =========== */
-.brand-cursor{
-  width: 64px;
-  height: 64px;
+/* -------------------------------------------------------------------------- */
+/*  BRAND CURSOR — PULSE + BLOOD DRIP                                         */
+/* -------------------------------------------------------------------------- */
+
+.brand-cursor {
+  width: 66px;
+  height: 66px;
   position: fixed;
-  transform: translate(-50%, -50%) rotate(var(--brand-tilt, -20deg));
-  filter: drop-shadow(0 0 12px rgba(160,120,40,0.12));
-  will-change: transform, filter, left, top;
-  pointer-events: none;
+  transform: translate(-50%, -50%) rotate(var(--brand-tilt));
+  filter:
+    drop-shadow(0 0 8px rgba(255,0,0,.7))
+    drop-shadow(0 0 24px rgba(255,0,0,.5))
+    drop-shadow(0 0 32px rgba(255,0,0,.35));
   opacity: 0;
-  transition: transform 160ms cubic-bezier(.2,.9,.3,1), opacity 120ms linear;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
+  animation: brandPulse 1.6s ease-in-out infinite;
+  pointer-events: none;
 }
 
-/* core sigil image */
-.brand-cursor .brand-core{
+.brand-cursor .brand-core {
   width: 100%;
   height: 100%;
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  pointer-events: none;
-  image-rendering: -webkit-optimize-contrast;
+  background: center / contain no-repeat;
 }
 
-/* brand click ephemeral pulse (non-violent) */
-.brand-clicked {
-  animation: brandClickEffect 0.28s ease-in-out;
-}
-@keyframes brandClickEffect {
-  0%   { transform: translate(-50%, -50%) rotate(var(--brand-tilt, -20deg)) scale(1); }
-  25%  { transform: translate(-48%,-52%) rotate(calc(var(--brand-tilt, -20deg) - 3deg)) scale(1.08); }
-  50%  { transform: translate(-50%,-50%) rotate(calc(var(--brand-tilt, -20deg) + 3deg)) scale(1.12); }
-  100% { transform: translate(-50%,-50%) rotate(var(--brand-tilt, -20deg)) scale(1); }
-}
-.brand-clicked::after {
-  content: "";
+/* blood drips */
+.brand-cursor .drip {
   position: absolute;
-  inset: -12%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(160,120,40,0.12) 0%, transparent 60%);
-  mix-blend-mode: screen;
-  animation: shockwave 0.42s ease-out;
-}
-@keyframes shockwave { from { transform: scale(.6); opacity: .9 } to { transform: scale(1.8); opacity: 0 } }
-
-/* =========== FRACTURE (click visual) =========== */
-.fracture{
-  position: fixed;
-  left: 0; top: 0;
-  transform: translate(-50%, -50%);
-  z-index: 9998;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 120ms linear;
-}
-.fracture.go{ opacity: 1; }
-
-/* expanding ring */
-.fracture .fx-ring{
-  position: absolute;
-  left: 50%; top: 50%;
-  width: 12px; height: 12px;
-  transform: translate(-50%, -50%) scale(0.2);
+  left: 50%;
+  width: 4px;
+  height: 4px;
   border-radius: 999px;
-  box-shadow: 0 0 0 2px rgba(255,240,210,0.95), 0 0 14px rgba(255,200,120,0.18), 0 0 26px rgba(12,24,40,0.5);
+  transform: translateX(-50%);
+  background: radial-gradient(circle at 35% 35%, #ff3b3b, #a10000 70%);
+  opacity: .85;
+}
+
+.brand-cursor .drip-a { top: 26px; animation: dripA 1.8s ease-in infinite; }
+.brand-cursor .drip-b { top: 28px; animation: dripB 2.2s ease-in infinite .3s; }
+
+@keyframes dripA {
+  0% { transform: translate(-50%,0) scale(1); opacity:.95; }
+  65% { transform: translate(-50%,16px) scale(1.15); opacity:.85; }
+  100% { transform: translate(-50%,22px) scale(.9); opacity:0; }
+}
+
+@keyframes dripB {
+  0% { transform: translate(-50%,0) scale(.9); opacity:.9; }
+  55% { transform: translate(-50%,14px) scale(1.1); opacity:.82; }
+  100% { transform: translate(-50%,24px) scale(.85); opacity:0; }
+}
+
+
+/* PULSE */
+@keyframes brandPulse {
+  0% {
+    transform: translate(-50%, -50%) rotate(var(--brand-tilt)) scale(.98);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(var(--brand-tilt)) scale(1.04);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(var(--brand-tilt)) scale(.98);
+  }
+}
+
+
+/* -------------------------------------------------------------------------- */
+/*  FRACTURE (screen crack)                                                   */
+/* -------------------------------------------------------------------------- */
+
+.fracture {
+  position: fixed;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
+  z-index: 99998;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fracture.go { opacity: 1; }
+
+.fracture .fx-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  transform: translate(-50%, -50%) scale(.2);
+  border-radius: 999px;
+  box-shadow:
+    0 0 0 2px rgba(255,255,255,.95),
+    0 0 14px rgba(102,224,255,.85),
+    0 0 26px rgba(12,24,40,.6);
   opacity: .9;
   transition: transform .5s cubic-bezier(.2,.9,.2,1), opacity .5s ease-out;
 }
-.fracture.go .fx-ring{ transform: translate(-50%, -50%) scale(5.5); opacity: 0; }
 
-/* radial hairline cracks */
-.fracture .fx-crack{
-  position: absolute;
-  left: 50%; top: 50%;
-  width: 2px; height: 0;
-  transform-origin: top center;
-  transform: translateX(-50%) translateY(-50%) rotate(var(--rot, 0deg));
-  background: linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(255,255,255,0));
-  box-shadow: 0 0 6px rgba(255,200,120,0.08), 0 2px 10px rgba(12,24,40,0.35);
-  border-radius: 1px;
-  opacity: .95;
-  animation: crackGrow .45s cubic-bezier(.25,.9,.25,1) forwards;
-  animation-delay: var(--delay, 0s);
-}
-@keyframes crackGrow{
-  0%   { height: 0;   opacity: 1; }
-  60%  { height: var(--len, 80px); opacity: .9; }
-  100% { height: var(--len, 80px); opacity: 0; }
-}
-
-/* tiny shards popping out */
-.fracture .fx-shard{
-  position: absolute;
-  left: 50%; top: 50%;
-  width: var(--sz, 3px); height: var(--sz, 3px);
-  transform-origin: center;
-  transform: translate(-50%, -50%) rotate(var(--ang, 0deg)) translateY(0) scale(1);
-  border-radius: 1px;
-  background: rgba(255,240,210,0.98);
-  box-shadow: 0 0 10px rgba(255,200,120,0.14), 0 0 20px rgba(12,24,40,0.12);
-  opacity: .95;
-  animation: shardFly .6s ease-out forwards;
-  animation-delay: var(--delay, 0s);
-}
-@keyframes shardFly {
-  0%   { transform: translate(-50%, -50%) rotate(var(--ang)) translateY(0) scale(1); opacity: 1; }
-  100% { transform: translate(-50%, -50%) rotate(var(--ang)) translateY(var(--dist, 80px)) scale(.7); opacity: 0; }
-}
-
-/* =========== VISIBILITY HELPERS =========== */
-/* JS will set inline left/top and opacity. Make sure cursor is hidden initially. */
-.cursor-root { opacity: 0; pointer-events: none; }
-
-/* reduced-motion: snap cursor, simplify effects */
-@media (prefers-reduced-motion: reduce) {
-  .sword-cursor, .brand-cursor { animation: none !important; transition: none !important; }
-  .fracture .fx-crack, .fracture .fx-shard, .sword-cursor.attack, .sword-cursor.fast { animation: none !important; }
+.fracture.go .fx-ring {
+  transform: translate(-50%, -50%) scale(5.5);
+  opacity: 0;
 }

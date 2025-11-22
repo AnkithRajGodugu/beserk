@@ -1,19 +1,178 @@
+/* -------------------------------------------------------------------------- */
+/*  PROJECTS PAGE — GOLD DARK THEME                                           */
+/* -------------------------------------------------------------------------- */
+
+/* Section container already handled by App.css
+   Only apply page-specific enhancements here */
+#projects .page-content {
+  max-width: 880px;               /* same sizing across all pages */
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* Section title */
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.8rem;
+  color: var(--text-soft);
+}
+
+/* -------------------------------------------------------------------------- */
+/*  GRID                                                                      */
+/* -------------------------------------------------------------------------- */
+
 .projects-grid {
   display: grid;
+  gap: 22px;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
+  padding-bottom: 2rem;
 }
+
+/* -------------------------------------------------------------------------- */
+/*  PROJECT CARD                                                               */
+/* -------------------------------------------------------------------------- */
 
 .project-card {
-  background: linear-gradient(180deg, var(--surface), var(--surface-2));
-  border: 1px solid rgba(255,255,255,0.10);
-  border-radius: 20px;
-  padding: 1rem;
-  box-shadow: 0 10px 32px -16px rgba(0,0,0,0.6);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: linear-gradient(180deg, var(--surface), #10151d);
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid rgba(255, 209, 102, 0.06);
+  box-shadow: 0 10px 30px -20px rgba(0,0,0,0.65);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  outline: none;
 }
 
+/* Hover glow & lift */
 .project-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 16px 42px -14px rgba(102,224,255,0.35);
+  box-shadow: 0 12px 32px -14px rgba(255, 209, 102, 0.25);
+}
+
+.project-card::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+
+  background: linear-gradient(
+    90deg,
+    rgba(255,209,102,0.35),
+    rgba(224,178,74,0.15),
+    rgba(255,209,102,0.35)
+  );
+
+  mask: 
+    linear-gradient(#000 0 0) content-box, 
+    linear-gradient(#000 0 0);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.project-card:hover::after {
+  opacity: 0.4;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  INNER CARD CONTENT                                                         */
+/* -------------------------------------------------------------------------- */
+
+.inner-card {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.project-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #fff;
+}
+
+.project-description {
+  font-size: 0.9rem;
+  line-height: 1.45rem;
+  color: var(--text-dimmer);
+  margin-bottom: 1rem;
+}
+
+/* -------------------------------------------------------------------------- */
+/* TAGS */
+/* -------------------------------------------------------------------------- */
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.project-tag {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 209, 102, 0.10),
+    rgba(224, 178, 74, 0.06)
+  );
+  border: 1px solid rgba(255, 209, 102, 0.08);
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  color: var(--text-soft);
+  user-select: none;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  LINKS                                                                      */
+/* -------------------------------------------------------------------------- */
+
+.project-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.project-link:hover {
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* Demo button special */
+.project-link.demo-btn {
+  background: linear-gradient(180deg, rgba(255,209,102,0.10), rgba(0,0,0,0.25));
+  border: 1px solid rgba(255,209,102,0.12);
+  color: #1c1400;
+  font-weight: 600;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  MOBILE FIX                                                                */
+/* -------------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .projects-grid {
+    gap: 16px;
+  }
+  .project-card {
+    padding: 18px;
+  }
 }

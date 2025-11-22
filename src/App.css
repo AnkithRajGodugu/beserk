@@ -6,7 +6,7 @@
 @tailwind utilities;
 
 /* -------------------------------------------------------------------------- */
-/*  THEME                                                                     */
+/*  GLOBAL THEME                                                              */
 /* -------------------------------------------------------------------------- */
 :root {
   --bg: #0b0f14;
@@ -21,25 +21,25 @@
 html, body {
   background: var(--bg);
   color: var(--text-soft);
-  height: 100%;
   margin: 0;
   overflow-x: hidden;
 }
 
 /* -------------------------------------------------------------------------- */
-/*  MAIN CONTENT                                                              */
+/*  GLOBAL CONTENT WRAPPER                                                    */
 /* -------------------------------------------------------------------------- */
-.page-section {
-  margin-left: 0 !important;
-}
-/* Global content container – matches reference sizing */
+.page-section { margin-left: 0 !important; }
+
+/* consistent centered content across all pages */
 .page-content {
-  max-width: 880px;               /* ⬅ perfect balanced width */
+  max-width: 880px;
   margin: 0 auto;
   padding: 2rem 1.5rem;
 }
 
-
+/* -------------------------------------------------------------------------- */
+/*  HERO TITLE                                                                */
+/* -------------------------------------------------------------------------- */
 .hero-title {
   font-size: clamp(2.5rem, 5vw, 4.5rem);
   font-weight: 800;
@@ -55,7 +55,7 @@ html, body {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  NAVIGATION BAR (TOP + CENTER LOGO)                                        */
+/*  NAVIGATION BAR                                                            */
 /* -------------------------------------------------------------------------- */
 .nav-horizontal {
   position: fixed;
@@ -81,12 +81,9 @@ html, body {
   opacity: 0.85;
   transition: opacity 0.2s ease;
 }
+.nav-item:hover { opacity: 1; }
 
-.nav-item:hover {
-  opacity: 1;
-}
-
-/* --- 3D NAV LOGO WRAPPER --- */
+/* 3D Logo */
 .nav-3d-logo-wrapper {
   width: 46px;
   height: 46px;
@@ -105,257 +102,15 @@ html, body {
   transition: transform 0.25s ease;
 }
 
-.nav-3d-logo-container:hover {
-  transform: scale(1.12);
-}
+.nav-3d-logo-container:hover { transform: scale(1.12); }
 
-/* Canvas inside the nav logo */
 .nav-3d-logo-canvas {
   width: 48px;
   height: 48px;
 }
 
 /* -------------------------------------------------------------------------- */
-/*  CUSTOM CURSOR (COMPLETE)                                                  */
-/* -------------------------------------------------------------------------- */
-.cursor-root {
-  position: fixed;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  z-index: 99999;
-  will-change: transform;
-  opacity: 0;
-  transition: opacity 150ms linear;
-}
-
-@media (pointer: coarse) {
-  .cursor-root { display: none !important; }
-}
-
-/* ========= SWORD ========= */
-.sword-cursor {
-  width: 56px;
-  height: 56px;
-  position: fixed;
-  transform: translate(-14px, -8px) rotate(-18deg);
-  filter: drop-shadow(0 6px 18px rgba(0,0,0,0.45));
-  pointer-events: none;
-  opacity: 0;
-}
-
-@keyframes swordSway {
-  0% { transform: translate(-14px,-8px) rotate(-18deg); }
-  50% { transform: translate(-16px,-10px) rotate(-12deg); }
-  100% { transform: translate(-14px,-8px) rotate(-18deg); }
-}
-.sword-cursor { animation: swordSway 2.2s ease-in-out infinite; }
-
-.sword-cursor .sword-blade {
-  position: absolute;
-  inset: 0;
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
-/* ========= BRAND CURSOR ========= */
-.brand-cursor {
-  width: 66px;
-  height: 66px;
-  position: fixed;
-  transform: translate(-50%, -50%) rotate(var(--brand-tilt));
-  filter: drop-shadow(0 0 14px rgba(255,190,80,0.25));
-  opacity: 0;
-}
-
-.brand-cursor .brand-core {
-  width: 100%;
-  height: 100%;
-  background-position: center;
-  background-size: contain;
-}
-
-/* -------------------------------------------------------------------------- */
-/*  FRACTURE VISUAL (CLICK FX)                                                */
-/* -------------------------------------------------------------------------- */
-.fracture {
-  position: fixed;
-  left: 0;
-  top: 0;
-  transform: translate(-50%, -50%);
-  z-index: 99998;
-  opacity: 0;
-}
-.fracture.go { opacity: 1; }
-
-.fracture .fx-ring {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 14px;
-  height: 14px;
-  transform: translate(-50%, -50%) scale(0.25);
-  border-radius: 50%;
-  box-shadow: 0 0 0 2px rgba(255,240,210,0.95);
-  opacity: 1;
-}
-
-/* -------------------------------------------------------------------------- */
-/* RUNE LAYER (RESTORED — ORIGINAL VERSION)                                   */
-/* -------------------------------------------------------------------------- */
-
-.rune-layer {
-  position: fixed !important;
-  inset: 0 !important;
-  z-index: 11;
-  pointer-events: none !important;
-  overflow: hidden !important;
-}
-
-/* CENTRAL SIGIL */
-.eclipse-sigil {
-  position: absolute;
-  left: 50%; 
-  top: 50%;
-  width: clamp(360px, 48vw, 800px);
-  height: clamp(360px, 48vw, 800px);
-  transform: translate(-50%, -50%);
-  opacity: 0.12;
-  mix-blend-mode: screen;
-  z-index: 11;
-}
-
-.eclipse-sigil img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: brightness(1.1) contrast(1.1);
-  animation: runeRotateSlow 180s linear infinite;
-}
-
-/* HALO RUNES */
-.halo-runes {
-  position: absolute;
-  inset: 0;
-}
-
-.halo-rune {
-  position: absolute;
-  left: 50%; 
-  top: 50%;
-  width: 90px;
-  height: 90px;
-  transform-origin: center;
-  --radius: clamp(220px, 26vw, 400px);
-  --angle: calc(var(--i) * 72deg);
-  transform: rotate(var(--angle))
-    translateY(calc(-1 * var(--radius)))
-    rotate(calc(-1 * var(--angle)));
-  animation: haloOrbit 48s linear infinite;
-  opacity: 0.9;
-}
-
-.halo-rune img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: brightness(1.5) contrast(1.2)
-    drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));
-}
-
-/* GLYPH CLOUDS */
-.glyph-cloud {
-  position: absolute;
-  width: clamp(160px, 18vw, 340px);
-  height: clamp(120px, 16vw, 300px);
-  opacity: 0.12;
-  mix-blend-mode: screen;
-  z-index: 10;
-}
-
-.glyph-cloud img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: blur(4px) brightness(1.2);
-}
-
-/* cloud positions */
-.cloud-a { left: 8%; top: 10%; animation: cloudFloat 46s infinite ease-in-out; }
-.cloud-b { right: 8%; top: 24%; animation: cloudFloat 58s infinite ease-in-out; }
-.cloud-c { left: 12%; bottom: 8%; animation: cloudFloat 66s infinite ease-in-out; }
-
-/* SCRIPTURE COLUMNS */
-.scripture-col {
-  position: absolute;
-  top: -120%;
-  width: clamp(120px, 12vw, 220px);
-  height: 300%;
-  opacity: 0.045;
-  mix-blend-mode: overlay;
-  animation: scriptureScroll 48s linear infinite;
-}
-
-.scripture-col img {
-  width: 100%;
-  object-fit: cover;
-}
-
-/* ANIMATIONS */
-@keyframes runeRotateSlow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes haloOrbit {
-  100% {
-    transform: rotate(calc(var(--angle) + 360deg))
-      translateY(calc(-1 * var(--radius)))
-      rotate(calc(-1 * var(--angle) - 360deg));
-  }
-}
-
-@keyframes cloudFloat {
-  0% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-20px) scale(1.04); }
-  100% { transform: translateY(0) scale(1); }
-}
-
-@keyframes scriptureScroll {
-  from { transform: translateY(0); }
-  to { transform: translateY(100%); }
-}
-
-
-/* -------------------------------------------------------------------------- */
-/*  BLADE SCENE                                                               */
-/* -------------------------------------------------------------------------- */
-.blade-canvas {
-  position: fixed;
-  inset: 0;
-  z-index: 12;
-  pointer-events: none;
-}
-.blade-canvas canvas {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-/* vignette */
-.blade-canvas::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    60% 60% at 55% 40%,
-    rgba(0,0,0,0) 0%,
-    rgba(0,0,0,0.6) 50%,
-    rgba(0,0,0,0.9) 100%
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/* MOBILE                                                                     */
+/*  MOBILE                                                                    */
 /* -------------------------------------------------------------------------- */
 @media (max-width: 768px) {
   .nav-horizontal {
@@ -363,7 +118,6 @@ html, body {
     padding: 10px 16px;
     transform: translateX(-50%) scale(0.85);
   }
-
   .nav-3d-logo-container {
     width: 40px;
     height: 40px;
