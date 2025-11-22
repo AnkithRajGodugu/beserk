@@ -1,87 +1,143 @@
 /* -------------------------------------------------------------------------- */
-/* CONTACT — Ember Gold Arcane Theme                                          */
+/*  Contact.css — Dark Gold Theme (Matches Projects / About / Skills)         */
 /* -------------------------------------------------------------------------- */
 
-.contact-card {
-  margin-top: 1.5rem;
-  padding: 2rem;
-  border-radius: 18px;
+/* Uploaded GLB (available to your build): 
+   /mnt/data/57c3f6c0-fb7f-4d25-be58-27a35ed74707.glb
+   (use this path when you need to reference the face.glb in dev tooling)
+*/
 
-  background: rgba(18, 14, 10, 0.55);
-  border: 1px solid rgba(255, 209, 102, 0.08);
-  backdrop-filter: blur(16px) saturate(140%);
+:root {
+  --bg: #0b0f14;
+  --surface: #121722;
+  --accent: #ffd166;
+  --accent-2: #e0b24a;
+  --text-soft: rgba(255,255,255,.92);
+  --text-dimmer: rgba(255,255,255,.65);
+  --card-radius: 14px;
+}
 
-  box-shadow:
-    0 8px 28px rgba(0,0,0,0.55),
-    inset 0 0 18px rgba(255,209,102,0.04);
+#contact .page-content {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
 
+/* Title */
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.6rem;
   color: var(--text-soft);
-  font-size: 1rem;
-  line-height: 1.65;
-
-  transition: all 0.3s ease;
 }
 
-.contact-card:hover {
-  border-color: rgba(255, 209, 102, 0.18);
-  box-shadow:
-    0 0 26px rgba(255, 209, 102, 0.18),
-    0 12px 40px rgba(0,0,0,0.60);
-}
-
-/* Contact links wrapper */
-.contact-links {
+/* Contact card container */
+.contact-card {
+  background: linear-gradient(180deg, var(--surface), #0f1419);
+  border-radius: var(--card-radius);
+  padding: 22px;
+  border: 1px solid rgba(255,209,102,0.06);
+  box-shadow: 0 10px 26px -18px rgba(0,0,0,0.6);
+  color: var(--text-soft);
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin-top: 1rem;
+  gap: 1rem;
+  transition: transform .22s ease, box-shadow .22s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Each link */
+/* subtle glow on hover */
+.contact-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .25s ease;
+  background: linear-gradient(90deg, rgba(255,209,102,0.18), rgba(224,178,74,0.06));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.contact-card:hover::after { opacity: .28; transform: translateY(-2px); }
+
+/* description text */
+.contact-card p {
+  color: var(--text-dimmer);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* contact links row */
+.contact-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* each link button */
 .contact-link {
   display: inline-flex;
-  align-items: center;
   gap: 10px;
-
-  padding: 0.75rem 1rem;
+  align-items: center;
+  padding: 10px 14px;
   border-radius: 12px;
-
-  background: linear-gradient(
-    180deg,
-    rgba(255, 209, 102, 0.15),
-    rgba(224,178,74,0.05)
-  );
-  border: 1px solid rgba(255, 209, 102, 0.08);
-
-  color: var(--text-soft);
   font-weight: 600;
   text-decoration: none;
-
-  box-shadow: 0 5px 14px rgba(0,0,0,0.45);
-  transition: all 0.25s cubic-bezier(.22,1,.36,1);
+  color: var(--text-soft);
+  background: linear-gradient(180deg, rgba(255,209,102,0.06), rgba(224,178,74,0.03));
+  border: 1px solid rgba(255,209,102,0.06);
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+  box-shadow: 0 8px 20px -18px rgba(0,0,0,0.6);
 }
 
 .contact-link svg {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   color: var(--accent);
 }
 
-/* hover animation */
+/* hover state */
 .contact-link:hover {
-  transform: translateY(-4px) scale(1.03);
-  border-color: rgba(255, 209, 102, 0.18);
-  box-shadow:
-    0 0 26px rgba(255, 209, 102, 0.18),
-    0 10px 36px rgba(0,0,0,0.55);
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px -12px rgba(255,209,102,0.18);
+  background: linear-gradient(180deg, rgba(255,209,102,0.12), rgba(224,178,74,0.06));
+  color: #1d1200;
 }
 
-/* For smaller screens */
-@media (max-width: 600px) {
+/* small caption style for email / note */
+.contact-card .note {
+  color: var(--text-dimmer);
+  font-size: 0.9rem;
+  margin-top: 6px;
+}
+
+/* responsive layout: stack links on small screens */
+@media (max-width: 640px) {
   .contact-links {
-    gap: 10px;
+    flex-direction: column;
+    align-items: stretch;
   }
+
   .contact-link {
-    padding: 0.65rem 0.9rem;
+    width: 100%;
+    justify-content: center;
   }
+}
+
+/* small utility to center content inside the global .page-section */
+.page-section.centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* accessibility focus-visible */
+.contact-link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 6px rgba(255,209,102,0.08);
+  border-color: rgba(255,209,102,0.2);
 }

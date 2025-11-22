@@ -123,3 +123,7 @@ html, body {
     height: 40px;
   }
 }
+/* Hide native cursor for all interactive elements */
+a, button, [role="button"], .nav-item, .nav-horizontal, .nav-3d-logo-wrapper {
+  cursor: none !important;
+}

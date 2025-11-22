@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  useLocation,
+  
 } from "react-router-dom";
 
 import { HelmetProvider } from "react-helmet-async";
@@ -33,7 +33,6 @@ import Nav from "./components/Nav";
 type CursorType = "brand" | "sword";
 
 const AppContent: React.FC = () => {
-  const location = useLocation();
 
   const [cursorType, setCursorType] = useState<CursorType>(() => {
     const saved = localStorage.getItem("cursorType");
@@ -57,7 +56,13 @@ const AppContent: React.FC = () => {
       <BladeScene glbPath="/models/berserk_blade.glb" />
 
       {/* TOP NAVBAR */}
-      <Nav />
+      <Nav
+  cursorType={cursorType}
+  onToggleCursor={() =>
+    setCursorType((t) => (t === "brand" ? "sword" : "brand"))
+  }
+/>
+
 
       {/* PAGE ROUTES */}
       <main className="main relative z-20 pt-32">

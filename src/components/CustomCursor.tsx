@@ -154,13 +154,13 @@ const CustomCursor: React.FC<Props> = ({ type = "brand" }) => {
 // hide custom cursor when hovering inputs/textareas/contenteditable so native caret works
 useEffect(() => {
   const hideTargets = ['INPUT','TEXTAREA','SELECT'];
-  let overNative = false;
+
 
   const onPointerOver = (e: Event) => {
     const t = e.target as HTMLElement | null;
     if (!t) return;
     if (hideTargets.includes(t.tagName) || t.closest('[contenteditable="true"]')) {
-      overNative = true;
+  
       const el = rootRef.current;
       if (el) el.style.opacity = '0';
       // restore native cursor for clarity
@@ -171,7 +171,7 @@ useEffect(() => {
     const t = e.target as HTMLElement | null;
     if (!t) return;
     if (hideTargets.includes(t.tagName) || t.closest('[contenteditable="true"]')) {
-      overNative = false;
+      
       // restore custom cursor immediately to avoid caret flicker
       const el = rootRef.current;
       if (el) el.style.opacity = '1';
