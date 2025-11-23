@@ -39,6 +39,9 @@ type CursorType = "brand" | "sword";
 /* ------------------------------
    LOADER that shows on route change
 ------------------------------ */
+
+import { initAntiInspect } from "./utils/AntiInspect";
+
 const RouteLoader: React.FC = () => {
   const location = useLocation();
   const [loading, setLoading] = useState<boolean>(false);
@@ -64,6 +67,11 @@ const AppContent: React.FC = () => {
     const saved = localStorage.getItem("cursorType");
     return saved === "sword" ? "sword" : "brand";
   });
+  
+useEffect(() => {
+  initAntiInspect();
+}, []);
+
 
   useEffect(() => {
     localStorage.setItem("cursorType", cursorType);
