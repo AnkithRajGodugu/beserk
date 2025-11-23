@@ -4,18 +4,20 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  
+  useLocation,
 } from "react-router-dom";
 
 import { HelmetProvider } from "react-helmet-async";
+
+// Global CSS
 import "./App.css";
-import "./components/Skills.css"
-import "./components/About.css"
-import "./components/Contact.css"
-import "./components/Projects.css"
-import "./components/RuneLayer1.css"
-import "./components/CustomCursor.css"
-import "./components/BladeScene.css"
+import "./components/Skills.css";
+import "./components/About.css";
+import "./components/Contact.css";
+import "./components/Projects.css";
+import "./components/RuneLayer1.css";
+import "./components/CustomCursor.css";
+import "./components/BladeScene.css";
 
 // Pages
 import Home from "./components/Home";
@@ -29,11 +31,34 @@ import CustomCursor from "./components/CustomCursor";
 import RuneLayer from "./components/RuneLayer";
 import BladeScene from "./components/BladeScene";
 import Nav from "./components/Nav";
+import GLBLoader from "./components/GLBLoader";
 
 type CursorType = "brand" | "sword";
 
-const AppContent: React.FC = () => {
+/* ------------------------------
+   LOADER that shows on route change
+------------------------------ */
+const RouteLoader: React.FC = () => {
+  const location = useLocation();
+  const [loading, setLoading] = useState<boolean>(false);
 
+  useEffect(() => {
+    // When route changes → show loader
+    setLoading(true);
+
+    const t = setTimeout(() => {
+      setLoading(false);
+    }, 1100); // smooth fade timing
+
+    return () => clearTimeout(t);
+  }, [location.pathname]);
+
+  return loading ? <GLBLoader modelUrl="/models/face.glb" size={1.2} /> : null;
+};
+
+/* ------------------------------ */
+
+const AppContent: React.FC = () => {
   const [cursorType, setCursorType] = useState<CursorType>(() => {
     const saved = localStorage.getItem("cursorType");
     return saved === "sword" ? "sword" : "brand";
@@ -45,26 +70,27 @@ const AppContent: React.FC = () => {
 
   return (
     <div className="app-root min-h-screen relative">
-
-      {/* Cursor */}
+      {/* Custom Cursor */}
       <CustomCursor type={cursorType} />
 
-      {/* Runes Layer */}
+      {/* Runes Background */}
       <RuneLayer />
 
       {/* 3D Blade */}
       <BladeScene glbPath="/models/berserk_blade.glb" />
 
-      {/* TOP NAVBAR */}
+      {/* Navigation */}
       <Nav
-  cursorType={cursorType}
-  onToggleCursor={() =>
-    setCursorType((t) => (t === "brand" ? "sword" : "brand"))
-  }
-/>
+        cursorType={cursorType}
+        onToggleCursor={() =>
+          setCursorType((t) => (t === "brand" ? "sword" : "brand"))
+        }
+      />
 
+      {/* Route Loading GLB Animation */}
+      <RouteLoader />
 
-      {/* PAGE ROUTES */}
+      {/* Page Routes */}
       <main className="main relative z-20 pt-32">
         <div className="page-section">
           <Routes>
