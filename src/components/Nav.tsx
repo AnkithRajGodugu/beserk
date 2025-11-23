@@ -1,9 +1,8 @@
 // src/components/Nav.tsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Flame, Sword } from "lucide-react";
 import NavBar3DLogo from "./NavBar3DLogo";
-
 
 interface NavProps {
   cursorType: "brand" | "sword";
@@ -12,14 +11,23 @@ interface NavProps {
 
 const Nav: React.FC<NavProps> = ({ cursorType, onToggleCursor }) => {
   const location = useLocation();
+  const isBrand = cursorType === "brand";
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile width
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const isActive = (path: string) =>
     location.pathname === path ? "opacity-100" : "opacity-70";
 
-  const isBrand = cursorType === "brand";
-
   return (
-    <nav className="nav-horizontal">
+    <nav className={`nav-horizontal ${isMobile ? "mobile-nav" : ""}`}>
 
       {/* Left Side Links */}
       <Link to="/" className={`nav-item ${isActive("/")}`}>Home</Link>
@@ -31,15 +39,13 @@ const Nav: React.FC<NavProps> = ({ cursorType, onToggleCursor }) => {
         Projects
       </Link>
 
-      
-
-      {/* Right Links */}
       <Link
         to="/skills"
         className={`nav-item ${isActive("/skills")}`}
       >
         Skills
       </Link>
+
       {/* Center 3D Logo */}
       <div className="nav-3d-logo-wrapper">
         <div className="nav-3d-logo-container">
@@ -47,6 +53,7 @@ const Nav: React.FC<NavProps> = ({ cursorType, onToggleCursor }) => {
         </div>
       </div>
 
+      {/* Right Nav Items */}
       <Link
         to="/about"
         className={`nav-item ${isActive("/about")}`}
@@ -61,20 +68,20 @@ const Nav: React.FC<NavProps> = ({ cursorType, onToggleCursor }) => {
         Contact
       </Link>
 
-      {/* ⭐ Cursor Toggle Button ⭐ */}
-      <button
-        className="cursor-toggle-btn"
-        onClick={onToggleCursor}
-        aria-label="Toggle Cursor"
-        title={isBrand ? "Switch to Sword Cursor" : "Switch to Brand Cursor"}
-      >
-        {isBrand ? (
-          <Sword className="cursor-btn-icon" />
-        ) : (
-          <Flame className="cursor-btn-icon" />
-        )}
-      </button>
-
+      {/* Cursor Toggle — Hidden on Mobile */}
+      {!isMobile && (
+        <button
+          className="cursor-toggle-btn"
+          onClick={onToggleCursor}
+          aria-label="Toggle Cursor"
+        >
+          {isBrand ? (
+            <Sword className="cursor-btn-icon" />
+          ) : (
+            <Flame className="cursor-btn-icon" />
+          )}
+        </button>
+      )}
     </nav>
   );
 };

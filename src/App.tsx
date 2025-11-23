@@ -18,6 +18,7 @@ import "./components/Projects.css";
 import "./components/RuneLayer1.css";
 import "./components/CustomCursor.css";
 import "./components/BladeScene.css";
+import "./components/Nav.css"
 
 // Pages
 import Home from "./components/Home";
@@ -91,7 +92,7 @@ const AppContent: React.FC = () => {
       <RouteLoader />
 
       {/* Page Routes */}
-      <main className="main relative z-20 pt-32">
+      <main className="main relative z-20 pt-10 md:pt-14">
         <div className="page-section">
           <Routes>
             <Route path="/" element={<Home />} />

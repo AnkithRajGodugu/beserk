@@ -1,0 +1,101 @@
+/* -------------------------------------------------------------------------- */
+/*  NAVIGATION BAR                                                            */
+/* -------------------------------------------------------------------------- */
+.nav-horizontal {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  z-index: 2000;
+  background: rgba(0,0,0,0.2);
+  padding: 12px 28px;
+  border-radius: 16px;
+  backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 0 24px rgba(0,0,0,0.45);
+}
+
+/* Navbar Items */
+.nav-item {
+  font-size: 1rem;
+  text-decoration: none;
+  color: var(--text-soft);
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+  cursor: none !important;
+}
+.nav-item:hover { opacity: 1; }
+
+/* 3D Logo */
+.nav-3d-logo-wrapper {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: none !important;
+}
+
+.nav-3d-logo-container {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: radial-gradient(circle, rgba(255,209,102,0.25), rgba(0,0,0,0.45));
+  box-shadow: 0 0 15px rgba(255,209,102,0.25);
+  transition: transform 0.25s ease;
+  cursor: none !important;
+}
+
+.nav-3d-logo-container:hover { transform: scale(1.12); }
+
+.cursor-toggle-btn {
+  background: rgba(255,209,102,0.18);
+  padding: 6px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,209,102,0.3);
+  cursor: none !important;
+}
+.cursor-btn-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--accent);
+}
+
+/* -------------------------------------------------------------------------- */
+/*  MOBILE (BOTTOM NAV)                                                       */
+/* -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .nav-horizontal.mobile-nav {
+    bottom: 12px !important;
+    top: auto !important;
+    width: 92%;
+    transform: translateX(-50%);
+    justify-content: space-between;
+    padding: 12px 14px;
+    border-radius: 20px;
+    gap: 12px;
+  }
+
+  .nav-item {
+    font-size: 0.85rem;
+  }
+
+  /* smaller 3D logo */
+  .nav-3d-logo-container {
+    width: 40px;
+    height: 40px;
+  }
+
+  .cursor-toggle-btn {
+    display: none !important;
+  }
+}
+
+/* Disable default cursor everywhere */
+button, a, .nav-horizontal, .nav-item, .cursor-toggle-btn {
+  cursor: none !important;
+}
