@@ -1,5 +1,5 @@
 /* -------------------------------------------------------------------------- */
-/*  SKILLS PAGE — DARK GOLD THEME (Matches Projects.css Style)               */
+/*  SKILLS PAGE — GOLDEN GLASS THEME (Matches Projects Page)                  */
 /* -------------------------------------------------------------------------- */
 
 #skills .page-content {
@@ -26,7 +26,7 @@
   gap: 10px;
   font-size: 1.35rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   color: var(--accent);
 }
 
@@ -48,20 +48,26 @@
 }
 
 /* -------------------------------------------------------------------------- */
-/* SKILL CARDS                                                                */
+/* GLASS CARDS (Skills + Certifications)                                      */
 /* -------------------------------------------------------------------------- */
 
 .skill-card,
 .certification-card {
-  background: linear-gradient(180deg, var(--surface), #10151d);
-  border-radius: 16px;
+  background: rgba(10, 12, 16, 0.55);           /* PURE GLASS — no blue */
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+
+  border-radius: 18px;
   padding: 16px 18px;
   text-align: center;
-  border: 1px solid rgba(255, 209, 102, 0.07);
+
+  border: 1px solid rgba(255, 209, 102, 0.08);
+  box-shadow: 0 10px 30px -20px rgba(0,0,0,0.65);
+
   color: var(--text-soft);
   font-size: 0.95rem;
   font-weight: 500;
-  box-shadow: 0 10px 26px -18px rgba(0,0,0,0.55);
+
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   position: relative;
   overflow: hidden;
@@ -71,28 +77,28 @@
 .skill-card:hover,
 .certification-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 12px 28px -14px rgba(255,209,102,0.22);
+  box-shadow: 0 12px 32px -14px rgba(255, 209, 102, 0.25);
 }
 
 .skill-card::after,
 .certification-card::after {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: -2px;
   border-radius: inherit;
-  pointer-events: none;
   opacity: 0;
   transition: opacity 0.25s ease;
+  pointer-events: none;
 
   background: linear-gradient(
     90deg,
     rgba(255,209,102,0.35),
-    rgba(224,178,74,0.12),
+    rgba(224,178,74,0.15),
     rgba(255,209,102,0.35)
   );
 
-  mask: 
-    linear-gradient(#000 0 0) content-box, 
+  mask:
+    linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
@@ -103,11 +109,11 @@
 
 .skill-card:hover::after,
 .certification-card:hover::after {
-  opacity: 0.35;
+  opacity: 0.4;
 }
 
 /* -------------------------------------------------------------------------- */
-/* CERTIFICATIONS                                                             */
+/* CERTIFICATION TEXT                                                          */
 /* -------------------------------------------------------------------------- */
 
 .cert-title {
