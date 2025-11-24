@@ -100,33 +100,59 @@
 button, a, .nav-horizontal, .nav-item, .cursor-toggle-btn {
   cursor: none !important;
 }
-/* add below your existing CSS */
 
-/* specifically for when we render the logo on the left in mobile */
-.mobile-logo-left {
-  /* ensure left alignment in the bottom nav row */
-  margin-right: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* slightly reduce size on mobile if needed (keeps desktop size unchanged) */
+/* Mobile re-order: place 3D logo BEFORE Home (visually) without changing TSX */
 @media (max-width: 768px) {
-  .mobile-logo-left .nav-3d-logo-container {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    overflow: hidden;
+  /* keep your bottom styling, but align items from the left so ordering behaves predictably */
+  .nav-horizontal.mobile-nav {
+    justify-content: flex-start; /* left-align the row */
+    gap: 12px;
+    padding: 12px 14px;
+    width: 92%;
   }
 
-  /* make sure nav items are nicely spaced in the mobile bottom bar */
-  .nav-horizontal.mobile-nav {
+  /* Make the logo a fixed-size, non-growing item on the left */
+  .nav-3d-logo-wrapper {
+    order: 0;                 /* show first */
+    flex: 0 0 auto;          /* don't grow/shrink */
+    margin-right: 6px;       /* small gap between logo and Home */
+    display: flex;
     align-items: center;
   }
 
-  /* if Home looks too close to the logo, slightly increase gap */
-  .nav-horizontal.mobile-nav .nav-item:first-of-type {
-    margin-left: 6px;
+  /* Ensure the logo container stays the same small size on mobile */
+  .nav-3d-logo-container {
+    width: 40px;             /* tuned for mobile */
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  /* Now push Home immediately after the logo */
+  .nav-item:first-of-type {  /* Home link */
+    order: 1;
+    margin-left: 0;         /* clear any left spacing */
+  }
+
+  /* Order the rest of links so they follow in a sensible sequence */
+  .nav-item:nth-of-type(2) { order: 2; } /* Projects */
+  .nav-item:nth-of-type(3) { order: 3; } /* Skills */
+  .nav-item:nth-of-type(4) { order: 4; } /* About */
+  .nav-item:nth-of-type(5) { order: 5; } /* Contact */
+
+  /* Hide cursor toggle already handled, keep it hidden */
+  .cursor-toggle-btn { display: none !important; }
+
+  /* If you prefer even spacing after arranging left-aligned items, optionally allow items to wrap */
+  .nav-horizontal.mobile-nav {
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  /* Slight visual nudge so the Home text doesn't crowd the logo */
+  .nav-horizontal.mobile-nav .nav-item {
+    padding-left: 6px;
+    padding-right: 6px;
+    font-size: 0.85rem;
   }
 }
