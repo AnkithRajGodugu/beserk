@@ -95,7 +95,38 @@
   }
 }
 
+
 /* Disable default cursor everywhere */
 button, a, .nav-horizontal, .nav-item, .cursor-toggle-btn {
   cursor: none !important;
+}
+/* add below your existing CSS */
+
+/* specifically for when we render the logo on the left in mobile */
+.mobile-logo-left {
+  /* ensure left alignment in the bottom nav row */
+  margin-right: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* slightly reduce size on mobile if needed (keeps desktop size unchanged) */
+@media (max-width: 768px) {
+  .mobile-logo-left .nav-3d-logo-container {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  /* make sure nav items are nicely spaced in the mobile bottom bar */
+  .nav-horizontal.mobile-nav {
+    align-items: center;
+  }
+
+  /* if Home looks too close to the logo, slightly increase gap */
+  .nav-horizontal.mobile-nav .nav-item:first-of-type {
+    margin-left: 6px;
+  }
 }
