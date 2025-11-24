@@ -156,3 +156,9 @@ button, a, .nav-horizontal, .nav-item, .cursor-toggle-btn {
     font-size: 0.85rem;
   }
 }
+@media (max-width: 768px) {
+  /* Hide About button on mobile */
+  .nav-item:nth-of-type(4) {
+    display: none !important;
+  }
+}
