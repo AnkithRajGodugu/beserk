@@ -95,20 +95,47 @@
     padding-right: 6px;
   }
 
-  /* smaller GLB */
-  .nav-3d-logo-container {
-    width: 40px;
-    height: 40px;
-  }
-
+  /* ---------------------------------------------------------------------- */
+  /*  FIX: CENTER THE GLB + GLOW PERFECTLY IN MOBILE NAV                    */
+  /* ---------------------------------------------------------------------- */
   .nav-3d-logo-wrapper {
     order: 0;
     flex: 0 0 auto;
-    margin-right: 6px;
+    width: 44px;
+    height: 44px;
 
-    /* KEEP GLB interactive on mobile */
+    /* absolute centering inside its cell */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative;
+    left: 0;
+    top: 0;
+    transform: none !important;
+
     pointer-events: auto !important;
   }
+
+  .nav-3d-logo-container {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* restore perfect centered yellow glow */
+    background: radial-gradient(
+      circle,
+      rgba(255,209,102,0.45) 0%,
+      rgba(0,0,0,0.5) 70%
+    ) !important;
+
+    box-shadow: 0 0 20px rgba(255,209,102,0.35) !important;
+  }
+  /* ---------------------------------------------------------------------- */
 
   /* Home immediately after GLB */
   .nav-item:first-of-type { order: 1; }
