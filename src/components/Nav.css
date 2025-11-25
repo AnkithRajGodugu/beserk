@@ -36,7 +36,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: none !important;
+
+  /* IMPORTANT: allow GLB cursor tracking + rotation */
+  pointer-events: auto !important;
 }
 
 .nav-3d-logo-container {
@@ -48,16 +50,21 @@
   box-shadow: 0 0 15px rgba(255,209,102,0.25);
   transition: transform 0.25s ease;
   cursor: none !important;
+
+  /* allow GLB interaction */
+  pointer-events: auto !important;
 }
 
 .nav-3d-logo-container:hover { transform: scale(1.12); }
 
+/* Cursor toggle button */
 .cursor-toggle-btn {
   background: rgba(255,209,102,0.18);
   padding: 6px;
   border-radius: 10px;
   border: 1px solid rgba(255,209,102,0.3);
   cursor: none !important;
+  pointer-events: none !important;
 }
 .cursor-btn-icon {
   width: 20px;
@@ -74,91 +81,65 @@
     top: auto !important;
     width: 92%;
     transform: translateX(-50%);
-    justify-content: space-between;
+    justify-content: flex-start;
     padding: 12px 14px;
     border-radius: 20px;
     gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
   }
 
   .nav-item {
     font-size: 0.85rem;
+    padding-left: 6px;
+    padding-right: 6px;
   }
 
-  /* smaller 3D logo */
+  /* smaller GLB */
   .nav-3d-logo-container {
     width: 40px;
     height: 40px;
   }
 
+  .nav-3d-logo-wrapper {
+    order: 0;
+    flex: 0 0 auto;
+    margin-right: 6px;
+
+    /* KEEP GLB interactive on mobile */
+    pointer-events: auto !important;
+  }
+
+  /* Home immediately after GLB */
+  .nav-item:first-of-type { order: 1; }
+
+  /* Projects, Skills, About, Contact */
+  .nav-item:nth-of-type(2) { order: 2; }
+  .nav-item:nth-of-type(3) { order: 3; }
+  .nav-item:nth-of-type(4) { order: 4; }
+  .nav-item:nth-of-type(5) { order: 5; }
+
+  /* hide About on mobile */
+  .nav-item:nth-of-type(4) {
+    display: none !important;
+  }
+
+  /* hide cursor switch on mobile */
   .cursor-toggle-btn {
     display: none !important;
   }
 }
 
-
-/* Disable default cursor everywhere */
-button, a, .nav-horizontal, .nav-item, .cursor-toggle-btn {
+/* -------------------------------------------------------------------------- */
+/*  GLOBAL CURSOR DISABLE (except GLB)                                        */
+/* -------------------------------------------------------------------------- */
+button, a, .nav-horizontal, .nav-item {
   cursor: none !important;
+  pointer-events: none !important; /* disabled for everything except GLB */
 }
 
-/* Mobile re-order: place 3D logo BEFORE Home (visually) without changing TSX */
-@media (max-width: 768px) {
-  /* keep your bottom styling, but align items from the left so ordering behaves predictably */
-  .nav-horizontal.mobile-nav {
-    justify-content: flex-start; /* left-align the row */
-    gap: 12px;
-    padding: 12px 14px;
-    width: 92%;
-  }
-
-  /* Make the logo a fixed-size, non-growing item on the left */
-  .nav-3d-logo-wrapper {
-    order: 0;                 /* show first */
-    flex: 0 0 auto;          /* don't grow/shrink */
-    margin-right: 6px;       /* small gap between logo and Home */
-    display: flex;
-    align-items: center;
-  }
-
-  /* Ensure the logo container stays the same small size on mobile */
-  .nav-3d-logo-container {
-    width: 40px;             /* tuned for mobile */
-    height: 40px;
-    border-radius: 50%;
-    overflow: hidden;
-  }
-
-  /* Now push Home immediately after the logo */
-  .nav-item:first-of-type {  /* Home link */
-    order: 1;
-    margin-left: 0;         /* clear any left spacing */
-  }
-
-  /* Order the rest of links so they follow in a sensible sequence */
-  .nav-item:nth-of-type(2) { order: 2; } /* Projects */
-  .nav-item:nth-of-type(3) { order: 3; } /* Skills */
-  .nav-item:nth-of-type(4) { order: 4; } /* About */
-  .nav-item:nth-of-type(5) { order: 5; } /* Contact */
-
-  /* Hide cursor toggle already handled, keep it hidden */
-  .cursor-toggle-btn { display: none !important; }
-
-  /* If you prefer even spacing after arranging left-aligned items, optionally allow items to wrap */
-  .nav-horizontal.mobile-nav {
-    flex-wrap: wrap;
-    align-items: center;
-  }
-
-  /* Slight visual nudge so the Home text doesn't crowd the logo */
-  .nav-horizontal.mobile-nav .nav-item {
-    padding-left: 6px;
-    padding-right: 6px;
-    font-size: 0.85rem;
-  }
-}
-@media (max-width: 768px) {
-  /* Hide About button on mobile */
-  .nav-item:nth-of-type(4) {
-    display: none !important;
-  }
+/* OVERRIDE: allow GLB pointer events (cursor tracking) */
+.nav-3d-logo-wrapper,
+.nav-3d-logo-container {
+  pointer-events: auto !important;
 }
