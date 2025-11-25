@@ -135,11 +135,4 @@
 /* -------------------------------------------------------------------------- */
 button, a, .nav-horizontal, .nav-item {
   cursor: none !important;
-  pointer-events: none !important; /* disabled for everything except GLB */
-}
-
-/* OVERRIDE: allow GLB pointer events (cursor tracking) */
-.nav-3d-logo-wrapper,
-.nav-3d-logo-container {
-  pointer-events: auto !important;
 }
