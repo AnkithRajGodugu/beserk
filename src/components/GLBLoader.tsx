@@ -18,7 +18,10 @@ const Model: React.FC<{ url: string; scale?: number }> = ({ url, scale = 1 }) =>
   // slow rotation + floating
   useFrame((state, delta) => {
     if (!ref.current) return;
-    ref.current.rotation.y += delta * 0.35;
+    // rotate backward (counter-clockwise) — changed from positive to negative
+    ref.current.rotation.y -= delta * 0.35;
+    ref.current.rotation.x = -0.22; // tilt upward (adjust 0.10–0.45)
+
     ref.current.position.y = Math.sin(state.clock.elapsedTime * 0.7) * 0.02;
   });
 
@@ -33,7 +36,8 @@ const Model: React.FC<{ url: string; scale?: number }> = ({ url, scale = 1 }) =>
   );
 };
 
-useGLTF.preload("/models/face.glb");
+// preload the uploaded GLB (local path provided)
+useGLTF.preload("/mnt/data/db1c455c-0121-4f93-aa86-e535f6a40fb4.glb");
 
 /* ---------------------------
    INTERNAL CANVAS LOADER
@@ -62,7 +66,7 @@ const GLBLoaderInner: React.FC<Props> = ({ modelUrl, size = 1 }) => {
    FULLSCREEN LOADING OVERLAY
 --------------------------- */
 const GLBLoader: React.FC<Props> = ({
-  modelUrl = "/models/face.glb",
+  modelUrl = "/mnt/data/db1c455c-0121-4f93-aa86-e535f6a40fb4.glb",
   size = 1.0,
 }) => {
   return (
@@ -92,17 +96,18 @@ const GLBLoader: React.FC<Props> = ({
         <GLBLoaderInner modelUrl={modelUrl} size={size} />
       </div>
 
-      {/* Hint text */}
+      {/* Hint text — improved wording */}
       <div
         style={{
           position: "absolute",
           bottom: 40,
-          color: "rgba(255,255,255,0.72)",
+          color: "rgba(255,255,255,0.86)",
           fontSize: 13,
-          fontWeight: 600,
+          fontWeight: 700,
+          letterSpacing: 0.2,
         }}
       >
-        Loading...
+        Summoning visage — almost there…
       </div>
     </div>
   );
