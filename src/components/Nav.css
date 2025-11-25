@@ -143,3 +143,10 @@ button, a, .nav-horizontal, .nav-item {
 .nav-3d-logo-container {
   pointer-events: auto !important;
 }
+/* Hide footer on mobile */
+@media (max-width: 768px) {
+  .footer {
+    display: none !important;
+  }
+}
+
