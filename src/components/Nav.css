@@ -64,7 +64,7 @@
   border-radius: 10px;
   border: 1px solid rgba(255,209,102,0.3);
   cursor: none !important;
-  pointer-events: none !important;
+  pointer-events: auto !important;
 }
 .cursor-btn-icon {
   width: 20px;
